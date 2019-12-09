@@ -1,0 +1,68 @@
+title: 王子豪
+subtitle: 个人站
+description: 欢迎来到我的个人站~
+# 头像里面的标题
+avatarTitle: wangzihao
+# 头像里面的描述
+avatarDesc: 来自王子豪~
+url: "http://wangzihaogithub.github.io"
+
+comment:
+    # disqus: leopard
+    #duoshuo: wangzihaogithub
+
+# Social
+social:
+    weibo: ----
+    github: wangzihaogithub
+    # twitter: 
+    mail: 842156727@qq.com
+
+ga:
+    id: UA-96239281-2
+    host: auto
+
+# statistic analysis 统计代码
+# 百度统计 id，将统计代码替换为自己的百度统计id，即
+#hm.src = "//hm.baidu.com/hm.js?9898c51b4ef61d18ccb3e0fc69c7729e";
+# xxxxx字符串
+baidu_tongji_id: 9898c51b4ef61d18ccb3e0fc69c7729e
+google_analytics_id: UA-72449510-4 # google 分析追踪id
+
+# 《----------------- 上面的信息修改成你自己的 ---------------------------》
+#
+#
+#  _post/ 下的文章更换成你自己的文章
+#  帮忙star一下，感谢~😆 地址： https://github.com/leopardpan/leopardpan.github.io
+#
+#
+# 《--------------- 下面的信息可以自行选择是否修改 ------------------------》
+
+
+permalink: /:year/:month/:title/
+# Format
+highlighter: rouge
+
+textColor: #FF0000
+
+# supported colors: blue, green, purple, red, orange or slate. If you need clear, leave it empty.
+cover_color: clear
+
+# The blog button should not be removed.
+blog_button:
+    title: 博客主页
+
+# Navigation buttons in the front page.s
+nav:
+    - {title: 所有文章, description: archive, url: '/archive'}   
+    - {title: 标签, description: tags, url: '/tags'}      
+    - {title: 关于我, description: about, url: '/about'}      
+    
+
+# Pagination
+gems: [jekyll-paginate]
+paginate: 20
+paginate_path: "page/:num/"
+
+
+
