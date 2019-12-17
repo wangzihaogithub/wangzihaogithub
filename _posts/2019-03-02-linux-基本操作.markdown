@@ -33,6 +33,8 @@ tags: linux
 
     find /opt/upload -name '*c5300093-68cc-4d7f-8dd2-cc0875f8fedd*'
     
+    grep -C 10 'aaa' myfile.txt 搜索前后十行
+    
 ### 实时监控磁盘读写 (1秒刷新一次)
     
     iostat -x 1   
