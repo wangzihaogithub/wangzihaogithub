@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "技术管理-2_任务管理"
+title:  "技术管理-2_管理任务"
 tags: 技术管理
 ---
         
