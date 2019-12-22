@@ -6,7 +6,7 @@ tags: 自我反思
 
 ### 关键词
 
-主语言Scala,其他Python、Java。Spark的生态好
+主语言Scala + sbt（Simple Build Tool）,其他Python、Java。Spark的生态好
 
 Hadoop缺陷是计算框架，Spark，Flink能取代计算框架。 存储（HBase,HDFS依然强悍）
 
