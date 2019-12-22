@@ -1,0 +1,36 @@
+---
+layout: post
+title:  "大数据_Spark"
+tags: 自我反思
+---
+
+### 关键词
+
+主语言Scala,其他Python、Java。Spark的生态好
+
+Hadoop缺陷是计算框架，Spark，Flink能取代计算框架。 存储（HBase,HDFS依然强悍）
+
+Spark是计算框架（流式），等同于MapReduce。
+
+弥补了hadoop的MapReduce的多次磁盘和序列化，2018年2.3版本后持续流模式毫秒级，组件多。
+
+SparkContext （Spark整体上下文）
+
+DAG图（有向无环图，用于描述RDD的关系图）
+
+RDD（分布式对象集合）
+
+RDD宽依赖（Shuffle洗牌），RDD窄依赖（Fork/Join）怎么判定？ Shuffle操作会变为宽依赖，也就是下个分区数据需要等多个父分区数据才能产生结果的情况下会不走内存,否则优先独立往下执行
+
+RDD 计算时可以通过父子关系与CheckPoint 来实现容错。
+
+数据集操作分为 Transformations（转换）{map,filter,flatMap,distinct,union...} 和 Actions（操作）{reduce,collect,count,take,saveAsTextFile...} 两大类。
+
+
+### RDD（分布式对象集合） 运行原理: 
+
+RDD->SparkContext->DAG图(DAGScheduler)->阶段(stage)->任务集合(TaskScheduler)->
+
+WorkerNode->Executor进程->线程->执行任务->
+
+任务结果返回给TaskScheduler->任务结果返回给DAGScheduler->任务结果返回给SparkContext
