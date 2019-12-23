@@ -21,7 +21,7 @@ tags: 自我反思
 
 ### 1.引言
 
-全文搜索是一场 查准率 与 查全率 之间的较量   (引用百度百科: 两者关系为互逆的关系 )
+全文搜索是一场 **查准率** 与 **查全率** 之间的较量   (引用百度百科: 两者关系为互逆的关系 )
 
    查准率即尽量返回较少的无关文档，而查全率则尽量返回较多的相关文档。 
 
@@ -42,9 +42,9 @@ tags: 自我反思
 IK Analyzer 是一个开源的，基于 java 语言开发的轻量级的中文分词工具包。IK 实现了简单的分词歧义排除算法，标志着 IK 分词器从单纯
 的词典分词向模拟语义分词衍化。
 
-它采用了特有的“正向迭代最细粒度切分算法“，支持细粒度和智能分词两种切分模式；
+它采用了特有的“**正向迭代最细粒度切分算法**“，支持细粒度和智能分词两种切分模式；
 
- 目前是放在项目中的Elasticsearch中集成使用.
+目前是放在项目中的Elasticsearch中集成使用.
 
 
 ### 3.实现的原理
@@ -222,11 +222,10 @@ IK Analyzer 是一个开源的，基于 java 语言开发的轻量级的中文�
      <td class="confluenceTd" colspan="1"><br /></td>
      <td class="confluenceTd" colspan="1"><span>CQUAN=中文数量词</span></td>
      <td class="confluenceTd" colspan="1">
-      <div class="content-wrapper">
        <p>英文数词+中文量词</p>
        <p>2世纪</p>
        <p><a class="confluence-link" href="/files/quantifier.dic" data-linked-resource-container-id="5079789" data-linked-resource-container-version="23" data-linked-resource-content-type="application/octet-stream" data-linked-resource-id="5079816" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="quantifier.dic" >点击下载量词词库quantifier.dic</a></p>
-      </div></td>
+     </td>
      <td class="confluenceTd" colspan="1"><br /></td>
     </tr>
     <tr>
@@ -243,9 +242,9 @@ IK Analyzer 是一个开源的，基于 java 语言开发的轻量级的中文�
 
 ### 附1:官方文档
 
-[(点我下载)IKAnalyzer中文分词器V3.0使用手册.pdf](/files/IKAnalyzer中文分词器V3.0使用手册.pdf "(点我下载)IKAnalyzer中文分词器V3.0使用手册.pdf"). 
+[(点我另存为下载) IKAnalyzer中文分词器V3.0使用手册.pdf](/files/IKAnalyzer中文分词器V3.0使用手册.pdf "(点我下载)IKAnalyzer中文分词器V3.0使用手册.pdf"). 
 
-[((点我下载)IKAnalyzer中文分词器V2012使用手册.pdf](/files/IKAnalyzer中文分词器V2012使用手册.pdf "(点我下载)IKAnalyzer中文分词器V2012使用手册.pdf"). 
+[(点我另存为下载) IKAnalyzer中文分词器V2012使用手册.pdf](/files/IKAnalyzer中文分词器V2012使用手册.pdf "(点我下载)IKAnalyzer中文分词器V2012使用手册.pdf"). 
 
 
 ### 附2:项目中使用的字典
