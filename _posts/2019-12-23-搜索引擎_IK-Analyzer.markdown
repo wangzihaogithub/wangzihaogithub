@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "搜索引擎_IK-Analyzer"
-tags: 自我反思
+tags: 搜索引擎
 ---
 
 ###  目录
@@ -10,9 +10,9 @@ tags: 自我反思
     
    2.IK-Analyzer是什么?
     
-   3.实现的原理
+   3.分词的原理
     
-   4.实现的逻辑
+   4.分词的逻辑
     
    5.附1 : 官方文档
     
@@ -47,13 +47,13 @@ IK Analyzer 是一个开源的，基于 java 语言开发的轻量级的中文�
 目前是放在项目中的Elasticsearch中集成使用.
 
 
-### 3.实现的原理
+### 3.分词的原理
 
 
 分词过程 = 输入一段**文本**,  程序从某处获取**词库数据**,  运行时使用某种**数据结构**, 去执行某种**算法**, 最终获得多个**词元**
 
 
-### 4.实现的逻辑
+### 4.分词的逻辑
 
   <table class="relative-table wrapped confluenceTable" style="width: 100.0%;" data-mce-style="width: 100.0%;">
    <colgroup>
