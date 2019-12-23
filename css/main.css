@@ -1422,3 +1422,18 @@ nav a {
   transform: translateY(-3px);
 }
 /*导航按钮-end*/
+
+
+/*谷露样式*/
+
+.confluenceTable {
+  border-collapse: collapse;
+}
+.confluenceTh, .confluenceTd {
+  border: 1px solid #c1c7d0;
+  padding: 7px 10px;
+  vertical-align: top;
+  text-align: left;
+  min-width: 8px;
+}
+/*谷露样式-end*/

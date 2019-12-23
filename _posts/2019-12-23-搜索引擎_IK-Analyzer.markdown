@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "大数据_Spark"
+title:  "搜索引擎_IK-Analyzer"
 tags: 自我反思
 ---
 
@@ -38,14 +38,13 @@ tags: 自我反思
 
 
 ### 2.IK-Analyzer是什么?
-       IK Analyzer 是一个开源的，基于 java 语言开发的轻量级的中文分词工具包。IK 实现了简单的分词歧义排除算法，标志着 IK 分词器从单纯
+
+IK Analyzer 是一个开源的，基于 java 语言开发的轻量级的中文分词工具包。IK 实现了简单的分词歧义排除算法，标志着 IK 分词器从单纯
 的词典分词向模拟语义分词衍化。
 
 它采用了特有的“正向迭代最细粒度切分算法“，支持细粒度和智能分词两种切分模式；
 
-
- 目前是放在项目中的Elastic-search中使用.
-
+ 目前是放在项目中的Elasticsearch中集成使用.
 
 
 ### 3.实现的原理
@@ -54,8 +53,7 @@ tags: 自我反思
 分词过程 = 输入一段**文本**,  程序从某处获取**词库数据**,  运行时使用某种**数据结构**, 去执行某种**算法**, 最终获得多个**词元**
 
 
-
-### 3.实现的逻辑
+### 4.实现的逻辑
 
   <table class="relative-table wrapped confluenceTable" style="width: 100.0%;" data-mce-style="width: 100.0%;">
    <colgroup>
@@ -100,7 +98,7 @@ tags: 自我反思
      <td class="confluenceTd">Tire(字典树)</td>
      <td class="confluenceTd" colspan="1">
       <div class="content-wrapper">
-       <p><img class="confluence-embedded-image confluence-thumbnail" title="ig-research &gt; Elastic/IK-Analyzer(介绍) &gt; 字典树.jpg" height="250" src="/images/postimg/tiretree.jpg" data-image-src="/images/postimg/tiretree.jpg" data-unresolved-comment-count="0" data-linked-resource-id="5079828" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="字典树.jpg" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="5079789" data-linked-resource-container-version="23" data-location="ig-research &gt; Elastic/IK-Analyzer(介绍) &gt; 字典树.jpg" data-image-height="325" data-image-width="388" /></p>
+       <p><img class="confluence-embedded-image confluence-thumbnail" title="ig-research &gt; Elastic/IK-Analyzer(介绍) &gt; 字典树.jpg" height="250" src="/images/postimg/tiretree.jpg" data-image-src="/images/postimg/tiretree.jpg" data-unresolved-comment-count="0" data-linked-resource-id="5079828" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="字典树.jpg" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="5079789" data-linked-resource-container-version="23" data-image-height="325" data-image-width="388" /></p>
       </div></td>
      <td class="confluenceTd"><br /></td>
     </tr>
@@ -130,7 +128,7 @@ tags: 自我反思
        <p>蛋→ 糕</p>
        <p><br /></p>
        <p><strong>算法流程则为:</strong></p>
-       <p><img class="confluence-embedded-image" title="ig-research &gt; Elastic/IK-Analyzer(介绍) &gt; image2019-6-23_16-21-11.png" height="400" src="/download/attachments/5079789/image2019-6-23_16-21-11.png?version=1&amp;modificationDate=1561278217000&amp;api=v2" data-image-src="/download/attachments/5079789/image2019-6-23_16-21-11.png?version=1&amp;modificationDate=1561278217000&amp;api=v2" data-unresolved-comment-count="0" data-linked-resource-id="5079824" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image2019-6-23_16-21-11.png" data-base-url="http://wiki.iterget.com" data-linked-resource-content-type="image/png" data-linked-resource-container-id="5079789" data-linked-resource-container-version="23" data-location="ig-research &gt; Elastic/IK-Analyzer(介绍) &gt; image2019-6-23_16-21-11.png" data-image-height="457" data-image-width="396" data-mce-src="http://wiki.iterget.com/download/attachments/5079789/image2019-6-23_16-21-11.png?version=1&amp;modificationDate=1561278217000&amp;api=v2" /></p>
+       <p><img class="confluence-embedded-image" title="ig-research &gt; Elastic/IK-Analyzer(介绍) &gt; image2019-6-23_16-21-11.png" height="400" src="/images/postimg/iklogic.png" data-image-src="/images/postimg/iklogic.png" data-unresolved-comment-count="0" data-linked-resource-id="5079824" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="image2019-6-23_16-21-11.png" data-linked-resource-content-type="image/png" data-linked-resource-container-id="5079789" data-linked-resource-container-version="23" data-image-height="457" data-image-width="396" /></p>
        <p><br /></p>
        <p><strong>获得的词元为:</strong></p>
        <p>张柏芝</p>
@@ -216,7 +214,7 @@ tags: 自我反思
      <td class="confluenceTd" colspan="1"><br /></td>
      <td class="confluenceTd" colspan="1"><br /></td>
      <td class="confluenceTd" colspan="1"><span>COUNT=中文量词</span></td>
-     <td class="confluenceTd" colspan="1"><p>纯中文量词</p><p><a class="confluence-link" href="/download/attachments/5079789/quantifier.dic?version=1&amp;modificationDate=1561273630000&amp;api=v2" data-linked-resource-container-id="5079789" data-linked-resource-container-version="23" data-linked-resource-content-type="application/octet-stream" data-linked-resource-id="5079816" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="quantifier.dic" data-base-url="http://wiki.iterget.com" data-mce-href="http://wiki.iterget.com/download/attachments/5079789/quantifier.dic?version=1&amp;modificationDate=1561273630000&amp;api=v2">点击下载量词词库quantifier.dic</a></p></td>
+     <td class="confluenceTd" colspan="1"><p>纯中文量词</p><p><a class="confluence-link" href="/files/quantifier.dic" data-linked-resource-container-id="5079789" data-linked-resource-container-version="23" data-linked-resource-content-type="application/octet-stream" data-linked-resource-id="5079816" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="quantifier.dic"  >点击下载量词词库quantifier.dic</a></p></td>
      <td class="confluenceTd" colspan="1"><br /></td>
     </tr>
     <tr>
@@ -227,7 +225,7 @@ tags: 自我反思
       <div class="content-wrapper">
        <p>英文数词+中文量词</p>
        <p>2世纪</p>
-       <p><a class="confluence-link" href="/download/attachments/5079789/quantifier.dic?version=1&amp;modificationDate=1561273630000&amp;api=v2" data-linked-resource-container-id="5079789" data-linked-resource-container-version="23" data-linked-resource-content-type="application/octet-stream" data-linked-resource-id="5079816" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="quantifier.dic" data-base-url="http://wiki.iterget.com" data-mce-href="http://wiki.iterget.com/download/attachments/5079789/quantifier.dic?version=1&amp;modificationDate=1561273630000&amp;api=v2">点击下载量词词库quantifier.dic</a></p>
+       <p><a class="confluence-link" href="/files/quantifier.dic" data-linked-resource-container-id="5079789" data-linked-resource-container-version="23" data-linked-resource-content-type="application/octet-stream" data-linked-resource-id="5079816" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="quantifier.dic" >点击下载量词词库quantifier.dic</a></p>
       </div></td>
      <td class="confluenceTd" colspan="1"><br /></td>
     </tr>
@@ -242,205 +240,38 @@ tags: 自我反思
   </table> 
 
 
-| 纬度 | 说明 | 示例 | 项目中使用 | 
-| :- | :- | :- | 
-			
-|1  |词库数据	|扩展词字典	|3W咖啡, 5G卡, Python开发, 新浪微博 | 远程存储 |
-|  |	        |停用词字典	|工程师, 开发, q, w, e             |  |
-|  |	        |同义词字典	|月薪,薪资,年薪,薪酬,工资,薪水  .hr,招聘,人事,人力资源,人力 |  |
-|2  |数据结构	|Tire(字典树) | |  |
-|3  |算法        |停用词字典	|工程师, 开发, q, w, e             |  |
-|  |	        |同义词字典	|月薪,薪资,年薪,薪酬,工资,薪水  .hr,招聘,人事,人力资源,人力 |  |
 
+### 附1:官方文档
 
+[(点我下载)IKAnalyzer中文分词器V3.0使用手册.pdf](/files/IKAnalyzer中文分词器V3.0使用手册.pdf "(点我下载)IKAnalyzer中文分词器V3.0使用手册.pdf"). 
 
+[((点我下载)IKAnalyzer中文分词器V2012使用手册.pdf](/files/IKAnalyzer中文分词器V2012使用手册.pdf "(点我下载)IKAnalyzer中文分词器V2012使用手册.pdf"). 
 
 
+### 附2:项目中使用的字典
 
+**扩展词字典**
 
-		
-正向迭代最细粒度切分算法
+    http://common.iterget.com/es/dict/ext_company.dic;
+    http://common.iterget.com/es/dict/ext_position.dic;
+    http://common.iterget.com/es/dict/rs_anti_company.dic;
+    http://common.iterget.com/es/dict/mydict.dic
+    http://common.iterget.com/es/dict/iterget.dic
+    (目前ig的新词都放在iterget.dic里)
+    
 
-算法1: 中日韩处理
+**量词字典**
 
-算法2: 中文数字处理
+    点击下载量词词库quantifier.dic
 
-算法3: 英文字符阿拉伯数字处理[步奏1英文,步奏2阿拉伯数字, 步奏3.混合字母]
 
+**停用词字典**
 
+    http://common.iterget.com/es/stopwords/stop_word.dic
 
 
+**同义词字典**
 
-
-处理逻辑: 普通切词	
-假设文本为:
-
-张柏芝士蛋糕旗舰店11房 fsdZ H22好
-
-
-
-假设词库数据为:
-
-扩展词:[张柏芝,张柏,芝士,蛋糕]
-
-停用词:[旗舰店]
-
-
-
-那么数据结构则为:
-
-张→ 柏(是否是词=true,默认=false)→ 芝
-
-芝→ 士
-
-蛋→ 糕
-
-
-
-算法流程则为:
-
-ig-research > Elastic/IK-Analyzer(介绍) > image2019-6-23_16-21-11.png
-
-
-
-获得的词元为:
-
-张柏芝
-
-张柏
-
-芝士
-
-蛋糕
-
-1
-
-房
-
-fsdz
-
-h
-
-好
-
-
-
-停用词为:
-
-旗舰店(输出结果时会检查是否在停用词库, 是的话不输出)
-
-
-
-
-
-
-处理逻辑: 歧义切词	
-
-4	词元-分类	
-UNKNOWN=未知
-
-其他字符	
-
-
-ENGLISH=英文	ascII码中的英文	
-
-
-ARABIC=数字	ascII码中的数字	
-
-
-LETTER=英文数字混合	ascII码中的英文 + ascII码中的数字	
-
-
-CNWORD=中文词元	
-UTF-8Unicode的中文词汇
-
-文章末尾有下载链接
-
-
-
-
-CNCHAR=中文单字	UTF-8Unicode的中文单字	
-
-
-OTHER_CJK=日韩文字	UTF-8Unicode的日韩文字	
-
-
-CNUM=中文数字 	
-[
-
-一二两三四五六七八九十零壹贰叁肆伍陆柒捌玖拾百千万亿拾佰仟萬億兆卅廿
-
-]
-
-
-
-
-COUNT=中文量词	
-纯中文量词
-
-点击下载量词词库quantifier.dic
-
-
-
-
-CQUAN=中文数量词	
-英文数词+中文量词
-
-2世纪
-
-点击下载量词词库quantifier.dic
-
-
-
-
-
-
-
-
-
-
-
-
-附1:官方文档
-
-[(点我下载)IKAnalyzer中文分词器V3.0使用手册.pdf](../files/IKAnalyzer中文分词器V3.0使用手册.pdf "(点我下载)IKAnalyzer中文分词器V3.0使用手册.pdf"). 
-
-[((点我下载)IKAnalyzer中文分词器V2012使用手册.pdf](../files/IKAnalyzer中文分词器V2012使用手册.pdf "(点我下载)IKAnalyzer中文分词器V2012使用手册.pdf"). 
-
-
-附2:项目中使用的字典
-
-扩展词字典
-
-http://common.iterget.com/es/dict/ext_company.dic;
-
-http://common.iterget.com/es/dict/ext_position.dic;
-
-http://common.iterget.com/es/dict/rs_anti_company.dic;
-
-http://common.iterget.com/es/dict/mydict.dic
-
-http://common.iterget.com/es/dict/iterget.dic
-
-(目前ig的新词都放在iterget.dic里)
-
-
-
-量词字典
-
-点击下载量词词库quantifier.dic
-
-
-停用词字典
-
-http://common.iterget.com/es/stopwords/stop_word.dic
-
-
-
-同义词字典
-
-http://common.iterget.com/es/synonym/company.dic
-
-http://common.iterget.com/es/synonym/project.dic
-
-http://common.iterget.com/es/synonym/position.dic
+    http://common.iterget.com/es/synonym/company.dic
+    http://common.iterget.com/es/synonym/project.dic
+    http://common.iterget.com/es/synonym/position.dic
