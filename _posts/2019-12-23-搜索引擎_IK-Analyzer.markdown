@@ -8,7 +8,7 @@ tags: 搜索引擎
     
    1.引言
     
-   2.IK-Analyzer是什么?
+   2.IK-Analyzer是什么? (IK是分词器)
     
    3.分词的原理
     
@@ -39,7 +39,7 @@ tags: 搜索引擎
 
 ### 2.IK-Analyzer是什么?
 
-IK Analyzer 是一个开源的，基于 java 语言开发的轻量级的中文分词工具包。IK 实现了简单的分词歧义排除算法，标志着 IK 分词器从单纯
+IK-Analyzer是轻量级中文分词工具包 (它开源,基于JAVA语言)。IK 实现了简单的分词歧义排除算法，标志着 IK 分词器从单纯
 的词典分词向模拟语义分词衍化。
 
 它采用了特有的“**正向迭代最细粒度切分算法**“，支持细粒度和智能分词两种切分模式；
@@ -76,7 +76,7 @@ IK Analyzer 是一个开源的，基于 java 语言开发的轻量级的中文�
      <td class="confluenceTd">词库数据</td>
      <td class="confluenceTd">扩展词字典</td>
      <td class="confluenceTd" colspan="1"><p>3W咖啡</p><p>5G卡</p><p>Python开发</p><p>新浪微博</p></td>
-     <td class="confluenceTd"><span>远程存储</span></td>
+     <td class="confluenceTd"><span>远程存储,HTTP访问定时刷新词库</span></td>
     </tr>
     <tr>
      <td class="confluenceTd" colspan="1"><br /></td>
@@ -97,9 +97,8 @@ IK Analyzer 是一个开源的，基于 java 语言开发的轻量级的中文�
      <td class="confluenceTd">数据结构</td>
      <td class="confluenceTd">Tire(字典树)</td>
      <td class="confluenceTd" colspan="1">
-      <div class="content-wrapper">
        <p><img class="confluence-embedded-image confluence-thumbnail" title="ig-research &gt; Elastic/IK-Analyzer(介绍) &gt; 字典树.jpg" height="250" src="/images/postimg/tiretree.jpg" data-image-src="/images/postimg/tiretree.jpg" data-unresolved-comment-count="0" data-linked-resource-id="5079828" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="字典树.jpg" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="5079789" data-linked-resource-container-version="23" data-image-height="325" data-image-width="388" /></p>
-      </div></td>
+     </td>
      <td class="confluenceTd"><br /></td>
     </tr>
     <tr>
@@ -114,7 +113,6 @@ IK Analyzer 是一个开源的，基于 java 语言开发的轻量级的中文�
      <td class="confluenceTd" colspan="1"><br /></td>
      <td class="confluenceTd" colspan="1"><span><span>处理逻辑: 普通</span>切词</span></td>
      <td class="confluenceTd" colspan="1">
-      <div class="content-wrapper">
        <p><strong>假设文本为:</strong></p>
        <p>张柏芝士蛋糕旗舰店11房 fsdZ H22好</p>
        <p><br /></p>
@@ -144,7 +142,7 @@ IK Analyzer 是一个开源的，基于 java 语言开发的轻量级的中文�
        <p><strong>停用词为:</strong></p>
        <p>旗舰店(输出结果时会检查是否在停用词库, 是的话不输出)</p>
        <p><br /></p>
-      </div></td>
+      </td>
      <td class="confluenceTd" colspan="1"><br /></td>
     </tr>
     <tr>
