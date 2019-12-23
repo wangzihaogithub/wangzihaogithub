@@ -50,7 +50,7 @@ tags: Spring
 状态机由  **spring-message(消息)模块** + **spring-tx(持久化事物)模块** 实现
 
 
-**流程如下**
+#### 流程如下
 
 1.将**状态转换**与**事件**绑定关系
 
@@ -114,7 +114,7 @@ tags: Spring
 | :- | :- | :- |  :- | 
 |1	|代码量|	少|	多|
 |2	|学习成本|	少|	多|
-|3	|实现事物|	|简单(数据库注解搞定)	|复杂 (需要实现监听类,ack机制实现)|
+|3	|实现事物|	简单(事物注解搞定)	|复杂 (需要实现监听类,ack机制实现)|
 |4	|分布式状态机|	需要编码实现	|自带|
 |5	|编写流程图|	不支持	|支持|
 |6	|状态持久化|	支持	|支持|
@@ -129,7 +129,7 @@ tags: Spring
 
 ### 6. 示例代码下载
 
-[(点我另存为下载) statemachine.zip](/files/statemachine.zip "(点我另存为下载) statemachine.zip")
+[(点我下载) statemachine.zip](/files/statemachine.zip "(点我另存为下载) statemachine.zip")
 
 
 ### 7. spring官方文档地址
