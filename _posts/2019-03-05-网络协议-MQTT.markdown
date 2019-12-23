@@ -8,7 +8,7 @@ tags: 网络协议
 
 MQTT是基于发布订阅模式的轻量级消息协议
 
-[点击我查看协议规范](https://mcxiaoke.gitbooks.io/mqtt-cn/content/mqtt/01-Introduction.html "点击我查看协议规范")
+[点击我查看中文协议规范](https://mcxiaoke.gitbooks.io/mqtt-cn/content/mqtt/01-Introduction.html "点击我查看中文协议规范")
 
 
 ### 需要实现的关键点如下
@@ -39,7 +39,6 @@ MQTT是基于发布订阅模式的轻量级消息协议
     public class MqttServerChannelHandler extends AbstractChannelHandler<MqttMessage> {
         private ChannelHandlerContext context;
         private MqttExchanger exchanger;
-    
         public MqttServerChannelHandler(MqttExchanger exchanger) {
             super(true);
             this.exchanger = exchanger;
@@ -104,7 +103,6 @@ MQTT是基于发布订阅模式的轻量级消息协议
          * @return
          */
         private MqttMessage onPubAck(MqttPubAckMessage request){
-    
             return null;
         }
     
@@ -129,7 +127,6 @@ MQTT是基于发布订阅模式的轻量级消息协议
          * @return
          */
         private MqttMessage onPubrel(MqttMessage request){
-    
             return null;
         }
     
