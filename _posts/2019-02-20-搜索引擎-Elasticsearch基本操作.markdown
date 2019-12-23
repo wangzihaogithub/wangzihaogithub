@@ -1,7 +1,7 @@
 ---
 layout: post
-title:  "Elasticsearch-基本操作"
-tags: Elasticsearch
+title:  "搜索引擎-Elasticsearch基本操作"
+tags: 搜索引擎
 ---
 
 ## 基本增删改查的操作（可以直接拷贝到kibana的开发工具中）

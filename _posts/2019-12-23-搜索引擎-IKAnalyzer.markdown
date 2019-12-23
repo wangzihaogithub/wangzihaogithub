@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "搜索引擎_IK-Analyzer"
+title:  "搜索引擎-IKAnalyzer"
 tags: 搜索引擎
 ---
 
