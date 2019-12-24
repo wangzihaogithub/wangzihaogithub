@@ -45,17 +45,21 @@ Phaser类机制是在每一步结束的位置对线程进行同步，当所有�
 
 ### 3.API
 
-- 使用phaser.arriveAndAwaitAdvance(); //等待参与者达到指定数量，才开始运行下面的代码
-- 使用phaser.arriveAndDeregister(); //注销当前线程，该线程就不会进入休眠状态，也会从phaser的数量中减少
 - 模拟代替CountDownLatch功能，只需要当前线程arriveAndAwaitAdvance()之后运行需要的代码之后，就arriveAndDeregister()取消当前线程的注册。
 - phaser有一个重大特性，就是不必对它的方法进行异常处理。置于休眠的线程不会响应中断事件，不会抛出interruptedException异常， 只有一个方法会响应：AwaitAdvanceInterruptibly(int phaser).
+
+- 使用phaser.arriveAndDeregister(); //注销当前线程，该线程就不会进入休眠状态，也会从phaser的数量中减少
+- 使用phaser.arriveAndAwaitAdvance(); //等待参与者达到指定数量，才开始运行下面的代码
+
 - arrive()：这个方法通知phase对象一个参与者已经完成了当前阶段，但是它不应该等待其他参与者都完成当前阶段，必须小心使用这个方法，因为它不会与其他线程同步。
 - awaitAdvance(int phase)：如果传入的阶段参数与当前阶段一致，这个方法会将当前线程至于休眠，直到这个阶段的所有参与者都运行完成。如果传入的阶段参数与当前阶段不一致，这个方法立即返回。
 - awaitAdvanceInterruptibly(int phaser):这个方法跟awaitAdvance(int phase)一样，不同处是：该访问将会响应线程中断。会抛出interruptedException异常
         将参与者注册到phaser中：
+
 - register():将一个新的参与者注册到phase中，这个新的参与者将被当成没有执完本阶段的线程。
 - bulkRegister(int parties)：将指定数目的参与者注册到phaser中，所有这些新的参与者都将被当成没有执行完本阶段的线程。
         减少参与者 
+
 - 只提供了一个方法来减少参与者：arriveAndDeregister():告知phaser对应的线程已经完成了当前阶段，并它不会参与到下一阶段的操作中。
        强制终止 
 - 当一个phaser么有参与者的时候，它就处于终止状态，使用forceTermination()方法来强制phaser进入终止状态，不管是否存在未注册的参与线程，当一个线程出现错误时，强制终止phaser是很有意义的。
@@ -140,4 +144,5 @@ Phaser类机制是在每一步结束的位置对线程进行同步，当所有�
 一个Phaser对象有两个状态：
 
 活跃态：当存在参与同步的线程的时候，Phaser就是活跃的，并且在每个阶段结束的时候进行同步。
+
 终止态：当所有的线程都取消注册的时候，Phaser就处于终止态，此时Phaser没有任何参与者。
