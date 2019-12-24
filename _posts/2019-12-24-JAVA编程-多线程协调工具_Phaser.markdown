@@ -19,11 +19,7 @@ tags: JAVA编程
 
 ### 1.Phaser是一个更强大的、更复杂的同步辅助类，可以代替CyclicBarrier CountDownLatch的功能，但是比他们更强大。 
         
-Phaser类机制是在每一步结束的位置对线程进行同步，当所有的线程都完成了这一步，才能进行下一步。 
-        当我们有并发任务并且需要分解成几步执行的时候，这种机制就非常适合。 
-        CyclicBarrier CountDownLatch 只能在构造时指定参与量，而phaser可以动态的增减参与量。
-        phaser 使用说明：
-
+Phaser类机制是在每一步结束的位置对线程进行同步，当所有的线程都完成了这一步，才能进行下一步。当我们有并发任务并且需要分解成几步执行的时候，这种机制就非常适合。CyclicBarrier CountDownLatch 只能在构造时指定参与量，而phaser可以动态的增减参与量。
 
 ### 2.内部维护的数据
 
