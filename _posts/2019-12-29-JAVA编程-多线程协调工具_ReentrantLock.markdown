@@ -6,12 +6,14 @@ tags: JAVA编程
 
 ### 1.来历
 
-1.大多数情况下，锁不仅不存在多线程竞争，还存在锁由同一线程多次获得的情况，偏向锁与ReentrantLock就是在这种情况下出现的
+大多数情况下，**不仅不存在多线程竞争，还存在锁由同一线程多次获得的情况**，偏向锁与ReentrantLock就是在这种情况下出现的
+
 在1.6前, synchronized关键字是用是用系统调用实现的(例如:pthread_mutex_t). 获取锁动作与释放锁动作.
+
 在1.5出现了JUC库, 例如ReentrantLock.
    
 
-| | JDK版本 | 锁实现 | 获取锁动作 | 释放锁动作|
+| JDK版本 | 锁实现 | 获取锁动作 | 释放锁动作|
 | :- | :- | :- |  :- | 
 |1.5	|synchronized关键字|	系统调用 例如:pthread_mutex_t|	同上|
 |1.5	|ReentrantLock|	在不存在资源竞争的情况下不会系统调用,反之|	同上|
@@ -20,25 +22,33 @@ tags: JAVA编程
 
 ### 2.关键词
  
- volatile + cas操作, 等待队列, 线程持有者, 公平锁与非公平锁, 减少系统调用.
+ **volatile + cas操作, 等待队列, 线程持有者, 公平锁与非公平锁, 减少系统调用.**
    
 ### 3.ReentrantLock的实现
    
-   数据结构 = state + 等待线程的队列 + 当前线程持有者
+**内部变量** 
  
-   获取锁 = 获取成功的逻辑(状态为0 或 不为0但当前线程持有者是自己) 则获取成功并且状态+1. **公平锁**会在获取成功后,会再检查是否需要排队, **非公平锁**获取成功后直接使用返回,不检查是否需要排队.
-           获取失败的逻辑(反之) 将当前线程追加到等待队列中,并且park当前线程(系统调用).
+state + 等待线程的队列 + 当前线程持有者
+ 
+**执行逻辑**
+   
+- 获取成功时; 获取state字段时,值为0或当前线程持有者是自己,则判定成功. 且state字段+1(cas操作). 
+   
+   **公平锁**会在获取成功后,会再检查是否需要排队
+   
+   **非公平锁**获取成功后直接使用返回,不检查是否需要排队.
+           
+- 获取失败时; 将当前线程追加到等待队列中,并且park当前线程(系统调用).
       
-   释放锁 = 状态变量-1, 如果没有人排队,则返回. 如果队列中有线程,则叫醒最早排队的那个线程(系统调用).
+- 释放锁时; 状态变量-1, 如果没有人排队,则返回. 如果队列中有线程,则叫醒最早排队的那个线程(系统调用).
 
 
-### 4.synchronized的实现 (没看懂, 希望能有大神带入门)
+### 4.synchronized关键字的实现 (源码没看懂, 希望能有大神带入门)
     
-   synchronized由字节码指令(monitorenter与monitorexit)实现.
-   
-   下面代码摘自 https://download.java.net/openjdk/jdk6/
-   /openjdk-6-src-b27-26_oct_2012
-   
+   synchronized由字节码指令(**monitorenter** 与 **monitorexit**)实现.
+
+   下面代码摘自 [https://download.java.net/openjdk/jdk6/](https://download.java.net/openjdk/jdk6/ "https://download.java.net/openjdk/jdk6/")
+
 **monitorenter指令的实现**
 
 目录地址 /hotspot/src/share/vm/interpreter/interpreterRuntime.cpp:585
@@ -102,8 +112,6 @@ tags: JAVA编程
       ObjectSynchronizer::inflate(THREAD, obj())->enter(THREAD);
     }
     
-
----
 
 **monitorexit指令的实现**
 
