@@ -14,36 +14,35 @@ tags: 数据库
 
 行子查询 (以前没用过,我刚发现)
 
-select * from my_table where (create_time,last_login_time) = (select max(create_time),max(last_login_time) from my_table);
+    select * from my_table where (create_time,last_login_time) = (select max(create_time),max(last_login_time) from my_table);
 
 与下面这两个是一类的(列子查询,标量子查询)
 
-select * from my_table where id in (select id from my_table2 where name='a');
-
-select * from my_table where id = (select id from my_table2 where name='a');
+    select * from my_table where id in (select id from my_table2 where name='a');
+    select * from my_table where id = (select id from my_table2 where name='a');
 
 
 ### mysql变量操作
     
-- 查询 
+- **查询** 
 
-select @@autocommit,@@auto_increment_increment;
+        select @@autocommit,@@auto_increment_increment;
+        show variables like 'auto_increment_increment';
+        select @变量名:=select 字段 from 表;
 
-show variables like 'auto_increment_increment';
 
-select @变量名:=select 字段 from 表;
+- **修改会话变量** 
 
-- 修改(会话变量) 
+        set @变量名=值;
 
-set @变量名=值;
 
-- 修改(系统变量-注:只对新客户端生效):  
+- **修改系统变量** (注:只对新客户端生效):  
 
-set global 变量名=值; 
-
-set @@gloabl.变量名=值;
+        set global 变量名=值; 
+        set @@gloabl.变量名=值;
  
-- 修改(系统变量-注:只对当前客户端生效):  
+ 
+- **修改系统变量** (注:只对当前客户端生效):  
 
-set 变量名=值;
+        set 变量名=值;
     
