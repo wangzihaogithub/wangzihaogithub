@@ -12,7 +12,7 @@ tags: 数据库
     
 ### where子查询
 
-行子查询 (以前没用过,我刚发现)
+**行子查询** (以前没用过,我刚发现)
 
     select * from my_table where (create_time,last_login_time) = (select max(create_time),max(last_login_time) from my_table);
 
@@ -28,21 +28,25 @@ tags: 数据库
 
         select @@autocommit,@@auto_increment_increment;
         show variables like 'auto_increment_increment';
+        
+        
+- **查询并修改会话变量** 
+
         select @变量名:=select 字段 from 表;
-
-
+    
+    
 - **修改会话变量** 
 
         set @变量名=值;
 
 
-- **修改系统变量** (注:只对新客户端生效):  
+- **修改系统变量(只对新客户端生效)** 
 
         set global 变量名=值; 
         set @@gloabl.变量名=值;
  
  
-- **修改系统变量** (注:只对当前客户端生效):  
+- **修改系统变量(只对当前客户端生效)**  
 
         set 变量名=值;
     
