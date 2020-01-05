@@ -9,6 +9,7 @@ tags: 数据库
     EXPLAIN EXTENDED SELECT * FROM my_table WHERE id = 1;
     SHOW WARNINGS;
     
+ ---    
     
 ### where子查询
 
@@ -21,6 +22,7 @@ tags: 数据库
     select * from my_table where id in (select id from my_table2 where name='a');
     select * from my_table where id = (select id from my_table2 where name='a');
 
+ --- 
 
 ### mysql变量操作
     
@@ -50,3 +52,4 @@ tags: 数据库
 
         set 变量名=值;
     
+ ---
