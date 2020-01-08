@@ -11,6 +11,21 @@ tags: linux
 
 ---
 
+### 添加磁盘交换
+
+原文地址  [https://blog.csdn.net/ithomer/article/details/53942718](https://blog.csdn.net/ithomer/article/details/53942718 "https://blog.csdn.net/ithomer/article/details/53942718")
+
+[root@ithomer ~]# cd /var   (进入一个文件夹)
+[root@ithomer var]# dd if=/dev/zero of=swapfile bs=1024 count=1024000    （创建1GB的swap ,一般是内存的两倍）
+[root@ithomer var]# /sbin/mkswap swapfile   （创建swap文件，实际上dd已创建，此处不必再创建）
+[root@ithomer var]# ll swapfile 
+[root@ithomer var]# /sbin/swapon swapfile     (激活swap文件)
+[root@ithomer var]# /sbin/swapon -s               (检查swap是否正确)
+[root@ithomer var]# vim  /etc/fstab       （加到fstab文件中让系统引导时自动启动）
+在末尾增加以下内容：
+/var/swapfile swap swap defaults 0 0
+
+
 ### 配置ssh免密登录
    
     在源机器上生成密匙, 拷贝到目标机器上
