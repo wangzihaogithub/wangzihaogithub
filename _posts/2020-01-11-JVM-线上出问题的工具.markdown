@@ -11,6 +11,7 @@ tags: JVM
     free -h > 2020_01_11_00_55_free.txt
     df -h > 2020_01_11_00_55_df.txt
     netstat -nlatp > 2020_01_11_00_55_netstat.txt
+    cp gc.log 2020_01_11_00_55_gc.log
     
 ## 导出内存占用与类实例数量
 
