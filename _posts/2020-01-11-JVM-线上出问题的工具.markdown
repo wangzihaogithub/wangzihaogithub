@@ -1,0 +1,25 @@
+---
+layout: post
+title:  "JVM-JVM线程的功能"
+tags: JVM
+---
+
+## 导出系统信息 (进程, 内存, 磁盘, 网络)
+
+    jps -l > 2020_01_11_00_55_jps.txt
+    top -n 1 -b > 2020_01_11_00_55_top.txt
+    free -h > 2020_01_11_00_55_free.txt
+    df -h > 2020_01_11_00_55_df.txt
+    netstat -nlatp > 2020_01_11_00_55_netstat.txt
+    
+## 导出内存占用与类实例数量
+
+    jmap -histo 12977 > 2020_01_11_00_28_histo.txt
+
+##  导出线程状况
+
+    jstack 12977 > 2020_01_11_00_55_thread.txt
+
+## 导出堆信息 (只导出存活的对象)
+
+    jmap -dump:live,format=b,file=heap_2020_01_11_00_59_dump.bin 12977
