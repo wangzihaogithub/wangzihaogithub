@@ -4,6 +4,11 @@ title:  "JVM-线上出问题的工具"
 tags: JVM
 ---
 
+Oracle官网（垃圾收集器）
+
+[https://docs.oracle.com/javase/8/docs/technotes/guides/vm/gctuning/index.html](https://docs.oracle.com/javase/8/docs/technotes/guides/vm/gctuning/index.html "https://docs.oracle.com/javase/8/docs/technotes/guides/vm/gctuning/index.html")
+
+
 ## 导出系统信息 (进程, 内存, 磁盘, 网络)
 
     jps -l > 2020_01_11_00_55_jps.txt
@@ -12,6 +17,8 @@ tags: JVM
     df -h > 2020_01_11_00_55_df.txt
     netstat -nlatp > 2020_01_11_00_55_netstat.txt
     cp gc.log 2020_01_11_00_55_gc.log
+    iostat -t > 2020_01_11_00_55_iostat_t.txt
+    iostat -d -x -k 1 1 > 2020_01_11_00_55_iostat_d.txt
     
 ## 导出内存占用与类实例数量
 
