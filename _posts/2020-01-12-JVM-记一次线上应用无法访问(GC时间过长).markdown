@@ -58,12 +58,35 @@ tags: JVM
     这个map就在我写的简历模板功能里。 
     jmap -dump:live,format=b,file=heap_2020_01_11_00_59_dump.bin 12977
     
-### 11.改正代码，
+### 11.改正代码(1.改缓存数量的逻辑，2.生产者每生产一份就让出cpu时间)
 
-    以前生产者的逻辑是固定量每个模板缓存100个实例，
+    1.以前生产者的逻辑是固定量每个模板缓存100个实例，
     现在改为 （全部消耗的模板数量 / 请求数量） * 2（为之后两个请求预留），
     也就是 每次消耗的平均值 * 2个用户
 
+    2.生产者每次编译一份模板后，如果物理cpu是单核，就Thread.yield();
+    public static final Runnable COMPILE_RUNNABLE = ()->{
+            int cpuCount = Math.max(Runtime.getRuntime().availableProcessors() / 2, 1);
+            for (Map.Entry<File, Pool<XWPFTemplate>> entry : TEMPLATE_MAP.entrySet()) {
+                File file = entry.getKey();
+                Pool<XWPFTemplate> pool = entry.getValue();
+                //重新计算缓存池的大小 （根据历史平均值动态调整）
+                pool.resize(TOTAL_REQUEST_COUNT);
+                while (pool.queue.size() < pool.poolSize){
+                    try {
+                        pool.queue.offer(directCompile(file, COMPILE_CONFIGURE));
+                        //防止线上的单核处理器霸占cpu过久
+                        if(cpuCount == 1){
+                            Thread.yield();
+                        }
+                    } catch (FileNotFoundException e) {
+                        log.error("Deepoove compile error. error={}",e.toString(),e);
+                    }
+                }
+            }
+        };
+        
+        
 ### 12.顺便把垃圾回收改为G1，
     
     每个区域16M，设置最大停顿时长为600毫秒。
