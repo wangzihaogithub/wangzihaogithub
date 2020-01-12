@@ -10,7 +10,53 @@ tags: 数据库
     SHOW WARNINGS;
     
  ---    
+ 
+### MYSQL-show命令集
+
+表
+
+    1. show databases; -- 显示mysql中所有数据库的名称。 
+    2. show create database database_name; -- 显示create database 语句是否能够创建指定的数据库。 
     
+    3. show tables from database_name; -- 显示当前数据库中所有表名称。 
+    5. show table status; -- 显示当前使用或者指定的database中的每个表的信息。信息包括表类型和表的最新更新时间。 
+    4. show table status from `ig_zues`;
+    6. show create table table_name; -- 显示create database 语句是否能够创建指定的数据库。 
+    
+    7. show columns from database_name.table_name; -- 显示列名。 
+    8. show index from table_name; -- 显示索引。 
+        
+权限
+    
+    1. show grants for user_name; -- 显示一个用户的权限，显示结果类似于grant 命令。 
+    2. show privileges; -- 显示服务器所支持的不同权限。 
+
+系统
+
+    1. show status; -- 显示一些系统特定资源的信息，例如，正在运行的线程数量。 
+    2. show variables; -- 显示系统变量的名称和值。 
+    3. show full processlist; -- 显示系统中正在运行的所有进程，也就是当前正在执行的查询。大多数用户可以查看他们自己的进程，但是如果他们拥有process权限，就可以查看所有人的进程，包括密码。 
+ 
+日志
+
+    1. show binary logs; --列出所有binlog文件
+    2. show master status;--查看当前正在写入的binlog文件
+    3. show binlog events limit 100,10;--只查看第一个binlog文件的内容
+    4. show binlog events in 'mysql-bin.000002' limit 100,10;--查看指定binlog文件的内容
+    5. show warnings; -- 显示最后一个执行的语句所产生的错误、警告和通知。 
+    6. show errors; -- 只显示最后一个执行语句所产生的错误。 
+        
+存储引擎
+
+    1. show engines; --显示安装后的可用存储引擎和默认引擎。
+    2. show engine innodb status; -- 显示innoDB存储引擎的状态。 
+    
+字符集编码
+    
+    1. show character set;--查看一个字符占几个字节
+
+ ---    
+     
 ### where子查询
 
 **行子查询** (以前没用过,我刚发现)
