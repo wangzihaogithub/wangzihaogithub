@@ -64,7 +64,7 @@ tags: JVM
     现在改为动态调整生产量, （全部消耗的模板数量 / 请求数量） * 2（为之后两个请求预留），
     也就是 每次消耗的平均值 * 2个用户
 
-    2.生产者每次编译一份模板后，如果物理cpu是单核，就Thread.yield();
+    2.生产者每次编译一份模板后，如果CPU时间超过1秒，就Thread.yield();
     private static final Runnable COMPILE_RUNNABLE = ()->{
             int compileCount = 0;
             int totalCompileCount = 0;
