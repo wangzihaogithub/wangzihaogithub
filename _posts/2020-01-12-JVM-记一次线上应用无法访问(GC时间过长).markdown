@@ -7,6 +7,8 @@ tags: JVM
 ### 1.线上普罗米修斯频繁报警
     
     有一台IP是247的机器，服务无法访问. 
+    
+![imagexianshangbaojing](../../../images/postimg/imagexianshangbaojing.png)
 
 ### 2.报错信息是redis超时2秒，导致获取当前登录用户信息失败（这是公共方法）。
 
@@ -15,6 +17,10 @@ tags: JVM
     只有init-remark和final-remark才会停顿。
     奇怪，难道cpu的时间被抢走了？
     
+![cmsgctime](../../../images/postimg/imagecmsgctime.png)
+
+![imagegctimeequest](../../../images/postimg/imagegctimeequest.png)
+        
 ### 3.调查近期上线的代码
 
     刚上了一个在线生成简历并预览的功能。
@@ -25,6 +31,8 @@ tags: JVM
     发现是1核2线程的cpu。
     当时买阿里云服务器没注意，以为买的都是2核，没想到前面带个v（虚拟核心数）。
 
+![imagedanhecpu](../../../images/postimg/imagedanhecpu.png)
+   
 ### 5.因为单核cpu，所以CMS的并发预清理阶段会用掉用户线程的cpu资源，导致暂停应用。
 
 ### 6.用gcesay打开gc日志看了下，发现并发预清理阶段平均时间4.7秒，其他都是1秒内。
