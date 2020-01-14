@@ -1,6 +1,6 @@
 title: 王子豪
 subtitle: 欢迎来到我的个人站~
-description:
+description: 王子豪
 # 头像里面的标题
 avatarTitle: wangzihao
 # 头像里面的描述
@@ -13,7 +13,7 @@ comment:
 
 # Social
 social:
-    weibo: ----
+    weibo:
     github: wangzihaogithub
     # twitter: 
     mail: 842156727@qq.com
