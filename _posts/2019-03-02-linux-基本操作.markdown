@@ -157,9 +157,17 @@ tags: linux
     输出: 平均值 =  67.9735
 
 
-### 查看哪个进程占用的SWAP分区比较多
+### 查看哪占用SWAP源最多的进程
 
     for i in $(ls /proc | grep "^[0-9]" | awk '$0>100'); do awk '/Swap:/{a=a+$2}END{print '"$i"',a/1024"M"}' /proc/$i/smaps;done| sort -k2nr | head
+
+### 查看占用CPU资源最多的10个进程
+
+    ps aux|head -1;ps aux|grep -v PID|sort -rn -k +3|head
+
+### 查看占用内存资源最多的10个进程
+
+    ps aux|head -1;ps aux|grep -v PID|sort -rn -k +4|head
 
 ### 查看TCP状态
     netstat -n | awk '/^tcp/ {++S[$NF]} END {for(a in S) print a, S[a]}'  
