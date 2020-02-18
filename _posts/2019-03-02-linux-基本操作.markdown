@@ -68,7 +68,10 @@ tags: linux
 ### 实时监控磁盘读写 (1秒刷新一次)
     
     iostat -x 1   
-
+    
+    yum install iotop
+    iotop
+    
 ### 实时监控网络流量 (1秒统计一次)
  
     watch -n 1 "/sbin/ifconfig" (系统自带)
