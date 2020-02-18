@@ -9,6 +9,10 @@ tags: linux
 ![SystemCallInterface](../../../images/postimg/SCI_system_call_interface.png)
 
 
+IBM网站
+
+[https://www.ibm.com/developerworks/cn/linux/kernel/syscall/part1/appendix.html](https://www.ibm.com/developerworks/cn/linux/kernel/syscall/part1/appendix.html "https://www.ibm.com/developerworks/cn/linux/kernel/syscall/part1/appendix.html")
+
 ### Linux系统调用表
 
 <div id="content_views" class="markdown_views prism-atom-one-dark">
@@ -1191,5 +1195,3 @@ tags: linux
 <hr>
 
 ---
-
-[https://www.ibm.com/developerworks/cn/linux/kernel/syscall/part1/appendix.html](https://www.ibm.com/developerworks/cn/linux/kernel/syscall/part1/appendix.html "https://www.ibm.com/developerworks/cn/linux/kernel/syscall/part1/appendix.html")
