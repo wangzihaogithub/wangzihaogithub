@@ -19,6 +19,13 @@ tags: linux
      fc-cache -fv
 
 
+### 开启mysql慢查询日志 （单位/秒）
+
+    set global slow_query_log=1;
+    set global long_query_time = 5;
+    show global variables like 'slow_query_log_file';
+
+
 ### 添加磁盘交换
 
 原文地址  [https://blog.csdn.net/ithomer/article/details/53942718](https://blog.csdn.net/ithomer/article/details/53942718 "https://blog.csdn.net/ithomer/article/details/53942718")
