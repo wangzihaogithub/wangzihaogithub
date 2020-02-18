@@ -1,12 +1,12 @@
 ---
 layout: post
-title:  "linux-SCI_系统调用接口"
+title:  "linux-IO调度器scheduler"
 tags: linux
 ---
 
-### 系统调用接口总览
+### 概览 (IO, 内存， 进程)
 
-![系统调用接口SystemCallInterface](../../../images/postimg/SCI_system_call_interface.png)
+![SystemCallInterface](../../../images/postimg/SCI_system_call_interface.png)
 
 ---
 
