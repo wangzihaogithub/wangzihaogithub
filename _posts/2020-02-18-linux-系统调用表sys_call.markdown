@@ -1190,9 +1190,6 @@ tags: linux
 
 <hr>
 
-
-来自ibm.com
+---
 
 [https://www.ibm.com/developerworks/cn/linux/kernel/syscall/part1/appendix.html](https://www.ibm.com/developerworks/cn/linux/kernel/syscall/part1/appendix.html "https://www.ibm.com/developerworks/cn/linux/kernel/syscall/part1/appendix.html")
-
----
