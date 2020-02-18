@@ -13,7 +13,7 @@ IBM网站
 
 [https://www.ibm.com/developerworks/cn/linux/kernel/syscall/part1/appendix.html](https://www.ibm.com/developerworks/cn/linux/kernel/syscall/part1/appendix.html "https://www.ibm.com/developerworks/cn/linux/kernel/syscall/part1/appendix.html")
 
-# Linux系统调用表1
+## Linux系统调用表1
 
 <div id="content_views" class="markdown_views prism-atom-one-dark">
 <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
@@ -1194,15 +1194,11 @@ IBM网站
 
 <hr>
 
----
 
-# Linux系统调用表2
+## Linux系统调用表2
 
-<table><thead><tr><td>
-<p>&nbsp;</p>
-<p>系统调用号</p>
-<p>&nbsp;</p>
-</td>
+<table><thead><tr>
+<td>系统调用号</td>
 <td>函数名</td>
 <td>入口点</td>
 <td>源代码</td>
@@ -2464,5 +2460,4 @@ IBM网站
     <td><a href="https://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git/tree/kernel/module.c" rel="nofollow">kernel/module.c</a></td>
 </tr></tbody></table>
 
-
----
+<hr>
