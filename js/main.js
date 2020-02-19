@@ -1,5 +1,7 @@
 $(document).ready(function() {
-  function showBlog() {
+
+
+  $('a.blog-button').click(function() {
     // If already in blog, return early without animate overlay panel again.
     if (location.hash && location.hash == "#blog") return;
     if ($('.panel-cover').hasClass('panel-cover--collapsed')) return;
@@ -11,13 +13,9 @@ $(document).ready(function() {
       $('.panel-cover').css('max-width',currentWidth);
       $('.panel-cover').animate({'max-width': '320px', 'width': '22%'}, 400, swing = 'swing', function() {} );
     }
-  }
-  $('.panel-main').click(function() {
-    showBlog();
-    $("panel-main").attr('onclick', '').unbind('click');
-  });
 
-  $('a.blog-button').click(showBlog);
+
+  });
 
   if (window.location.hash && window.location.hash == "#blog") {
     $('.panel-cover').addClass('panel-cover--collapsed');
