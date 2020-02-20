@@ -4,8 +4,6 @@ title:  "linux-IO调度器scheduler"
 tags: linux
 ---
 
-### 概览 (IO, 内存， 进程)
-
 ![SystemCallInterface](../../../images/postimg/SCI_system_call_interface.png)
 
 ---

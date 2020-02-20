@@ -4,8 +4,6 @@ title:  "linux-系统调用表sys_call"
 tags: linux
 ---
 
-### 概览 (IO, 内存， 进程)
-
 ![SystemCallInterface](../../../images/postimg/SCI_system_call_interface.png)
 
  ---
