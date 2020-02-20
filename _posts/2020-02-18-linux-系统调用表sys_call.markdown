@@ -10,7 +10,7 @@ tags: linux
 
  ---
  
-**IBM网站**
+**IBM的文档-系统调用表中文**
 
 [https://www.ibm.com/developerworks/cn/linux/kernel/syscall/part1/appendix.html](https://www.ibm.com/developerworks/cn/linux/kernel/syscall/part1/appendix.html "https://www.ibm.com/developerworks/cn/linux/kernel/syscall/part1/appendix.html")
 
