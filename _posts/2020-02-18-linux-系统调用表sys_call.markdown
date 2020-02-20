@@ -8,17 +8,20 @@ tags: linux
 
 ![SystemCallInterface](../../../images/postimg/SCI_system_call_interface.png)
 
-
+ ---
+ 
 **IBM网站**
 
 [https://www.ibm.com/developerworks/cn/linux/kernel/syscall/part1/appendix.html](https://www.ibm.com/developerworks/cn/linux/kernel/syscall/part1/appendix.html "https://www.ibm.com/developerworks/cn/linux/kernel/syscall/part1/appendix.html")
 
-
+ ---
+ 
 **linux内核代码** (x86指令集,64位CPU)
 
 [https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/ia64/kernel](https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/ia64/kernel "https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/ia64/kernel")
 
-
+ ---
+ 
 **linux系统调用表枚举代码** 基于x86指令集的64位 (因为x64兼容x86, 所以包是在一起的) 
 
 x86的版本=单条指令最大32位
@@ -27,7 +30,8 @@ x64的版本=单条指令最大64位 (x64全称叫 x86-64 即英文词64-bit ext
 
 [https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/x86/entry/syscalls/syscall_64.tbl](https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/x86/entry/syscalls/syscall_64.tbl "https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/x86/entry/syscalls/syscall_64.tbl")
 
-
+ ---
+ 
 **linux进入系统调用与切回用户态的代码**
 
 [https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/x86/entry/common.c](https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/x86/entry/common.c "https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/x86/entry/common.c")
