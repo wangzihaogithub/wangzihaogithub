@@ -13,7 +13,7 @@ tags: JVM
 
     1. jconsole (一般)
     2. jvisualvm （好用）
-    3. jmc （花哨）
+    3. jmc （花哨,不过能看到的信息真的很全）
 
 ### 查询java的GC信息
 
