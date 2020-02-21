@@ -1,0 +1,24 @@
+---
+layout: post
+title:  "数据库-MYSQL文档"
+tags: 数据库
+---
+
+**mysql官方文档-首页**
+
+[https://dev.mysql.com/doc](https://dev.mysql.com/doc "https://dev.mysql.com/doc")
+
+ ---
+
+ **mysql官方文档-握手包**
+ 
+[https://dev.mysql.com/doc/internals/en/connection-phase-packets.html#packet-Protocol](https://dev.mysql.com/doc/internals/en/connection-phase-packets.html#packet-Protocol "https://dev.mysql.com/doc/internals/en/connection-phase-packets.html#packet-Protocol")
+
+---
+ 
+ **mysql官方文档-源代码指引**
+
+[https://dev.mysql.com/doc/internals/en/guided-tour.html](https://dev.mysql.com/doc/internals/en/guided-tour.html "https://dev.mysql.com/doc/internals/en/guided-tour.html")
+
+ 
+ 
