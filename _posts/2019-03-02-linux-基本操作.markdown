@@ -11,6 +11,27 @@ tags: linux
 
 ---
 
+### 查询java的GC信息
+
+    jstat -gcutil 进程ID
+
+    S0：幸存1区当前使用比例
+    S1：幸存2区当前使用比例
+    E：伊甸园区使用比例
+    O：老年代使用比例
+    M：元数据区使用比例
+    CCS：压缩使用比例
+    YGC：年轻代垃圾回收次数
+    FGC：老年代垃圾回收次数
+    FGCT：老年代垃圾回收消耗时间
+    GCT：垃圾回收消耗总时间
+    
+### 查询哪个进程打开的文件句柄数最多
+
+    lsof -n|awk '{print $2}'|sort|uniq -c|sort -nr|more
+
+    lsof -p 进程id
+    
 ### 刷新字体文件
 
      cd /usr/share/fonts
