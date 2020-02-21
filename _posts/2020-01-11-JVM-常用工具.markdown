@@ -4,9 +4,16 @@ title:  "JVM-线上出问题的工具"
 tags: JVM
 ---
 
-Oracle官网（垃圾收集器）
+**Oracle官网（垃圾收集器）**
 
 [https://docs.oracle.com/javase/8/docs/technotes/guides/vm/gctuning/index.html](https://docs.oracle.com/javase/8/docs/technotes/guides/vm/gctuning/index.html "https://docs.oracle.com/javase/8/docs/technotes/guides/vm/gctuning/index.html")
+
+
+### JVM可视化看盘 （直接CMD输入名字就行, 例如输入：jconsole， 这些工具是在 jdk/bin目录下）
+
+    1. jconsole (一般)
+    2. jvisualvm （好用）
+    3. jmc （花哨）
 
 ### 查询java的GC信息
 
