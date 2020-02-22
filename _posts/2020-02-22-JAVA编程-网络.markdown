@@ -28,16 +28,17 @@ tags: JAVA编程
 - NativeDispatcher接口为 xxx(FileDescriptor, long address, int length), 意思=方法名(文件句柄, 堆外内存地址, 读/写长度)
 
 - debug后可以看出,所有IO操作都是通过 sun.nio.ch.IOUtil操作的. 
+
 这个IOUtil会这样判断 -> 
+
     如果是堆内内存,那么会将堆内内存转成堆外内存操作 
         转换会调用sun.nio.ch.Util.getTemporaryDirectBuffer(),
         这个里面有ThreadLocal<Util.BufferCache> bufferCache
     
     如果是堆外内存,不转换直接调用本地方法
     
-- 总结, 所有IO操作都是用堆外内存操作的.
+- 总结 (所有IO操作都是用堆外内存操作的)
 
-如果是堆内内存,会发生一次拷贝至堆外内存. 
-
-拷贝方式 -> System.arraycopy(堆外到堆内) 或 unsafe.copyMemory(堆内到堆外) 
+      如果是堆内内存,会发生一次拷贝至堆外内存. 
+      拷贝方式 -> System.arraycopy(堆外到堆内) 或 unsafe.copyMemory(堆内到堆外) 
      
