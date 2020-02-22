@@ -1,0 +1,29 @@
+---
+layout: post
+title:  "JAVA编程-网络"
+tags: JAVA编程
+---
+
+### NIO核心包,类关系,内存拷贝情况
+
+**核心包**
+
+    sun.nio.ch  (通道)
+    sun.nio.fs  (文件系统)
+
+**类关系如下**
+    
+    父类 sun.nio.ch.NativeDispatcher 
+    子类-文件   -> sun.nio.ch.FileDispatcherImpl 
+    子类-TCP   -> sun.nio.ch.SocketDispatcher
+    子类-UDP   -> sun.nio.ch.DatagramDispatcher
+
+**IO拷贝的逻辑**
+
+    NativeDispatcher接口为 xxx(FileDescriptor, long address, int length), 意思=方法名(文件句柄, 堆外内存地址, 读/写长度)
+    
+    debug后可以看出,所有IO操作都是通过 sun.nio.ch.IOUtil操作的. 
+    这个IOUtil会判断,如果是堆内内存,那么会将堆内内存转成堆外内存操作(调用sun.nio.ch.Util.getTemporaryDirectBuffer(),这个里面有ThreadLocal<Util.BufferCache> bufferCache)
+    
+    上述可以说明, 所有IO操作都是用堆外内存操作的, 如果是堆内内存,会发生一次拷贝至堆外内存. 拷贝方式->System.arraycopy(堆外到堆内) 或 unsafe.copyMemory(堆内到堆外) 
+     
