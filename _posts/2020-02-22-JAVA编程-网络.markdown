@@ -14,13 +14,13 @@ tags: JAVA编程
 
 **类关系如下**
     
-父类 sun.nio.ch.NativeDispatcher 
+- 父类 sun.nio.ch.NativeDispatcher 
 
-子类-文件   -> sun.nio.ch.FileDispatcherImpl 
+- 子类-文件   -> sun.nio.ch.FileDispatcherImpl 
 
-子类-TCP   -> sun.nio.ch.SocketDispatcher
+- 子类-TCP   -> sun.nio.ch.SocketDispatcher
 
-子类-UDP   -> sun.nio.ch.DatagramDispatcher
+- 子类-UDP   -> sun.nio.ch.DatagramDispatcher
 
 
 **IO拷贝的逻辑**
