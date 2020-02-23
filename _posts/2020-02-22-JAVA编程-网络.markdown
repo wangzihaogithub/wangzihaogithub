@@ -8,7 +8,7 @@ tags: JAVA编程
 
 **核心包**
 
-- sun.nio.ch  (通道)
+- sun.nio.ch  (IO通道)
 
 - sun.nio.fs  (文件系统)
 
