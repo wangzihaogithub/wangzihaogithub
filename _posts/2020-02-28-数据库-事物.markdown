@@ -22,14 +22,14 @@ tags: 数据库
 
 持久性是指一个事务一旦被提交，它对数据库中数据的改变就是永久性的，接下来即使数据库发生故障也不应该对其有任何影响
 
-### 如何实现原子性(Atomicity)?
+### 1.如何实现原子性(Atomicity)?
 
 - commit指令
   
 - rollback指令
 
 
-### 如何实现一致性(Consistency)? 
+### 2.如何实现一致性(Consistency)? 
 
 - 强一致
   
@@ -42,12 +42,12 @@ tags: 数据库
 ![XA_VS_TCC](../../../images/postimg/xa_vs_tcc.png)
 
 
-### 如何实现隔离性(Isolation)? 
+### 3.如何实现隔离性(Isolation)? 
 
 - MVCC引擎(多版本并发控制)
   
 
-### 如何实现持久性（Durability）? 
+### 4.如何实现持久性（Durability）? 
 
 **流程**
 
