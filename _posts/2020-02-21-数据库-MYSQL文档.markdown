@@ -4,25 +4,6 @@ title:  "数据库-MYSQL文档"
 tags: 数据库
 ---
 
-### ACID原则
-
-**两阶段提交**-并发度不高
-
-**柔性事物(补偿)**-入侵业务,TCC
-
-- WAL-Write-Ahead Logging 预写日志系统(顺序写) 数据库中一种高效的日志算法，对于非内存数据库而言，磁盘I/O操作是数据库效率的一大瓶颈。
-
-- MVCC引擎 (可以是kv结构)
-
-- redo日志是存数据的 (顺序写)
-
-- undo日志是用于回滚的 (顺序写)
-
-流程
-
-|WAL(日志先行) |  MCVV(实现重复读) | redo(存储) & undo(回滚) | 写入数据文件|
-
-
 **mysql官方文档-首页**
 
 [https://dev.mysql.com/doc](https://dev.mysql.com/doc "https://dev.mysql.com/doc")
