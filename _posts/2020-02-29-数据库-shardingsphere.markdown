@@ -6,6 +6,9 @@ tags: 数据库
 
 ### shardingsphere张亮直播的截图 (这次直播目的主要是为了宣传一下社区)
 
+下面是图片
+
+
 ![shardingsphere](../../../images/postimg/shardingsphere_1.jpg)
 
 ![shardingsphere](../../../images/postimg/shardingsphere_2.jpg)
