@@ -25,3 +25,5 @@ tags: 数据库
  **mycat文档-首页**
 
 [http://www.mycat.io/document/mycat-definitive-guide.pdf](http://www.mycat.io/document/mycat-definitive-guide.pdf "http://www.mycat.io/document/mycat-definitive-guide.pdf")
+
+[(点我另存为下载) mycat权威指南第一版 2018.8.18 (1).pdf](/files/mycat权威指南第一版 2018.8.18 (1).pdf "(点我下载)mycat权威指南第一版 2018.8.18 (1).pdf"). 
