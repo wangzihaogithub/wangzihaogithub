@@ -31,7 +31,11 @@ tags: linux
     lsof -n|awk '{print $2}'|sort|uniq -c|sort -nr|more
 
     lsof -p 进程id
-    
+        
+### MD5计算
+
+    md5sum xxx.jar
+
 ### 刷新字体文件
 
      cd /usr/share/fonts
