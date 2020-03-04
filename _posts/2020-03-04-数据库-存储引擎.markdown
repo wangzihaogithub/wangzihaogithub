@@ -7,15 +7,15 @@ tags: 数据库
 ### MYSQL-8.0的所有存储引擎
 
 
-### 1.ndbcluster `网络数据库集群` `在mysql-7.2出现的存储引擎，8.0是正式版·`
+### 1.ndbcluster `网络数据库集群` `mysql-7.2出现的存储引擎，8.0是正式版·`
 
-    “NDB” 全称为 “Network Database”.
-  
-    常见问答
-    [https://dev.mysql.com/doc/refman/8.0/en/faqs-mysql-cluster.html](https://dev.mysql.com/doc/refman/8.0/en/faqs-mysql-cluster.html "https://dev.mysql.com/doc/refman/8.0/en/faqs-mysql-cluster.html")
-    
-    文档描述
-    [https://dev.mysql.com/doc/refman/8.0/en/mysql-cluster-overview.html](https://dev.mysql.com/doc/refman/8.0/en/mysql-cluster-overview.html "https://dev.mysql.com/doc/refman/8.0/en/mysql-cluster-overview.html")
+“NDB” 全称为 “Network Database”.
+
+常见问答
+[https://dev.mysql.com/doc/refman/8.0/en/faqs-mysql-cluster.html](https://dev.mysql.com/doc/refman/8.0/en/faqs-mysql-cluster.html "https://dev.mysql.com/doc/refman/8.0/en/faqs-mysql-cluster.html")
+
+文档描述
+[https://dev.mysql.com/doc/refman/8.0/en/mysql-cluster-overview.html](https://dev.mysql.com/doc/refman/8.0/en/mysql-cluster-overview.html "https://dev.mysql.com/doc/refman/8.0/en/mysql-cluster-overview.html")
 
 
 ![cluster-components](../../../images/postimg/cluster-components-1.png)
@@ -35,11 +35,11 @@ tags: 数据库
     共有三种类型的节点，每种类型对应于集群中的特定角色。这些是：
     
     - 管理节点。  该节点为整个集群提供管理服务，包括其他节点的启动，关闭，备份和配置数据。
-                管理节点服务器被实现为应用程序 ndb_mgmd(NDB群集管理客户端)；
+                管理节点服务器被实现为应用程序，有个客户端叫ndb_mgmd(NDB群集管理客户端)；
                 
-    - 数据节点。  这种类型的节点存储和复制数据。数据节点功能由NDB数据节点进程ndbd的实例 处理 。有关更多信息，请参见 第22.4.1节“ ndbd -NDB群集数据节点守护程序”。
+    - 数据节点。  这用于节点存储和复制数据。
     
-    - SQL节点。  这只是MySQL Server（mysqld）的一个实例，该实例是通过支持NDBCLUSTER存储引擎而构建的，并--ndb-cluster以启用该引擎的--ndb-connectstring选项和启用该引擎 连接到NDB群集管理服务器的选项开始。有关这些选项的更多信息
+    - SQL节点。  这只是Mysql-Server (即mysqld)的一个实例。
 
     要运行一个可行的群集，至少需要三台计算机。
     但是，建议 NDB群集中的计算机的最小数量为四台：
