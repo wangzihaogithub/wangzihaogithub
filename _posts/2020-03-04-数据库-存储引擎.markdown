@@ -6,19 +6,25 @@ tags: 数据库
 
 ### MYSQL-8.0的所有存储引擎
 
-- innodb 
+### innodb 
 
     
     修改快（行锁） 支持事务
 
-- mysaim 
+ ---
+
+### mysaim 
 
     
     插入快 查询快
 
-- memory
+ ---
 
-- federated `联合`
+### memory
+
+ ---
+
+### federated `联合`
 
     
     这个引擎支持 跨库的连表查询
@@ -26,16 +32,20 @@ tags: 数据库
     建表语句格式：
     CREATE TABLE `table_name`(......) 
     ENGINE =FEDERATED CONNECTION='mysql://[username]:[password]@[location]:[port]/[db-name]/[table-name]'
-    
-- archive `档案`
+ 
+ ---
+   
+### archive `档案`
 
     
     这个引擎只允许插入和查询，不允许修改和删除。
     Archive表比MyISAM表要小大约75%，比支持事务处理的InnoDB表小大约83%
     以zlib对表数据进行压缩，磁盘I/O更少
     数据存储在ARZ为后缀的文件中
-    
-- csv
+ 
+ ---
+   
+### csv
 
 
     底层是用csv格式的excel存储， 你可以修改excel，数据表同时会发生变化
@@ -45,13 +55,17 @@ tags: 数据库
     -rw-rw---- 1 mysql mysql   35 Sep  1 14:29  table_csv.CSM  
     -rw-rw---- 1 mysql mysql   18 Sep  1 14:38  table_csv.CSV  
     -rw-rw---- 1 mysql mysql 8582 Sep  1 14:28  table_csv.frm
+
+ ---
         
-- blackhole `黑洞`
+### blackhole `黑洞`
     
      
      任何写入到此引擎的数据均会被丢弃掉， 不做实际存储；Select语句的内容永远是空
 
-- MRG-mysaim `合并的mysaim引擎`
+ ---
+
+### MRG-mysaim `合并的mysaim引擎`
     
      
      全称 merge存储引擎。 是相同类型文件可以被当作一个来用的myisam表的集合
@@ -76,8 +90,10 @@ tags: 数据库
     基于这个建立一个MERGE表会比单纯一个大表速度应该会快不少.
     
     (3)超过操作系统的文件尺寸限制,每个MyISAM表都受制于这个限制,但是MRG_MYSIAM则不会.
-    
-- ndbcluster `网络数据库` `在mysql-7.2出现的存储引擎，8.0是正式版·`
+ 
+ ---
+   
+### ndbcluster `网络数据库` `在mysql-7.2出现的存储引擎，8.0是正式版·`
 
     “NDB” 全称为 “Network Database”.
   
@@ -119,3 +135,5 @@ tags: 数据库
     
     它有一个 ”angel process”天使进程，用于检查（实际处理数据的主数据节点进程）是否正在运行
   
+
+ ---
