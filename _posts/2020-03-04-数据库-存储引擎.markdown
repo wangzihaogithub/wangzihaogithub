@@ -7,20 +7,13 @@ tags: 数据库
 ### MYSQL-8.0的所有存储引擎
 
 
-### 1.ndbcluster `网络数据库集群` `mysql-7.2出现的存储引擎，8.0是正式版·`
+### 1.ndbcluster存储引擎 `网络数据库集群` `mysql-7.2后的存储引擎，8.0后正式版`
 
 “NDB” 全称为 “Network Database”.
 
-常见问答
-[https://dev.mysql.com/doc/refman/8.0/en/faqs-mysql-cluster.html](https://dev.mysql.com/doc/refman/8.0/en/faqs-mysql-cluster.html "https://dev.mysql.com/doc/refman/8.0/en/faqs-mysql-cluster.html")
-
-文档描述
-[https://dev.mysql.com/doc/refman/8.0/en/mysql-cluster-overview.html](https://dev.mysql.com/doc/refman/8.0/en/mysql-cluster-overview.html "https://dev.mysql.com/doc/refman/8.0/en/mysql-cluster-overview.html")
-
-
 ![cluster-components](../../../images/postimg/cluster-components-1.png)
 
-**NDB Cluster最初仅以内存形式实现，但当前所有可用的版本也提供了磁盘存储**
+**NDB Cluster最初仅以内存形式实现，但当前所有可用版也提供了磁盘存储**
 
 1. 它支持事务。但仅支持 READ COMMITTED事务隔离级别（没有实现重复读，即MVCC引擎）。
 
@@ -37,7 +30,7 @@ tags: 数据库
 
 **NDB群集具有物理和逻辑组织，计算机是物理元素**
 
- 群集的逻辑或功能元素称为 节点，而包含群集节点的计算机有时称为 群集主机。
+ 群集的逻辑或功能元素称为 节点，包含群集节点的计算机称为 群集主机。
 
 
 **共有三种类型的节点，对应于集群中的角色**
@@ -59,17 +52,24 @@ tags: 数据库
 
 **要运行一个可行的群集，至少需要三台计算机**
 
-但是，建议 NDB群集中的计算机的最小数量为四台：
+但是，建议NDB群集中的计算机的最小数量为四台：
 
 一台用于SQL节点的计算。两台用作数据节点的计算机(提供数据冗余)。一台用于管理节点，即主节点，控制节点UP与DOWN，如果数据节点发生故障，管理节点必须在单独的计算机上运行以保证持续的仲裁服务。
 
-  
+
+官方常见问答
+[https://dev.mysql.com/doc/refman/8.0/en/faqs-mysql-cluster.html](https://dev.mysql.com/doc/refman/8.0/en/faqs-mysql-cluster.html "https://dev.mysql.com/doc/refman/8.0/en/faqs-mysql-cluster.html")
+
+官方文档描述
+[https://dev.mysql.com/doc/refman/8.0/en/mysql-cluster-overview.html](https://dev.mysql.com/doc/refman/8.0/en/mysql-cluster-overview.html "https://dev.mysql.com/doc/refman/8.0/en/mysql-cluster-overview.html")
+
+
  ---
  
-### 2.federated `联合`
+### 2.federated存储引擎 `联合`
 
     
-    这个引擎支持 跨库的连表查询
+    这个引擎支持跨库连表查询
     
     建表语句格式：
     CREATE TABLE table_name(......) 
@@ -77,7 +77,7 @@ tags: 数据库
  
  ---
    
-### 3.archive `档案`
+### 3.archive存储引擎 `档案`
 
     
     这个引擎只允许插入和查询，不允许修改和删除。
@@ -87,7 +87,7 @@ tags: 数据库
  
  ---
    
-### 4.csv
+### 4.csv存储引擎
 
 
     底层是用csv格式的excel存储， 你可以修改excel，数据表同时会发生变化
@@ -100,7 +100,7 @@ tags: 数据库
 
  ---
 
-### 5.MRG-mysaim `合并的mysaim引擎`
+### 5.MRG_MYISAM存储引擎 `合并的mysaim引擎`
     
      
      全称 merge存储引擎。 是相同类型文件可以被当作一个来用的myisam表的集合
@@ -129,27 +129,31 @@ tags: 数据库
  ---
    
         
-### 6.blackhole `黑洞`
+### 6.blackhole存储引擎 `黑洞`
     
      
      任何写入到此引擎的数据均会被丢弃掉， 不做实际存储；Select语句的内容永远是空
 
  ---
 
-### 7.innodb 
+### 7.innodb存储引擎
 
     
     修改快（行锁） 支持事务
+    略
 
  ---
 
-### 8.mysaim 
+### 8.mysaim存储引擎
 
     
     插入快 查询快
-
+    略
+    
  ---
 
-### 9.memory
+### 9.memory存储引擎
+
+    略
 
  ---
