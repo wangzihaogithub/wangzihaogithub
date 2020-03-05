@@ -1,0 +1,357 @@
+---
+layout: post
+title:  "操作系统-内存管理"
+tags: 操作系统
+---
+
+[嵌入式内存管理.pdf](/files/嵌入式内存管理.pdf "嵌入式内存管理.pdf"). 
+
+### 1.内存堆初始化 HeapInit.c
+    
+       /*
+        内存堆初始化
+        1、宏定义
+            #if portBYTE_ALIGNMENT == 8					对齐字节数
+            #define portBYTE_ALIGNMENT_MASK ( 0x0007 )	对齐掩码
+            #endif
+        2、内存块链表节点长度
+            这里保证可被8整除，内存操作效率高
+        static const size_t xHeapStructSize	= ( sizeof( BlockLink_t ) + ( ( size_t ) ( portBYTE_ALIGNMENT - 1 ) ) ) & ~( ( size_t ) portBYTE_ALIGNMENT_MASK );
+       */
+       static void prvHeapInit( void )
+       {
+        BlockLink_t *pxFirstFreeBlock;
+        uint8_t *pucAlignedHeap;
+        size_t uxAddress;
+        size_t xTotalHeapSize = configTOTAL_HEAP_SIZE;
+       
+        /* 获取内存堆数组首地址 */
+        uxAddress = ( size_t ) ucHeap;
+        //当addr 后三位不等于0，就需要字节对齐
+        //不能被8整除，8字节对齐，就是能够被8整除
+        if( ( uxAddress & portBYTE_ALIGNMENT_MASK ) != 0 )
+        {
+            //uxAddress = uxAddress +7???
+            uxAddress += ( portBYTE_ALIGNMENT - 1 );
+            //把后三位变成0，保证在8字节对齐上
+            uxAddress &= ~( ( size_t ) portBYTE_ALIGNMENT_MASK );
+            //获取了总可用长度，有低地址到高地址增长
+            xTotalHeapSize -= uxAddress - ( size_t ) ucHeap;
+        }
+        //对齐后的首地址
+        pucAlignedHeap = ( uint8_t * ) uxAddress;
+       
+        /* 
+            初始化了头结点xStart 
+            下一个可用空闲块为对齐后的首地址
+            头结点的内存大小为0
+            解析：
+                xStart 分配在全局内存中
+                不用于存储块记录，只用链表操作查找用
+        */
+        xStart.pxNextFreeBlock = ( void * ) pucAlignedHeap;
+        xStart.xBlockSize = ( size_t ) 0;
+       
+        /* 
+            初始化尾节点
+            1、获取整个内存堆尾地址
+            2、减去一个链表节点长度
+            3、再去保证地址在8字节对齐上
+            4、把尾节点进行赋值
+            5、尾节点下一个指向NULL
+       
+        */
+        uxAddress = ( ( size_t ) pucAlignedHeap ) + xTotalHeapSize;
+        uxAddress -= xHeapStructSize;
+        uxAddress &= ~( ( size_t ) portBYTE_ALIGNMENT_MASK );
+        pxEnd = ( void * ) uxAddress;
+        pxEnd->xBlockSize = 0;
+        pxEnd->pxNextFreeBlock = NULL;
+       
+        /* 
+            初始化内存堆的第一个空闲块
+            1、首地址为内存堆可用空闲首地址
+            2、减去尾地址，获取到可用空间大小
+            3、下个指向尾节点
+        */
+        pxFirstFreeBlock = ( void * ) pucAlignedHeap;
+        pxFirstFreeBlock->xBlockSize = uxAddress - ( size_t ) pxFirstFreeBlock;
+        pxFirstFreeBlock->pxNextFreeBlock = pxEnd;
+       
+        /* 更新剩余内存信息 */
+        xMinimumEverFreeBytesRemaining = pxFirstFreeBlock->xBlockSize;
+        xFreeBytesRemaining = pxFirstFreeBlock->xBlockSize;
+       
+        /*标志位置位，32Bit 最高位为1  主要用于判断内存块类型使用*/
+        xBlockAllocatedBit = ( ( size_t ) 1 ) << ( ( sizeof( size_t ) * heapBITS_PER_BYTE ) - 1 );
+       }
+
+### 2.内存块插入与释放 Insert&Free.c
+    
+       /*
+        把内存块插入到空闲内存块中
+       */
+       static void prvInsertBlockIntoFreeList( BlockLink_t *pxBlockToInsert )
+       {
+        BlockLink_t *pxIterator;
+        uint8_t *puc;
+       
+        /*  
+            找到pxBlockToInsert位置
+            pxIterator->pxNextFreeBlock > pxBlockToInsert 表示已经找到
+            之后pxIterator地址在pxBlockToInsert实际物理地址之前
+            
+        */
+        for( pxIterator = &xStart; pxIterator->pxNextFreeBlock < pxBlockToInsert; pxIterator = pxIterator->pxNextFreeBlock )
+        {
+        }
+       
+        /* 
+            判断是否可以合并 （向上合并）
+            1、内存块长度进行累加
+            2、要插入的地址，变成合并后的地址
+       
+        */
+        puc = ( uint8_t * ) pxIterator;
+        if( ( puc + pxIterator->xBlockSize ) == ( uint8_t * ) pxBlockToInsert )
+        {
+            pxIterator->xBlockSize += pxBlockToInsert->xBlockSize;
+            pxBlockToInsert = pxIterator;
+        }
+        else
+        {
+            mtCOVERAGE_TEST_MARKER();
+        }
+       
+        /* 
+            判断是否可以合并 （向下合并）
+            1、再判断是否为尾节点
+            2、内存块长度进行累加
+            3、把要合并的内存块从空闲链表中移除
+        
+        
+        */
+        puc = ( uint8_t * ) pxBlockToInsert;
+        if( ( puc + pxBlockToInsert->xBlockSize ) == ( uint8_t * ) pxIterator->pxNextFreeBlock )
+        {
+            if( pxIterator->pxNextFreeBlock != pxEnd )
+            {
+                /* Form one big block from the two blocks. */
+                pxBlockToInsert->xBlockSize += pxIterator->pxNextFreeBlock->xBlockSize;
+                pxBlockToInsert->pxNextFreeBlock = pxIterator->pxNextFreeBlock->pxNextFreeBlock;
+            }
+            else
+            {
+                pxBlockToInsert->pxNextFreeBlock = pxEnd;
+            }
+        }
+        /*
+            1、这里没有向下合并操作，直接插入就可以，连接到空闲链表中
+        
+        */
+        else
+        {
+            pxBlockToInsert->pxNextFreeBlock = pxIterator->pxNextFreeBlock;
+        }
+       
+        /* 
+            1、这里没有向上合并操作，直接插入就可以，连接到空闲链表中
+        
+        */
+        if( pxIterator != pxBlockToInsert )
+        {
+            pxIterator->pxNextFreeBlock = pxBlockToInsert;
+        }
+        else
+        {
+            mtCOVERAGE_TEST_MARKER();
+        }
+       }
+       
+       /*
+       
+        释放内存块
+        参数：传入要释放的内存块地址
+       */
+       void vPortFree( void *pv )
+       {
+       uint8_t *puc = ( uint8_t * ) pv;
+       BlockLink_t *pxLink;
+       
+        //判断内存块有效
+        if( pv != NULL )
+        {
+            /*获取传入内存块的节点地址 */
+            puc -= xHeapStructSize;
+            pxLink = ( void * ) puc;
+            //判断最高位为1
+            if( ( pxLink->xBlockSize & xBlockAllocatedBit ) != 0 )
+            {
+                //下个节点为NULL
+                if( pxLink->pxNextFreeBlock == NULL )
+                {
+                    /*最高位清除置位为0 */
+                    pxLink->xBlockSize &= ~xBlockAllocatedBit;
+                    //挂起调度器
+                    vTaskSuspendAll();
+                    {
+                        /* 更新剩余空间大小 */
+                        xFreeBytesRemaining += pxLink->xBlockSize;
+                        //插入到空闲链表中去
+                        prvInsertBlockIntoFreeList( ( ( BlockLink_t * ) pxLink ) );
+                    }
+                    //恢复调度器
+                    ( void ) xTaskResumeAll();
+                }
+                else
+                {
+                    mtCOVERAGE_TEST_MARKER();
+                }
+            }
+            else
+            {
+                mtCOVERAGE_TEST_MARKER();
+            }
+        }
+       }
+
+### 3.内存块申请 malloc.c
+   
+    /*
+    	内存块申请
+    	根据传入大小，返回内存块指针，无可用空间返回NULL
+    	1、全局变量
+    		static BlockLink_t xStart, *pxEnd = NULL;
+    */
+    void *pvPortMalloc( size_t xWantedSize )
+    {
+    BlockLink_t *pxBlock, *pxPreviousBlock, *pxNewBlockLink;
+    void *pvReturn = NULL;
+    	//挂起调度器
+    	vTaskSuspendAll();
+    	{
+    		/*  */
+    		if( pxEnd == NULL )
+    		{
+    			//触发内存堆的初始化
+    			prvHeapInit();
+    		}
+    		else
+    		{
+    			mtCOVERAGE_TEST_MARKER();
+    		}
+    
+    		/*
+    			1、首地址最高位不能为1，因为用于内存块判断使用的
+    
+    		*/
+    		if( ( xWantedSize & xBlockAllocatedBit ) == 0 )
+    		{
+    			/*  */
+    			if( xWantedSize > 0 )
+    			{
+    				//加上链表节点长度，这也就是解释了 我们申请了100字节，但是实际占用了112,为什么多出了12个字节
+    				xWantedSize += xHeapStructSize;
+    
+    				/* 保证能被8整除 */
+    				if( ( xWantedSize & portBYTE_ALIGNMENT_MASK ) != 0x00 )
+    				{
+    					/* Byte alignment required. */
+    					xWantedSize += ( portBYTE_ALIGNMENT - ( xWantedSize & portBYTE_ALIGNMENT_MASK ) );
+    					configASSERT( ( xWantedSize & portBYTE_ALIGNMENT_MASK ) == 0 );
+    				}
+    				else
+    				{
+    					mtCOVERAGE_TEST_MARKER();
+    				}
+    			}
+    			else
+    			{
+    				mtCOVERAGE_TEST_MARKER();
+    			}
+    			//是否有可用空闲块
+    			if( ( xWantedSize > 0 ) && ( xWantedSize <= xFreeBytesRemaining ) )
+    			{
+    				/* 
+    					查找可用空闲块
+    					单向链表，先从头结点开始
+    					1、pxPreviousBlock 开始遍历
+    					
+    					遍历结束条件 大小满足或者没有空闲块了
+    
+    				*/
+    				pxPreviousBlock = &xStart;
+    				pxBlock = xStart.pxNextFreeBlock;
+    				while( ( pxBlock->xBlockSize < xWantedSize ) && ( pxBlock->pxNextFreeBlock != NULL ) )
+    				{
+    					pxPreviousBlock = pxBlock;
+    					pxBlock = pxBlock->pxNextFreeBlock;
+    				}
+    
+    				/* 是否有空闲块 */
+    				if( pxBlock != pxEnd )
+    				{
+    					/* 获取分配的内存首地址（块的首地址+节点长度） */
+    					pvReturn = ( void * ) ( ( ( uint8_t * ) pxPreviousBlock->pxNextFreeBlock ) + xHeapStructSize );
+    
+    					/* 删除 已经分配的节点*/
+    					pxPreviousBlock->pxNextFreeBlock = pxBlock->pxNextFreeBlock;
+    
+    					/* If the block is larger than required it can be split into
+    					two. */
+    					if( ( pxBlock->xBlockSize - xWantedSize ) > heapMINIMUM_BLOCK_SIZE )
+    					{
+    						/*获取剩余的空闲首地址*/
+    						pxNewBlockLink = ( void * ) ( ( ( uint8_t * ) pxBlock ) + xWantedSize );
+    						configASSERT( ( ( ( size_t ) pxNewBlockLink ) & portBYTE_ALIGNMENT_MASK ) == 0 );
+    
+    						/* 计算剩余长度 */
+    						pxNewBlockLink->xBlockSize = pxBlock->xBlockSize - xWantedSize;
+    						pxBlock->xBlockSize = xWantedSize;
+    
+    						/* 插入到空闲链表中去 */
+    						prvInsertBlockIntoFreeList( pxNewBlockLink );
+    					}
+    					else
+    					{
+    						mtCOVERAGE_TEST_MARKER();
+    					}
+    					//更新我们的剩余空闲大小
+    					xFreeBytesRemaining -= pxBlock->xBlockSize;
+    
+    					if( xFreeBytesRemaining < xMinimumEverFreeBytesRemaining )
+    					{
+    						xMinimumEverFreeBytesRemaining = xFreeBytesRemaining;
+    					}
+    					else
+    					{
+    						mtCOVERAGE_TEST_MARKER();
+    					}
+    
+    					/* 将分配出去的内存块，进行标记 */
+    					pxBlock->xBlockSize |= xBlockAllocatedBit;
+    					pxBlock->pxNextFreeBlock = NULL;
+    				}
+    				else
+    				{
+    					mtCOVERAGE_TEST_MARKER();
+    				}
+    			}
+    			else
+    			{
+    				mtCOVERAGE_TEST_MARKER();
+    			}
+    		}
+    		else
+    		{
+    			mtCOVERAGE_TEST_MARKER();
+    		}
+    
+    		traceMALLOC( pvReturn, xWantedSize );
+    	}
+    	//恢复调度器
+    	( void ) xTaskResumeAll();
+    
+    	configASSERT( ( ( ( size_t ) pvReturn ) & ( size_t ) portBYTE_ALIGNMENT_MASK ) == 0 );
+    	return pvReturn;
+    }
