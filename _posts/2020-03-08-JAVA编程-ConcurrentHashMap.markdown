@@ -6,11 +6,19 @@ tags: JAVA编程
 
 ### 实现差异
 
-1.7的 final Segment[] 会初始化
-1.7的 数组 + Map实现
+**jdk1.7** 
 
-1.8的 volatile Node[] 不会初始化
-1.8的 数组 + 链表实现
+1. 数组 + 数组 + 链表实现 (`数组 + HashMap`)
+
+2. final Segment[] 会初始化段的数组,不初始化Map的数组
+
+
+**jdk1.8** 
+
+1. 数组 + 链表实现 (`HashMap的数据结构`)
+
+2. volatile Node[] 不初始化Map的数组
+
 
  ---
  
