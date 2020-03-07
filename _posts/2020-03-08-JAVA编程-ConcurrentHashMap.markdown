@@ -53,11 +53,16 @@ tags: JAVA编程
 
 **1.知识前提**
 
-        1. HashMap的结构 (数组+链表) 数组:Node[] table, 链表:Node = {key,value,next}
-        2. Node的子类有 ForwardingNode(扩容期间临时用),
-                       ReservationNode(方法computeIfAbsent或compute时用,这个类的查询find()永远返回null),
-                       TreeBin,TreeNode (链表长度大于8时用)
-        3. 查询请求是由table[]的Node.find()方法处理的.
+        1. HashMap的结构 (数组 + 链表) 
+                数组: Node[] table
+                链表: Node = {key,value,next}
+                
+        2. Node的子类有 
+                ForwardingNode(扩容期间临时用)
+                ReservationNode(方法computeIfAbsent或compute时用.这个类的查询find()永远返回null)
+                TreeBin,TreeNode (链表长度大于8时用)
+
+        3. 查询请求是由table[index].find()方法处理的
     
 **2.内部关键字段**
  
