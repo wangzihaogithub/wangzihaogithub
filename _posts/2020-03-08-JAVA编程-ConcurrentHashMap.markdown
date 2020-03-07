@@ -104,8 +104,17 @@ tags: JAVA编程
             竞争点: synchronized(Node)
             时机: hash落点一样时[index]
             
+**4.树化后的结构如下**
+
+        table[i] = new TreeBin(new TreeNode());
+        
+                    TreeNode(parent)
+                    TreeNode(我)
+        TreeNode(left)      TreeNode(right)
     
-**4.扩容伪代码如下** 
+    
+    
+**5.扩容伪代码如下** 
 
          说明:   查询请求是由table[]的Node.find()方法处理的.
          扩容前: nextTable[index] = table[index];
@@ -114,11 +123,10 @@ tags: JAVA编程
          扩容后: this.table = nextTable;
          
          
-**5.树化后的结构如下**
+![cchashmap_resize1.jpg](../../../images/postimg/cchashmap_resize1.jpg)
 
-        table[i] = new TreeBin(new TreeNode());
-        
-                    TreeNode(parent)
-                    TreeNode(我)
-        TreeNode(left)      TreeNode(right)
-    
+![cchashmap_resize2.jpg](../../../images/postimg/cchashmap_resize2.jpg)
+
+![cchashmap_resize3.jpg](../../../images/postimg/cchashmap_resize3.jpg)
+
+![cchashmap_resize4.jpg](../../../images/postimg/cchashmap_resize4.jpg)
