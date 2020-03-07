@@ -16,15 +16,27 @@ tags: JAVA编程
  
 ### java1.7的ConcurrentHashMap细节 (数组 + Map实现)
 
-    内部字段关系 final Segment[] = {HashEntry[] = null,HashEntry[] = null}
-    每个Segment数组里都有个类似HashMap的结构 (HashMap = 数组+链表) 
-    有两处竞锁的地方 
-        1.初始化HashEntry的table[](cas + lock) 
-        2.操作某个Segment的时候(trylock重试 + lock)
-    Segment[]数组长度越大,出现竞锁的可能性越小.
+**1.内部关键字段**
 
-    1. final Segment[] 修饰初始化, 数组大小根据并发级别参数控制 (操作某个Segment会出现竞争)
-    2. HashEntry[] 相当于Hashmap(未初始化,初始化table[]会出现竞争)
+    class Segment {
+         private HashEntry[] entries = null;//我其实就是HashMap的实现
+    }
+    
+    final Segment[] segments //让每次操作都落到不同的Map上,减少并发颗粒度
+    
+    
+**2.临界区竞争点** 
+
+    1.初始化某个段(Segment)时 entries[] = new HashEntry[];  
+        方式: cas + lock 
+    2.操作某个段(Segment)中的 entries时;   
+        方式: 上锁 trylock重试失败大于64次就lock
+
+    
+**3.如何降低并发度** 
+
+    1. Segment[].length越大,并发度越高, 并发级别参数(concurrencyLevel)控制着Segment[].length
+    2. 操作某个Segment中的Map会出现竞争,则trylock + lock
 
 
  ---
