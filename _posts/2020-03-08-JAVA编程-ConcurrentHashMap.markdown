@@ -10,14 +10,14 @@ tags: JAVA编程
 
 1. 数组 + 数组 + 链表实现 (`数组 + HashMap`)
 
-2. final Segment[] 会初始化段的数组,不初始化Map的数组
+2. final Segment[] 会初始化Segment[],不初始化HashEntry[]
 
 
 **jdk1.8** 
 
-1. 数组 + 链表实现 (`HashMap的数据结构`)
+1. 数组 + 链表实现 (`HashMap`)
 
-2. volatile Node[] 不初始化Map的数组
+2. volatile Node[] 不初始化的数组
 
 
  ---
