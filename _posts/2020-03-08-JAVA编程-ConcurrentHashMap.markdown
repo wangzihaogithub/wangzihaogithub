@@ -26,24 +26,24 @@ tags: JAVA编程
 
 **1.内部关键字段**
 
-    final Segment[] segments //让每次操作都落到不同的Map上,减少并发颗粒度
+    final Segment[] segments //让每次操作都落到不同的Segment上,减少并发颗粒度
     
     static class Segment extends ReentrantLock {
-         volatile HashEntry<K,V>[] entries = null;//我就是HashMap的实现
+         volatile HashEntry<K,V>[] table = null;//我(table)实现了Hash表
     }
     
     static class HashEntry<K,V> {
         final K key;
         volatile V value;
-        final HashEntry<K,V> next;
+        final HashEntry<K,V> next;//我用next实现了链表
     }
     
 **2.知识前提**
 
-        1. HashEntry[] entries是存储用户数据的地方. HashEntry[]是数组, HashEntry是链表
+        1. HashEntry[] table是存储用户数据的地方. table是数组, HashEntry是链表
       
         2. HashMap的结构 (数组 + 链表) 
-                数组: HashEntry[] entries
+                数组: HashEntry[] table
                 链表: HashEntry.next
         
         3. 数组的落点segments[index], 这个index是由hash算法算出来的.
@@ -55,11 +55,11 @@ tags: JAVA编程
 **3.临界竞争区** 
 
     1.put触发=为某个段(Segment)初始化赋值时,
-        segments[index].entries = new HashEntry[size];  
+        segments[index].table = new HashEntry[size];  
         竞争点: cas + Segment.lock()
-        时机: segments[index].entries == null. 注: 实际代码是用cas判断的
+        时机: segments[index].table == null. 注: 实际代码是用cas判断的
         
-    2.put,clear,remove触发=操作某个段entries时,
+    2.put,clear,remove触发=操作某个段的table时,
         竞争点: 上锁. Segment.trylock()尝试N次失败后,调用Segment.lock(). 注: N次=单核CPU是1次,否则是64次 
         时机: hash落点一样时,segments[index]
 
