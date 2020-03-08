@@ -12,6 +12,8 @@ tags: 数据库
 
 - OLTP负责基本业务的正常运转，
 
+ --- 
+ 
 **OLTP常见的数据库有**:
 
 **支持SQL的 (都支持分布式)**
@@ -30,13 +32,16 @@ TokuDB(兼容MySQL) [https://www.percona.com/doc/percona-server/8.0](https://www
 
 CockroachDB(KV结构,同时支持轻量级OLAP) [http://doc.cockroachchina.baidu.com](http://doc.cockroachchina.baidu.com "http://doc.cockroachchina.baidu.com")
 
+ --- 
+
 **不支持SQL的 (嵌入式数据库,都不支持分布式)** 
 
 LevelDB(KV结构) [https://github.com/google/leveldb/blob/master/doc/index.md](https://github.com/google/leveldb/blob/master/doc/index.md "https://github.com/google/leveldb/blob/master/doc/index.md")
 
 RocksDB(KV结构) [https://rocksdb.org.cn/doc/getting-started.html](https://rocksdb.org.cn/doc/getting-started.html "https://rocksdb.org.cn/doc/getting-started.html")
 
-
+ --- 
+ 
 **OLAP常见数据结构**
 
 1.B树，B+树,(mysql,PostgreSQL)
