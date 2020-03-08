@@ -4,7 +4,7 @@ title:  "数据库-事物"
 tags: 数据库
 ---
 
-### 前提 ACID原则
+**前提 ACID原则**
 
 - 原子性（Atomicity） `commit指令, rollback指令`
 
@@ -25,14 +25,14 @@ tags: 数据库
 
  --- 
  
-### 1.如何实现原子性(Atomicity)?
+**1.如何实现原子性(Atomicity)?**
 
 - commit指令
   
 - rollback指令
 
 
-### 2.如何实现一致性(Consistency)? 
+**2.如何实现一致性(Consistency)?** 
 
 - 强一致
   
@@ -77,23 +77,28 @@ tags: 数据库
 ![XA_VS_TCC](../../../images/postimg/xa_vs_tcc.png)
 
 
-### 3.如何实现隔离性(Isolation)? 
+**3.如何实现隔离性(Isolation)?** 
 
 - MVCC引擎(多版本并发控制)
   
 
-### 4.如何实现持久性（Durability）? 
+**4.如何实现持久性（Durability）?** 
 
-| 顺序写日志 | 日志刷盘策略(0定时刷盘fsync, 1事物结束刷盘fsync, 2事物结束写入write)|
-
-- wal预写日志机制 - redo log(物理文件修改日志,增量的)
+- WAL预写日志机制 - redo log(物理文件修改日志,增量的)
     
       通常是物理日志，记录的是数据页的物理修改，而不是某一行或某几行修改成怎样怎样，
       它用来恢复提交后的物理数据页(恢复数据页，且只能恢复到最后一次提交的位置)。
 
-- wal预写日志机制 - undo log(回滚点)
+- WAL预写日志机制 - undo log(回滚点)
 
       用来回滚行记录到某个版本。undo log一般是逻辑日志，根据每行记录进行记录。
 
 
 
+    写日志的优化方式
+    1.顺序写日志
+    2.批量写
+        0定时调用fsync, 
+        1事物结束调用fsync, 
+        2事物结束调用write
+    
