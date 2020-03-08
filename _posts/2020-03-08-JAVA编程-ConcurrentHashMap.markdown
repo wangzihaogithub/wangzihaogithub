@@ -48,7 +48,7 @@ tags: JAVA编程
         
         3. 数组的落点segments[index], 这个index是由hash算法算出来的.
         
-        4. Segment实现了锁, 即trylock,lock方法和unlock方法
+        4. Segment继承了锁, 即trylock,lock方法和unlock方法
                 
         5. 一旦index落到某个Segment上, 那么这个Segment会被上锁.
         
