@@ -16,7 +16,7 @@ tags: 数据库
 
 **支持SQL的**
 
-ClickHouse  [https://dev.mysql.com/doc](https://dev.mysql.com/doc "https://dev.mysql.com/doc")
+Mysql  [https://dev.mysql.com/doc](https://dev.mysql.com/doc "https://dev.mysql.com/doc")
 
 Oracle [https://docs.oracle.com/en/database/oracle/oracle-database/19](https://docs.oracle.com/en/database/oracle/oracle-database/19 "https://docs.oracle.com/en/database/oracle/oracle-database/19")
 
