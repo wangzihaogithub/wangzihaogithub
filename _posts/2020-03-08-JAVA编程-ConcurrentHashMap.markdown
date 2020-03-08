@@ -28,8 +28,8 @@ tags: JAVA编程
 
     final Segment[] segments //让每次操作都落到不同的Map上,减少并发颗粒度
     
-    class Segment extends ReentrantLock {
-         private HashEntry[] entries = null;//我就是HashMap的实现
+    static class Segment extends ReentrantLock {
+         volatile HashEntry<K,V>[] entries = null;//我就是HashMap的实现
     }
     
     static class HashEntry<K,V> {
