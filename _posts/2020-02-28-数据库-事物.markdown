@@ -34,26 +34,54 @@ tags: 数据库
 
 **2.如何实现一致性(Consistency)?** 
 
-- 强一致
+- 强一致. XA规范
   
-        业界定义了XA分布式事物规范。需要有协调者,记录全局事务ID与处理检查点。
-        可以2阶段提交(2pc), 3阶段提交(3pc), 
-        优点: 使用方便
-        缺点: 但并发度不高,因为会阻塞,提交时要等所有方ack.
-        现有框架：java的jta规范
-        jta的实现框架有 atomikos，seata，mycat1.x 
-        mycat1.x版本基于本地文件日志与UUID实现的XA，
-        mycat2.x版本基于atomikos实现的XA.
-
-- 最终一致
-
-        TCC(Try,Confirm,Cancel)补偿机制
-        Try=业务逻辑,业务本身的.
-        Confirm=提交改订单状态,业务本身的.
-        Cancel=取消回滚,业务专门多写的代码.
+  
+    前提
+        XA需要有协调者,记录全局事务ID与处理检查点。
+        可以2阶段提交(2pc)或3阶段提交(3pc)
+    优点: 
+        使用方便
+    缺点: 
+        但并发度不高,因为会阻塞,提交时要等所有方ack.
+    
+    Mysql XA命令如下
+        XA {START|BEGIN} xid [JOIN|RESUME]
         
-        优点: 比XA并发度高, 因为不阻塞
-        缺点: 入侵业务,需要自己实现补偿.
+        XA END xid [SUSPEND [FOR MIGRATE]]
+        
+        XA PREPARE xid
+        
+        XA COMMIT xid [ONE PHASE]
+        
+        XA ROLLBACK xid
+        
+        XA RECOVER [CONVERT XID]
+    
+    
+    现有框架：
+        java的JTA
+        
+        JTA的实现有 atomikos，seata，mycat1.x 
+            mycat1.x版本基于本地文件日志与UUID实现的XA，
+            mycat2.x版本基于atomikos实现的XA.
+    
+    
+
+- 最终一致. TCC(Try,Confirm,Cancel)补偿机制
+
+
+        前提:
+            需要实现Try,Confirm,Cancel的代码逻辑.
+            
+            Try=业务逻辑,业务本身的.
+            Confirm=提交改订单状态,业务本身的.
+            Cancel=取消回滚,业务专门多写的代码.
+        
+        优点: 
+            比XA并发度高, 因为不阻塞
+        缺点: 
+            入侵业务,需要自己实现补偿.
         现有框架： seata
             Seata AT 模式
                 两阶段提交协议的演变：
@@ -94,11 +122,12 @@ tags: 数据库
       用来回滚行记录到某个版本。undo log一般是逻辑日志，根据每行记录进行记录。
 
 
+- 写日志的优化方式
 
-    写日志的优化方式
-    1.顺序写日志
-    2.批量写
-        0定时调用fsync, 
-        1事物结束调用fsync, 
-        2事物结束调用write
+        1.顺序写日志, 注: 顺序写可以减少硬盘的寻址时间
+        
+        2.批量写
+            0定时调用fsync, 
+            1事物结束调用fsync, 
+            2事物结束调用write
     
