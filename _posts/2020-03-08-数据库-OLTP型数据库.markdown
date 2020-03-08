@@ -14,7 +14,7 @@ tags: 数据库
 
 **OLTP常见的数据库有**:
 
-**支持SQL的**
+**支持SQL的 (都支持分布式)**
 
 Mysql  [https://dev.mysql.com/doc](https://dev.mysql.com/doc "https://dev.mysql.com/doc")
 
@@ -22,15 +22,15 @@ Oracle [https://docs.oracle.com/en/database/oracle/oracle-database/19](https://d
 
 SqlServer [https://docs.microsoft.com/zh-cn/sql/sql-server](https://docs.microsoft.com/zh-cn/sql/sql-server "https://docs.microsoft.com/zh-cn/sql/sql-server")
 
-TIDB  [https://pingcap.com/docs-cn](https://pingcap.com/docs-cn "https://pingcap.com/docs-cn")
+TIDB(兼容MySQL,同时支持80%的OLAP场景)  [https://pingcap.com/docs-cn](https://pingcap.com/docs-cn "https://pingcap.com/docs-cn")
 
 PostgreSQL [http://www.postgres.cn/docs/11](http://www.postgres.cn/docs/11 "http://www.postgres.cn/docs/11")
 
-TokuDB [https://www.percona.com/doc/percona-server/8.0](https://www.percona.com/doc/percona-server/8.0 "https://www.percona.com/doc/percona-server/8.0")
+TokuDB(兼容MySQL) [https://www.percona.com/doc/percona-server/8.0](https://www.percona.com/doc/percona-server/8.0 "https://www.percona.com/doc/percona-server/8.0")
 
-CockroachDB(KV结构) [http://doc.cockroachchina.baidu.com](http://doc.cockroachchina.baidu.com "http://doc.cockroachchina.baidu.com")
+CockroachDB(KV结构,同时支持轻量级OLAP) [http://doc.cockroachchina.baidu.com](http://doc.cockroachchina.baidu.com "http://doc.cockroachchina.baidu.com")
 
-**不支持SQL的** 
+**不支持SQL的 (嵌入式数据库,都不支持分布式)** 
 
 LevelDB(KV结构) [https://github.com/google/leveldb/blob/master/doc/index.md](https://github.com/google/leveldb/blob/master/doc/index.md "https://github.com/google/leveldb/blob/master/doc/index.md")
 
