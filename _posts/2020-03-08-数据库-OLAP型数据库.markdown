@@ -1,0 +1,54 @@
+---
+layout: post
+title:  "数据库-OLAP型数据库"
+tags: 数据库
+---
+
+**OLAP(OnLine Analytical Processing，在线分析处理)**
+
+**OLAP是面向分析查询数据库的统称 (常见于数据分析系统)**
+
+- 数据分析的目标则是探索并挖掘数据价值，作为企业高层进行决策的参考，
+
+- 数据分析的体系建设往往是在初次进行信息化建设后某个时间开始.
+
+- OLAP不应该对OLTP产生任何影响，（理想情况下）OLTP应该完全感觉不到OLAP的存在。
+
+**OLAP的准则和特性**
+
+    E.F.Codd提出了关于OLAP的12条准则：
+    
+    准则1 OLAP模型必须提供多维概念视图
+    准则2 透明性准则
+    准则3 存取能力准则
+    准则4 稳定的报表能力
+    准则5 客户/服务器体系结构
+    准则6 多维的等同性准则
+    准则7 动态的稀疏矩阵处理准则
+    准则8 多用户支持能力准则
+    准则9 非受限的跨维操作
+    准则10 直观的数据操纵
+    准则11 灵活的报表生成
+    准则12 不受限的维与聚集层次
+
+**OLTP常见的数据库有**:
+
+**支持SQL的**
+
+Hive  [https://hive.apache.org/](https://hive.apache.org/ "https://hive.apache.org/")
+
+Sparksql [https://spark.apache.org/sql/](https://spark.apache.org/sql/ "https://spark.apache.org/sql/")
+
+Druid [https://druid.apache.org/](https://druid.apache.org/ "https://druid.apache.org/")
+
+Clickhouse [https://clickhouse.tech/docs/zh](https://clickhouse.tech/docs/zh "https://clickhouse.tech/docs/zh")
+
+Hawq [http://hawq.apache.org](http://hawq.apache.org "http://hawq.apache.org")
+
+Presto [https://prestodb.github.io](https://prestodb.github.io "https://prestodb.github.io")
+
+Kylin  [https://pingcap.com/docs-cn](https://pingcap.com/docs-cn "https://pingcap.com/docs-cn")
+
+Impala [https://impala.apache.org/](https://impala.apache.org/ "https://impala.apache.org/")
+
+Greeplum [https://greenplum.org](https://greenplum.org "https://greenplum.org")

@@ -1,0 +1,47 @@
+---
+layout: post
+title:  "数据库-OLTP型数据库"
+tags: 数据库
+---
+
+**OLTP(OnLine Transaction Processing，在线事务处理)**
+
+**OLTP是面向交易事物数据库的统称 (常见于业务系统)**
+
+- 业务类系统主要供基层人员使用，进行一线业务操作.
+
+- OLTP负责基本业务的正常运转，
+
+**OLTP常见的数据库有**:
+
+**支持SQL的**
+
+ClickHouse  [https://dev.mysql.com/doc](https://dev.mysql.com/doc "https://dev.mysql.com/doc")
+
+Oracle [https://docs.oracle.com/en/database/oracle/oracle-database/19](https://docs.oracle.com/en/database/oracle/oracle-database/19 "https://docs.oracle.com/en/database/oracle/oracle-database/19")
+
+SqlServer [https://docs.microsoft.com/zh-cn/sql/sql-server](https://docs.microsoft.com/zh-cn/sql/sql-server "https://docs.microsoft.com/zh-cn/sql/sql-server")
+
+TIDB  [https://pingcap.com/docs-cn](https://pingcap.com/docs-cn "https://pingcap.com/docs-cn")
+
+PostgreSQL [http://www.postgres.cn/docs/11](http://www.postgres.cn/docs/11 "http://www.postgres.cn/docs/11")
+
+TokuDB [https://www.percona.com/doc/percona-server/8.0](https://www.percona.com/doc/percona-server/8.0 "https://www.percona.com/doc/percona-server/8.0")
+
+CockroachDB(KV结构) [http://doc.cockroachchina.baidu.com](http://doc.cockroachchina.baidu.com "http://doc.cockroachchina.baidu.com")
+
+**不支持SQL的** 
+
+LevelDB(KV结构) [https://github.com/google/leveldb/blob/master/doc/index.md](https://github.com/google/leveldb/blob/master/doc/index.md "https://github.com/google/leveldb/blob/master/doc/index.md")
+
+RocksDB(KV结构) [https://rocksdb.org.cn/doc/getting-started.html](https://rocksdb.org.cn/doc/getting-started.html "https://rocksdb.org.cn/doc/getting-started.html")
+
+
+**OLAP常见数据结构**
+
+1.B树，B+树,(mysql,PostgreSQL)
+
+2.LSM树（LevelDB,RocksDB，TIDB，CockroachDB）
+
+3.基于B+树和LSM树改良的树，比如Fractal树(TokuDB)
+
