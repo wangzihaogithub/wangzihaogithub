@@ -36,39 +36,41 @@ tags: 数据库
 
 - 强一致. XA规范
   
-  
-    前提
-        XA需要有协调者,记录全局事务ID与处理检查点。
-        可以2阶段提交(2pc)或3阶段提交(3pc)
-    优点: 
-        使用方便
-    缺点: 
-        但并发度不高,因为会阻塞,提交时要等所有方ack.
-    
-    Mysql XA命令如下
-        XA {START|BEGIN} xid [JOIN|RESUME]
+      
+      
+        前提
+            XA需要有协调者,记录全局事务ID与处理检查点。
+            可以2阶段提交(2pc)或3阶段提交(3pc)
+        优点: 
+            使用方便
+        缺点: 
+            但并发度不高,因为会阻塞,提交时要等所有方ack.
         
-        XA END xid [SUSPEND [FOR MIGRATE]]
+        Mysql XA命令如下
+            XA {START|BEGIN} xid [JOIN|RESUME]
+            
+            XA END xid [SUSPEND [FOR MIGRATE]]
+            
+            XA PREPARE xid
+            
+            XA COMMIT xid [ONE PHASE]
+            
+            XA ROLLBACK xid
+            
+            XA RECOVER [CONVERT XID]
         
-        XA PREPARE xid
         
-        XA COMMIT xid [ONE PHASE]
-        
-        XA ROLLBACK xid
-        
-        XA RECOVER [CONVERT XID]
-    
-    
-    现有框架：
-        java的JTA
-        
-        JTA的实现有 atomikos，seata，mycat1.x 
-            mycat1.x版本基于本地文件日志与UUID实现的XA，
-            mycat2.x版本基于atomikos实现的XA.
+        现有框架：
+            java的JTA
+            
+            JTA的实现有 atomikos，seata，mycat1.x 
+                mycat1.x版本基于本地文件日志与UUID实现的XA，
+                mycat2.x版本基于atomikos实现的XA.
     
     
 
 - 最终一致. TCC(Try,Confirm,Cancel)补偿机制
+
 
 
         前提:
@@ -80,8 +82,10 @@ tags: 数据库
         
         优点: 
             比XA并发度高, 因为不阻塞
+            
         缺点: 
             入侵业务,需要自己实现补偿.
+            
         现有框架： seata
             Seata AT 模式
                 两阶段提交协议的演变：
