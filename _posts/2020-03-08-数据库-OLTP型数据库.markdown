@@ -50,3 +50,10 @@ RocksDB(KV结构) [https://rocksdb.org.cn/doc/getting-started.html](https://rock
 
 3.基于B+树和LSM树改良的树，比如Fractal树(TokuDB)
 
+ ---
+ 
+**补充**
+
+MongoDB与Redis不属于OLTP与OLAP, 
+
+因为他们即不支持事物也不支持复杂查询, 只能称得上是缓存服务.
