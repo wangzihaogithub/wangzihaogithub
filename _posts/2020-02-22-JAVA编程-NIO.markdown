@@ -4,7 +4,7 @@ title:  "JAVA编程-NIO"
 tags: JAVA编程
 ---
 
-### NIO核心包,类关系,内存拷贝情况
+### java.nio底层使用的类如下
 
 **核心包**
 
@@ -25,7 +25,8 @@ tags: JAVA编程
 
 **IO拷贝的逻辑**
 
-- NativeDispatcher接口为 xxx(FileDescriptor, long address, int length), 意思=方法名(文件句柄, 堆外内存地址, 读/写长度)
+- NativeDispatcher接口为 read|write|close(FileDescriptor, long address, int length)
+                        读|写|关(文件句柄, 堆外内存地址, 读/写长度)
 
 - debug后可以看出,所有IO操作都是通过 sun.nio.ch.IOUtil操作的. IOUtil进行如下判断
 
