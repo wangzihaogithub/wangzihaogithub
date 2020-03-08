@@ -22,55 +22,89 @@ tags: JAVA编程
 
  ---
  
-### java1.7的ConcurrentHashMap细节 (数组 + Map实现)
+### java1.7的ConcurrentHashMap细节 (数组 + HashMap实现)
 
 **1.内部关键字段**
 
-    class Segment {
-         private HashEntry[] entries = null;//我其实就是HashMap的实现
-    }
-    
     final Segment[] segments //让每次操作都落到不同的Map上,减少并发颗粒度
     
+    class Segment extends ReentrantLock {
+         private HashEntry[] entries = null;//我就是HashMap的实现
+    }
     
-**2.临界区竞争点** 
-
-    1.初始化某个段(Segment)时 entries[] = new HashEntry[];  
-        方式: cas + lock 
-    2.操作某个段(Segment)中的 entries时;   
-        方式: 上锁 trylock重试失败大于64次就lock
-
+    static class HashEntry<K,V> {
+        final K key;
+        volatile V value;
+        final HashEntry<K,V> next;
+    }
     
-**3.如何降低并发度** 
+**2.知识前提**
 
-    1. Segment[].length越大,并发度越高, 并发级别参数(concurrencyLevel)控制着Segment[].length
-    2. 操作某个Segment中的Map会出现竞争,则trylock + lock
+        1. HashEntry[] entries是存储用户数据的地方. HashEntry[]是数组, HashEntry是链表
+      
+        2. HashMap的结构 (数组 + 链表) 
+                数组: HashEntry[] entries
+                链表: HashEntry.next
+        
+        3. 数组的落点segments[index], 这个index是由hash算法算出来的.
+        
+        4. Segment实现了锁, 即trylock,lock方法和unlock方法
+                
+        5. 一旦index落到某个Segment上, 那么这个Segment会被上锁.
+        
+**3.临界竞争区** 
 
+    1.put触发=为某个段(Segment)初始化赋值时,
+        segments[index].entries = new HashEntry[size];  
+        竞争点: cas + Segment.lock()
+        时机: segments[index].entries == null. 注: 实际代码是用cas判断的
+        
+    2.put,clear,remove触发=操作某个段entries时,
+        竞争点: 上锁. Segment.trylock()尝试N次失败后,调用Segment.lock(). 注: N次=单核CPU是1次,否则是64次 
+        时机: hash落点一样时,segments[index]
+
+    3.rehash触发=扩容时,
+        竞争点: 调用rehash方法的前提是已经获得了锁，所以扩容过程中不存在其他线程修改数据
+        时机: rehash(HashEntry<K,V> node)
+    
+**3.如何提升并发能力** 
+
+    Segment[].length越大,并发能力越高, 
+    因为落到相同地方(Segment[index])的可能性就越小, 只有落点相同才会lock
+    并发级别参数(concurrencyLevel)控制着Segment[].length
 
  ---
  
 ### java1.8的ConcurrentHashMap细节 (数组 + 链表实现)
 
-**1.知识前提**
+**1.内部关键字段**
+ 
+    volatile Node[] table; //用来实现存储
+    volatile Node[] nextTable; //用来接收扩容期间的查询
 
+    static class Node<K,V> implements Map.Entry<K,V> {
+        final K key;
+        V value;
+        Node<K,V> next;
+    }
+    
+**2.知识前提**
+        
         1. HashMap的结构 (数组 + 链表) 
                 数组: Node[] table
-                链表: Node = {key,value,next}
+                链表: Node.next
                 
-        2. Node的子类有 
+        2. 数组的落点table[index], 这个index是由hash算法算出来的.
+        
+        3. 查询请求是table[index].find()方法实现的
+
+        4. Node的子类有 
                 ForwardingNode(扩容期间临时用)
                 ReservationNode(方法computeIfAbsent或compute时用.这个类的查询find()永远返回null)
                 TreeBin,TreeNode (链表长度大于8时用)
 
-        3. 查询请求是由table[index].find()方法处理的
-    
-**2.内部关键字段**
- 
-    volatile Node[] table = {key,value,next} //用来实现存储
-    volatile Node[] nextTable = {key,value,next}//用来实现扩容期间的查询
-
-
-**3.临界区竞争点** 
+      
+**3.临界竞争区** 
 
         1.put触发=初始化表时,     
             table[] = new Node[32]; 
@@ -85,7 +119,7 @@ tags: JAVA编程
         2.put触发=存储数据时(拉链表),
             table[i].next = new Node; 
             竞争点: synchronized(Node)
-            时机: hash落点一样时[index]
+            时机: hash落点一样时,table[index]
             
         3.put触发=树化时,
             table[i] = new TreeBin; 
@@ -106,17 +140,21 @@ tags: JAVA编程
         5.merge触发=赋值时,
             table[i].next = new Node; 
             竞争点: synchronized(Node)
-            时机: hash落点一样时[index]
+            时机: hash落点一样时,table[index]
             
         5.remove触发=删除时,
             table[i].next = pred.next; (移除链表引用)
             竞争点: synchronized(Node)
-            时机: hash落点一样时[index]
+            时机: hash落点一样时,table[index]
                       
         6.其他增删改操作时
             竞争点: synchronized(Node)
-            时机: hash落点一样时[index]
-            
+            时机: hash落点一样时,table[index]
+        
+        补充: 在多线程增删改时,
+              如果当前Node状态是正在扩容,则会帮助这个Node迁移数据(调用helpTransfer方法).
+        
+        
 **4.树化后的结构如下**
 
         table[i] = new TreeBin(new TreeNode());
