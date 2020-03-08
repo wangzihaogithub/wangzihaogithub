@@ -25,8 +25,11 @@ tags: JAVA编程
 
 **IO拷贝的逻辑**
 
-- NativeDispatcher接口为 read|write|close(FileDescriptor, long address, int length)
-                        读|写|关(文件句柄, 堆外内存地址, 读/写长度)
+- NativeDispatcher接口
+ 
+            read write close(FileDescriptor, long address, int length)
+            
+            读 写 关(文件句柄, 堆外内存地址, 读/写长度)
 
 - debug后可以看出,所有IO操作都是通过 sun.nio.ch.IOUtil操作的. IOUtil进行如下判断
 
