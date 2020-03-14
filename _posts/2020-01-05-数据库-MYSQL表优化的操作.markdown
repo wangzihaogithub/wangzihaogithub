@@ -8,8 +8,12 @@ Mysql原版文档 [https://dev.mysql.com/doc](https://dev.mysql.com/doc "https:/
 
 Mysql中文文档 [https://www.docs4dev.com/docs/zh/mysql/5.7/reference/manual-info.html](https://www.docs4dev.com/docs/zh/mysql/5.7/reference/manual-info.html "https://www.docs4dev.com/docs/zh/mysql/5.7/reference/manual-info.html")
 
+数据结构可视化 [https://www.cs.usfca.edu/~galles/visualization/Algorithms.html](https://www.cs.usfca.edu/~galles/visualization/Algorithms.html "https://www.cs.usfca.edu/~galles/visualization/Algorithms.html")
+
+![bplug树](../../../images/postimg/bplug树.png)
+
 ### 索引信息表. `innodb_sys_indexes`,`index_statistics` 
-        
+
 **查看索引树深度** 
     
     SELECT t1.PAGE_NO AS '索引高度',t1.*,t2.*

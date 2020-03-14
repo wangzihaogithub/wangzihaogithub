@@ -4,6 +4,12 @@ title:  "数据库-调优"
 tags: 数据库
 ---
 
+Mysql原版文档 [https://dev.mysql.com/doc](https://dev.mysql.com/doc "https://dev.mysql.com/doc")
+
+Mysql中文文档 [https://www.docs4dev.com/docs/zh/mysql/5.7/reference/manual-info.html](https://www.docs4dev.com/docs/zh/mysql/5.7/reference/manual-info.html "https://www.docs4dev.com/docs/zh/mysql/5.7/reference/manual-info.html")
+
+数据结构可视化 [https://www.cs.usfca.edu/~galles/visualization/Algorithms.html](https://www.cs.usfca.edu/~galles/visualization/Algorithms.html "https://www.cs.usfca.edu/~galles/visualization/Algorithms.html")
+
 数据库调优分为[客户端层面,服务端层面]
     
      客户端层面
@@ -388,3 +394,5 @@ show status like '%Aborted_clients%'
  - [MYSQL数据库调优就是这么简单](https://baijiahao.baidu.com/s?id=1577967938491706816&wfr=spider&for=pc "MYSQL数据库调优就是这么简单")
 
  - [MySQL/Oracle数据库优化总结（非常全面）](https://blog.csdn.net/baidu_37107022/article/details/77460464 "MySQL/Oracle数据库优化总结（非常全面）")
+
+![bplug树](../../../images/postimg/bplug树.png)

@@ -6,10 +6,13 @@ tags: 数据库
 
 **mysql官方文档-首页**
 
-[https://dev.mysql.com/doc](https://dev.mysql.com/doc "https://dev.mysql.com/doc")
+Mysql原版文档 [https://dev.mysql.com/doc](https://dev.mysql.com/doc "https://dev.mysql.com/doc")
 
+Mysql中文文档 [https://www.docs4dev.com/docs/zh/mysql/5.7/reference/manual-info.html](https://www.docs4dev.com/docs/zh/mysql/5.7/reference/manual-info.html "https://www.docs4dev.com/docs/zh/mysql/5.7/reference/manual-info.html")
 
-中文文档 [https://www.docs4dev.com/docs/zh/mysql/5.7/reference/manual-info.html](https://www.docs4dev.com/docs/zh/mysql/5.7/reference/manual-info.html "https://www.docs4dev.com/docs/zh/mysql/5.7/reference/manual-info.html")
+数据结构可视化 [https://www.cs.usfca.edu/~galles/visualization/Algorithms.html](https://www.cs.usfca.edu/~galles/visualization/Algorithms.html "https://www.cs.usfca.edu/~galles/visualization/Algorithms.html")
+
+![bplug树](../../../images/postimg/bplug树.png)
 
  ---
 
