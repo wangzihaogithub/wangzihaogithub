@@ -4,6 +4,10 @@ title:  "数据库-MYSQL表优化的操作"
 tags: 数据库
 ---
 
+Mysql原版文档 [https://dev.mysql.com/doc](https://dev.mysql.com/doc "https://dev.mysql.com/doc")
+
+Mysql中文文档 [https://www.docs4dev.com/docs/zh/mysql/5.7/reference/manual-info.html](https://www.docs4dev.com/docs/zh/mysql/5.7/reference/manual-info.html "https://www.docs4dev.com/docs/zh/mysql/5.7/reference/manual-info.html")
+
 ### 索引信息表. `innodb_sys_indexes`,`index_statistics` 
         
 **查看索引树深度** 
