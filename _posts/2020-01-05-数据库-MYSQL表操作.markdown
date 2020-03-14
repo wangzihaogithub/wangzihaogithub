@@ -1,0 +1,188 @@
+---
+layout: post
+title:  "数据库-MYSQL表操作"
+tags: 数据库
+---
+
+### 索引信息表. `innodb_sys_indexes`,`index_statistics` 
+
+**查看索引命中次数统计** 
+
+      SELECT * FROM information_schema.index_statistics 
+        
+**查看索引树深度** 
+    
+    每深一层,就多一次磁盘IO去查询这页上的数据. 
+    用B+树就是为了减少磁盘交互,因为B+树比二叉树的深度低. (B+树是用于IO型的数据结构)
+    每次取某一层的页数据时,都是顺序读盘的(顺序度能减少磁柱挪动).
+    
+    SELECT t1.PAGE_NO AS '索引高度',t1.*,t2.*
+    FROM information_schema.innodb_sys_indexes AS t1,
+           information_schema.innodb_sys_tables AS t2
+    WHERE t1.TABLE_ID= t2.TABLE_ID
+       AND t2.NAME like 'my_schema_name%'
+       AND t1.SPACE!= 0
+    ORDER BY t1.PAGE_NO DESC
+    
+### 当前执行中的事物表. `innodb_trx`
+
+    SELECT * FROM information_schema.innodb_trx 
+    
+### 计数表-各个表的增删改查的次数. `table_statistics`
+
+    SELECT * FROM information_schema.table_statistics 
+    
+### IO统计表. `io_statistics`
+
+    SELECT * FROM information_schema.io_statistics
+     
+### 缓冲区状态表. `innodb_buffer_pool_stats`
+
+    SELECT * FROM information_schema.innodb_buffer_pool_stats 
+
+### 查看优化后的SQL
+
+    EXPLAIN EXTENDED SELECT * FROM my_table WHERE id = 1;
+    SHOW WARNINGS;
+    
+ ---    
+ 
+### MYSQL-show命令集
+
+**表**
+
+    1. show databases; -- 显示mysql中所有数据库的名称。 
+    2. show create database `database_name`; -- 显示create database 语句是否能够创建指定的数据库。 
+    
+    3. show table status; -- 显示当前使用或者指定的database中的每个表的信息。信息包括表类型和表的最新更新时间。 
+    4. show table status from `database_name`;
+    5. show tables from `database_name`; -- 显示当前数据库中所有表名称。 
+    6. show create table `table_name`; -- 显示create database 语句是否能够创建指定的数据库。 
+    
+    7. show columns from `database_name`.`table_name`; -- 显示列名。 
+    8. show index from `table_name`; -- 显示索引。 
+        
+**权限**
+    
+    1. show grants for `user_name`; -- 显示一个用户的权限，显示结果类似于grant 命令。 
+    2. show privileges; -- 显示服务器所支持的不同权限。 
+
+**系统**
+
+    1. show status; -- 显示一些系统特定资源的信息，例如，正在运行的线程数量。 
+    2. show variables; -- 显示系统变量的名称和值。 
+    3. show variables like '%my_name%'; 
+    4. show full processlist; -- 显示系统中正在运行的所有进程，也就是当前正在执行的查询。大多数用户可以查看他们自己的进程，但是如果他们拥有process权限，就可以查看所有人的进程，包括密码。 
+ 
+**日志**
+
+    1. show binary logs; --列出所有binlog文件
+    2. show master status;--查看当前正在写入的binlog文件
+    3. show binlog events limit 100,10;--只查看第一个binlog文件的内容
+    4. show binlog events in 'mysql-bin.000002' limit 100,10;--查看指定binlog文件的内容
+    5. show warnings; -- 显示最后一个执行的语句所产生的错误、警告和通知。 
+    6. show errors; -- 只显示最后一个执行语句所产生的错误。 
+        
+**存储引擎**
+
+    1. show engines; --显示安装后的可用存储引擎和默认引擎。
+    2. show engine innodb status; -- 显示innoDB存储引擎的状态。 
+    
+**字符集编码**
+    
+    1. show character set;--查看一个字符占几个字节
+
+ ---    
+     
+### where子查询
+
+**行子查询** (以前没用过,我刚发现)
+
+    select * from my_table where (create_time,last_login_time) = (select max(create_time),max(last_login_time) from my_table);
+
+与下面这两个是一类的(列子查询,标量子查询)
+
+    select * from my_table where id in (select id from my_table2 where name='a');
+    select * from my_table where id = (select id from my_table2 where name='a');
+
+ --- 
+
+### mysql变量操作
+    
+- **查询** 
+
+        select @@autocommit,@@auto_increment_increment;
+        show variables like 'auto_increment_increment';
+        
+        
+- **查询并修改会话变量** 
+
+        select @变量名:=select 字段 from 表;
+    
+    
+- **修改会话变量** 
+
+        set @变量名:=值;
+
+
+- **修改系统变量(只对新客户端生效)** 
+
+        set global 变量名:=值; 
+        set @@gloabl.变量名:=值;
+ 
+ 
+- **修改系统变量(只对当前客户端生效)**  
+
+        set 变量名:=值;
+    
+ ---
+ 
+ 
+### DDL的3种策略(INPLACE,COPY,ONLINE)与3种锁方式(NONE,SHARED,EXCLUSIVE)
+ 
+**SQL语法**
+
+    ALTER TABLE `db1`.`address` 
+    CHANGE COLUMN `addressname` `addressname` VARCHAR(21) NULL DEFAULT NULL 
+    , ALGORITHM = COPY, LOCK = SHARED;
+
+**3种锁方式**
+
+    NONE=无锁
+    SHARED=共享锁(相当于读锁的意思)
+    EXCLUSIVE=排它锁(相当于写锁的意思)
+
+- 1 Copy Table方式 (举例)
+ 
+         这是InnoDB最早支持的创建索引的方式。顾名思义，创建索引是通过临时表拷贝的方式实现的。
+         
+         新建一个带有新索引的临时表，将原表数据全部拷贝到临时表，然后Rename，完成创建索引的操作。
+         
+         这个方式创建索引，创建过程中，原表是可读的。但是会消耗一倍的存储空间。
+ 
+- 2 Inplace方式 (举例)
+
+         这是原生MySQL 5.5，以及innodb_plugin中提供的创建索引的方式。
+         所谓Inplace，也就是索引创建在原表上直接进行，不会拷贝临时表。
+         相对于Copy Table方式，这是一个进步。
+         
+         Inplace方式创建索引，创建过程中，原表同样可读的，但是不可写。
+ 
+- 3 Online方式 (举例)
+
+         这是MySQL 5.6.7中提供的创建索引的方式。
+         无论是Copy Table方式，还是Inplace方式，创建索引的过程中，原表只能允许读取，不可写。
+         对应用有较大的限制，因此MySQL最新版本中，InnoDB支持了所谓的Online方式创建索引。
+         
+         InnoDB的Online Add Index，
+         首先是Inplace方式创建索引，无需使用临时表。
+         在遍历聚簇索引，收集记录并插入到新索引的过程中，原表记录可修改。
+         而修改的记录保存在Row Log中。当聚簇索引遍历完毕，并全部插入到新索引之后，
+         重放Row Log中的记录修改，使得新索引与聚簇索引记录达到一致状态。
+         
+         与Copy Table方式相比，Online Add Index采用的是Inplace方式，
+         无需Copy Table，减少了空间开销；
+         与此同时，Online Add Index只有在重放Row Log最后一个Block时锁表，减少了锁表的时间。
+         
+         与Inplace方式相比，Online Add Index吸收了Inplace方式的优势，却减少了锁表的时间。
+     
