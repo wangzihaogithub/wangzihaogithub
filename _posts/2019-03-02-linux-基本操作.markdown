@@ -8,6 +8,10 @@ tags: linux
 
  - [http://www.runoob.com/linux/linux-command-manual.html](http://www.runoob.com/linux/linux-command-manual.html "http://www.runoob.com/linux/linux-command-manual.html")
 
+### 开发者中文文档大全(有java8, spring全家桶, mysql, nginx, Hive, HBase等等)
+
+ - [https://www.docs4dev.com](https://www.docs4dev.com "https://www.docs4dev.com")
+
 
 ---
 

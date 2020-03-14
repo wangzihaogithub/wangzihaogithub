@@ -8,6 +8,9 @@ tags: 数据库
 
 [https://dev.mysql.com/doc](https://dev.mysql.com/doc "https://dev.mysql.com/doc")
 
+
+中文文档 [https://www.docs4dev.com/docs/zh/mysql/5.7/reference/manual-info.html](https://www.docs4dev.com/docs/zh/mysql/5.7/reference/manual-info.html "https://www.docs4dev.com/docs/zh/mysql/5.7/reference/manual-info.html")
+
  ---
 
  **mysql官方文档-握手包**

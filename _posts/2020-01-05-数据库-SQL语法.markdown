@@ -4,6 +4,20 @@ title:  "数据库-SQL语法"
 tags: 数据库
 ---
 
+### 查看索引树深度
+    
+    每深一层,就多一次磁盘IO去查询这页上的数据. 
+    用B+树就是为了减少磁盘交互,因为B+树比二叉树的深度低. (B+树是用于IO型的数据结构)
+    每次取某一层的页数据时,都是顺序读盘的(顺序度能减少磁柱挪动).
+    
+    SELECT t1.PAGE_NO AS '索引高度',t1.*,t2.*
+    FROM information_schema.INNODB_SYS_INDEXES AS t1,
+           information_schema.INNODB_SYS_TABLES AS t2
+    WHERE t1.TABLE_ID= t2.TABLE_ID
+       AND t2.NAME like 'my_schema_name%'
+       AND t1.SPACE!= 0
+    ORDER BY t1.PAGE_NO DESC
+ 
 ### 查看优化后的SQL
 
     EXPLAIN EXTENDED SELECT * FROM my_table WHERE id = 1;
