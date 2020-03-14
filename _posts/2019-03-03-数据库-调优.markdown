@@ -398,3 +398,5 @@ show status like '%Aborted_clients%'
 ![bplug树](../../../images/postimg/bplug树.png)
 
 ![innodb辅助索引回表](../../../images/postimg/innodb辅助索引回表.png)
+
+![覆盖索引非回表.png](../../../images/postimg/覆盖索引非回表.png)
