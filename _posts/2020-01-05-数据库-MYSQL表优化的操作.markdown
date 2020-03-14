@@ -12,9 +12,9 @@ Mysql中文文档 [https://www.docs4dev.com/docs/zh/mysql/5.7/reference/manual-i
 
 ### 索引信息表. `innodb_sys_indexes`,`index_statistics` 
 
-**hash索引用于等值查询,不能排序,不能范围查询**
+**hash索引** 用于等值查询,不能排序,不能范围查询
 
-**btree索引用于排序,范围查询**
+**btree索引** 用于排序,范围查询
 
 **索引离散度**
 
