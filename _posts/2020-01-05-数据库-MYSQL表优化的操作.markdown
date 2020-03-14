@@ -12,9 +12,16 @@ Mysql中文文档 [https://www.docs4dev.com/docs/zh/mysql/5.7/reference/manual-i
 
 ### 索引信息表. `innodb_sys_indexes`,`index_statistics` 
 
-索引离散度=DISTINCT(username)/username
+**索引离散度**
 
-离散度大于30%就放弃使用索引
+    离散度 = DISTINCT(username)/username
+
+**离散度大于30%就放弃使用索引**
+
+**索引最左匹配原则**
+
+    index_name.equals(find)//这个索引建多余了
+    (index_name+index_phone).equals(find)
 
 **查看索引树深度** 
     
