@@ -12,6 +12,10 @@ Mysql中文文档 [https://www.docs4dev.com/docs/zh/mysql/5.7/reference/manual-i
 
 ### 索引信息表. `innodb_sys_indexes`,`index_statistics` 
 
+索引离散度=DISTINCT(username)/username
+
+离散度大于30%就放弃使用索引
+
 **查看索引树深度** 
     
     SELECT t1.PAGE_NO AS '索引高度',t1.*,t2.*
@@ -196,3 +200,5 @@ Mysql中文文档 [https://www.docs4dev.com/docs/zh/mysql/5.7/reference/manual-i
 
 
 ![bplug树](../../../images/postimg/bplug树.png)
+
+![innodb辅助索引回表](../../../images/postimg/innodb辅助索引回表.png)

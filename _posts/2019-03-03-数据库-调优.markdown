@@ -396,3 +396,5 @@ show status like '%Aborted_clients%'
  - [MySQL/Oracle数据库优化总结（非常全面）](https://blog.csdn.net/baidu_37107022/article/details/77460464 "MySQL/Oracle数据库优化总结（非常全面）")
 
 ![bplug树](../../../images/postimg/bplug树.png)
+
+![innodb辅助索引回表](../../../images/postimg/innodb辅助索引回表.png)

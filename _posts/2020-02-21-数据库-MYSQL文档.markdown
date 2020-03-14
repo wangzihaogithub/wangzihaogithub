@@ -34,3 +34,5 @@ Mysql中文文档 [https://www.docs4dev.com/docs/zh/mysql/5.7/reference/manual-i
 
 
 ![bplug树](../../../images/postimg/bplug树.png)
+
+![innodb辅助索引回表](../../../images/postimg/innodb辅助索引回表.png)
