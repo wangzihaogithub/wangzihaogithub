@@ -12,8 +12,6 @@ Mysql中文文档 [https://www.docs4dev.com/docs/zh/mysql/5.7/reference/manual-i
 
 数据结构可视化 [https://www.cs.usfca.edu/~galles/visualization/Algorithms.html](https://www.cs.usfca.edu/~galles/visualization/Algorithms.html "https://www.cs.usfca.edu/~galles/visualization/Algorithms.html")
 
-![bplug树](../../../images/postimg/bplug树.png)
-
  ---
 
  **mysql官方文档-握手包**
@@ -33,3 +31,6 @@ Mysql中文文档 [https://www.docs4dev.com/docs/zh/mysql/5.7/reference/manual-i
 [http://www.mycat.io/document/mycat-definitive-guide.pdf](http://www.mycat.io/document/mycat-definitive-guide.pdf "http://www.mycat.io/document/mycat-definitive-guide.pdf")
 
 [(点我另存为下载) mycat权威指南第一版 2018.8.18 (1).pdf](/files/mycat权威指南第一版 2018.8.18 (1).pdf "(点我下载)mycat权威指南第一版 2018.8.18 (1).pdf"). 
+
+
+![bplug树](../../../images/postimg/bplug树.png)
