@@ -4,6 +4,14 @@ title:  "数据库-存储引擎"
 tags: 数据库
 ---
 
+**供新手学习的极简java数据库 (支持sql,带教学视频与讲师)** 
+
+vanilladb [http://www.vanilladb.org/](http://www.vanilladb.org/ "http://www.vanilladb.org/")
+
+[https://github.com/vanilladb/vanillacore](https://github.com/vanilladb/vanillacore "https://github.com/vanilladb/vanillacore")
+
+
+
 ### MYSQL-8.0的所有存储引擎
 
 

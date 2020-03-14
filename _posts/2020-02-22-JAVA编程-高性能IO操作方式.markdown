@@ -1,8 +1,23 @@
 ---
 layout: post
-title:  "JAVA编程-NIO"
+title:  "JAVA编程-高性能IO操作方式"
 tags: JAVA编程
 ---
+
+**高性能IO操作方式**
+
+- FileChannel使用的ByteBuffer一定要以4k的倍数操作
+
+- 写入一定要加锁,不然并发时数据一定会错乱
+
+- 保持顺序读或写操作(如果不能保持,请将文件分片后再保持顺序读写)
+
+- 写入读取请使用堆外内存
+
+- 复制内存请使用: 堆内System.arraycopy, 堆外unsafe.copyMemory
+
+- 可以尝试使用DIO. https://github.com/smacke/jaydio
+
 
 ### java.nio底层使用的类如下
 

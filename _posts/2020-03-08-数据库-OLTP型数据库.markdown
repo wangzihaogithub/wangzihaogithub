@@ -42,7 +42,17 @@ RocksDB(KV结构) [https://rocksdb.org.cn/doc/getting-started.html](https://rock
 
  --- 
  
-**OLAP常见数据结构**
+**流媒体存储数据库 (支持分布式)** 
+
+ambry [https://github.com/linkedin/ambry](https://github.com/linkedin/ambry "https://github.com/linkedin/ambry")
+
+
+**供新手学习的极简java数据库 (支持sql,带教学视频与讲师)** 
+
+vanilladb [http://www.vanilladb.org/](http://www.vanilladb.org/ "http://www.vanilladb.org/")
+
+
+**OLTP常见数据结构**
 
 1.B树，B+树,(mysql,PostgreSQL)
 
