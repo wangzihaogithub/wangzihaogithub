@@ -16,7 +16,7 @@ tags: JAVA编程
 
 - 复制内存请使用: 堆内System.arraycopy, 堆外unsafe.copyMemory
 
-- 可以尝试使用DIO. https://github.com/smacke/jaydio
+- 可以尝试使用DIO. [https://github.com/smacke/jaydio](https://github.com/smacke/jaydio "https://github.com/smacke/jaydio")
 
 
 ### java.nio底层使用的类如下
