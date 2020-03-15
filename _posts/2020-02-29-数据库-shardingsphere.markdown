@@ -8,6 +8,7 @@ tags: 数据库
 
 下面是图片
 
+![分库分表工具集](../../../images/postimg/分库分表工具集.png)
 
 ![shardingsphere](../../../images/postimg/shardingsphere_1.jpg)
 

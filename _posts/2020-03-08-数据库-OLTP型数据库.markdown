@@ -67,3 +67,6 @@ vanilladb [http://www.vanilladb.org/](http://www.vanilladb.org/ "http://www.vani
 MongoDB与Redis不属于OLTP与OLAP, 
 
 因为他们即不支持事物也不支持复杂查询, 只能称得上是缓存服务.
+
+
+![分库分表工具集](../../../images/postimg/分库分表工具集.png)

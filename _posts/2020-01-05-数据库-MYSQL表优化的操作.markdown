@@ -209,6 +209,7 @@ Mysql中文文档 [https://www.docs4dev.com/docs/zh/mysql/5.7/reference/manual-i
          与Inplace方式相比，Online Add Index吸收了Inplace方式的优势，却减少了锁表的时间。
      
 
+![分库分表工具集](../../../images/postimg/分库分表工具集.png)
 
 ![bplug树](../../../images/postimg/bplug树.png)
 
