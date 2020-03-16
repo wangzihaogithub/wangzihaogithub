@@ -18,6 +18,8 @@ tags: 数据库
 
 **支持SQL的 (都支持分布式)**
 
+阿里云 DRDS(分布式数据库)[https://www.aliyun.com/product/drds](https://www.aliyun.com/product/drds "https://www.aliyun.com/product/drds")
+
 Mysql  [https://dev.mysql.com/doc](https://dev.mysql.com/doc "https://dev.mysql.com/doc")
 
 Oracle [https://docs.oracle.com/en/database/oracle/oracle-database/19](https://docs.oracle.com/en/database/oracle/oracle-database/19 "https://docs.oracle.com/en/database/oracle/oracle-database/19")

@@ -56,3 +56,5 @@ Kylin  [https://pingcap.com/docs-cn](https://pingcap.com/docs-cn "https://pingca
 Impala [https://impala.apache.org/](https://impala.apache.org/ "https://impala.apache.org/")
 
 Greeplum [https://greenplum.org](https://greenplum.org "https://greenplum.org")
+
+阿里云 AnalyticDB for MySQL(OLAP型分布式mysql) [https://help.aliyun.com/document_detail/93776.html](https://help.aliyun.com/document_detail/93776.html "https://help.aliyun.com/document_detail/93776.html")
