@@ -6,13 +6,13 @@ tags: 数据库
 
 ### mycat整体分为如下3部分
 
-- 前端链接器 io.mycat.proxy.handler.MycatHandler
+- **前端链接器** io.mycat.proxy.handler.MycatHandler
 
     1.处理网络事件 (接入链接, 读, 写, 关闭)
 
-- 分析器 io.mycat.client.MycatClient#analysis(String sql)
+- **分析器** io.mycat.client.MycatClient#analysis(String sql)
 
-    **确认以下结果**
+    确认以下结果
     
     1.哪个目标数据源 
     
@@ -26,17 +26,22 @@ tags: 数据库
     
     6.用哪个执行器
 
-- 执行器  
+- **执行器**  
 
    1.根据事物级别,建立后端数据库的链接 (两个实现 1.proxy 2.jdbc(xa))
    
    2.增加mycat的sql语法 
    
    3.选择数据库的客户端. proxy 或 jdbc
+   
    代码: 接口 io.mycat.Command
+   
         io.mycat.upondb.MycatDBClientApi (用于实现mycat自己的语法)
+        
         io.mycat.proxy.handler.BackendNIOHandler
-        io.mycat.MySQLTaskUtil#proxyBackend ()
+        
+        io.mycat.MySQLTaskUtil#proxyBackend
+        
         TransactionSessionUtil
 
 ### mycat链接器
