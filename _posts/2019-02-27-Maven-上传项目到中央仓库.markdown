@@ -4,6 +4,8 @@ title:  "Maven-上传项目到中央仓库"
 tags: Maven
 ---
 
+[中央仓地址](https://oss.sonatype.org "中央仓地址")
+
 ## 第一步 设置系统变量（防止生成源码包与接口文档包乱码报错）
 
 JAVA_TOOL_OPTIONS: -Dfile.encoding=UTF-8
