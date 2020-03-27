@@ -8,7 +8,7 @@ tags: 业务沉淀
 
 - 无感上线 (蓝绿发布， 流量切换，nginx + lua脚本 )， 
 
-- 牵头服务化迁移(K8S, 阿里云)，
+- 牵头服务化迁移(K8S, 阿里云，修复springcloud-alibaba开源框架bug，成为committer)，
  
 - 推荐报告 (定制开源框架 http://deepoove.com/poi-tl， https://github.com/Sayi/poi-tl)， 
 
