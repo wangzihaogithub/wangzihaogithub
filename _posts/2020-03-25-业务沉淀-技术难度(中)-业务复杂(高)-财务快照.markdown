@@ -12,7 +12,7 @@ tags: 业务沉淀
 
 - 财务快照，
 
-- 实现develop流程建设
+- 实现develop流程建设（Jenkins + git + yapi + wiki + 禅道 + 内网物理机房 + 阿里云集群）
 
 - 依据大佬的文档, 落地ERP2.0
 
