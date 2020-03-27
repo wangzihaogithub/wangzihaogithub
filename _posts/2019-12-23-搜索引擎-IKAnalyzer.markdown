@@ -272,3 +272,19 @@ IK-Analyzer是轻量级中文分词工具包 (它开源,基于JAVA语言)。IK �
     http://common.iterget.com/es/synonym/company.dic
     http://common.iterget.com/es/synonym/project.dic
     http://common.iterget.com/es/synonym/position.dic
+    
+
+ ---
+ 
+**基本字符串算法**
+
+   1.Trie树 (字典树)
+    
+   2.DoubleArrayTrie树 (双数组字典树)
+    
+   3.字符串匹配算法(线性,hash)
+    
+   4.字符串匹配算法 (KMP算法)
+    
+   5.Aho-Corasick automaton (AC自动机,整合Trie与KMP)
+    
