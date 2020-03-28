@@ -4,6 +4,7 @@ title:  "数据库-Mycat2整体结构"
 tags: 数据库
 ---
 
+![数据库系统结构](../../../images/postimg/数据库系统结构.jpg)
 
 ![数据库底层设计](../../../images/postimg/数据库底层设计.jpg)
 
