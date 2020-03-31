@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "数据库-Mycat2整体结构"
+title:  "数据库-Mycat2整体概述"
 tags: 数据库
 ---
 
@@ -13,6 +13,31 @@ tags: 数据库
 ![数据库系统结构](../../../images/postimg/数据库系统结构.jpg)
 
 ![数据库底层设计](../../../images/postimg/数据库底层设计.jpg)
+
+
+### mycat2 新特性
+
+- 配置与运行简单，拉取项目main方法直接运行即可用.
+
+- 全局自增主键 （只需要建表语句即可）
+
+- 更少的内存消耗 （代理数据包透传）
+
+- DSL语言. 类似spark-sql（动态落库的分布式sql处理）
+
+1. DSL语句可以显示的处理mycat-sql的执行流程 
+    
+    显示编程式处理mycat的执行流程， 意味者后端数据库的选择(读写分离，数据分片)更加灵活
+    
+2. DSL语句可以用java语言，也可以用HBT语言
+
+- sql拦截器
+
+1. 需要搭配DSL使用
+
+- explan改写 (查看分布式执行过程)
+
+explan select * from table；
 
 
 ### mycat整体分为如下3部分
