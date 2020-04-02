@@ -39,6 +39,10 @@ tags: 数据库
 
 **支持SQL的**
 
+ODPS，[https://www.aliyun.com/product/odps](https://www.aliyun.com/product/odps "https://www.aliyun.com/product/odps")
+
+是阿里巴巴通用计算平台提供的一种快速、完全托管的 GB/TB/PB 级数据仓库解决方案，现在已更名为MaxCompute，MaxCompute 向用户提供了完善的数据导入方案以及多种经典的分布式计算模型，能够更快速的解决用户海量数据计算问题，有效降低企业成本，并保障数据安全。
+
 Hive  [https://hive.apache.org/](https://hive.apache.org/ "https://hive.apache.org/")
 
 Sparksql [https://spark.apache.org/sql/](https://spark.apache.org/sql/ "https://spark.apache.org/sql/")
