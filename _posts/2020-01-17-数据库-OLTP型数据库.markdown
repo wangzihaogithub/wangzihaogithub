@@ -20,6 +20,8 @@ tags: 数据库
 
 阿里云 DRDS(分布式数据库)[https://www.aliyun.com/product/drds](https://www.aliyun.com/product/drds "https://www.aliyun.com/product/drds")
 
+华为 gaussdb(AI-分布式数据库)[https://e.huawei.com/cn/solutions/cloud-computing/big-data/gaussdb-distributed-database](https://e.huawei.com/cn/solutions/cloud-computing/big-data/gaussdb-distributed-database "https://e.huawei.com/cn/solutions/cloud-computing/big-data/gaussdb-distributed-database")
+
 Mysql  [https://dev.mysql.com/doc](https://dev.mysql.com/doc "https://dev.mysql.com/doc")
 
 Oracle [https://docs.oracle.com/en/database/oracle/oracle-database/19](https://docs.oracle.com/en/database/oracle/oracle-database/19 "https://docs.oracle.com/en/database/oracle/oracle-database/19")
