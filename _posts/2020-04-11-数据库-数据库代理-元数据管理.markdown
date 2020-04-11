@@ -20,7 +20,7 @@ tags: 数据库
 
 - **3.sysown/proxysql** 
 
-(支持元数据动态修改, 文件+内存)
+(支持元数据动态修改, 文件+内存+SQLite3)
     
 官方对元数据的描述: [https://github.com/sysown/proxysql/wiki/Global-variables](https://github.com/sysown/proxysql/wiki/Global-variables "https://github.com/sysown/proxysql/wiki/Global-variables")
 
