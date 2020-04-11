@@ -42,6 +42,8 @@ tags: 数据库
 
 官方对元数据的描述: [https://github.com/alibaba/cobar/wiki/%E4%BD%BF%E7%94%A8%E7%BA%A6%E6%9D%9F](https://github.com/alibaba/cobar/wiki/%E4%BD%BF%E7%94%A8%E7%BA%A6%E6%9D%9F "https://github.com/alibaba/cobar/wiki/%E4%BD%BF%E7%94%A8%E7%BA%A6%E6%9D%9F")
 
+![Cobar - Alibaba Open Sesame.pdf](../../../files/Cobar - Alibaba Open Sesame.pdf)
+
 - **7.overview/vitess** 
 
 (支持元数据动态修改, etcd)
