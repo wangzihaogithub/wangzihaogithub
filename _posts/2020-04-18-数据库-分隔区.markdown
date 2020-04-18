@@ -1,0 +1,114 @@
+---
+layout: post
+title:  "数据库-分隔区"
+tags: 数据库
+---
+
+### mysql支持的分区类型包括Range、List、Hash、Key，其中Range比较常用：
+
+**RANGE分区**：基于属于一个给定连续区间的列值，把多行分配给分区。
+
+**LIST分区**：类似于按RANGE分区，区别在于LIST分区是基于列值匹配一个离散值集合中的某个值来进行选择。
+
+**HASH分区**：基于用户定义的表达式的返回值来进行选择的分区，该表达式使用将要插入到表中的这些行的列值进行计算。这个函数可以包含MySQL 中有效的、产生非负整数值的任何表达式。
+
+**KEY分区**：类似于按HASH分区，区别在于KEY分区只支持计算一列或多列，且MySQL服务器提供其自身的哈希函数。必须有一列或多列包含整数值。
+
+
+### 实际操作
+
+分区的字段必须是要包含在主键当中。
+
+这时候分区的字段要么是主键，要么把分区字段加入到主键中，从而形成复合主键。
+
+    表如下
+    sys_api_log
+    sys_api_log_2020_02_11
+    sys_api_log_2020_02_19
+    sys_api_log_2020_03_05
+    sys_api_log_2020_03_17
+    sys_api_log_2020_04_08
+    sys_api_log_2020_04_18
+
+    sql如下, 把表名和字段换掉即可
+    分区的字段必须是要包含在主键当中。这时候分区的字段要么是主键，要么把分区字段加入到主键中，从而形成复合主键。
+    
+    ALTER TABLE `sys_api_log`
+    MODIFY COLUMN `create_time` datetime NOT NULL ,
+    DROP PRIMARY KEY,
+    ADD PRIMARY KEY (`id`, `create_time`);
+    
+    ALTER TABLE `sys_api_log` PARTITION BY RANGE (to_days(create_time)) (
+        PARTITION `2020_01_01`VALUES LESS THAN (to_days('2020-01-01')), 
+        PARTITION `2020_01_08`VALUES LESS THAN (to_days('2020-01-08')), 
+        PARTITION `2020_01_15`VALUES LESS THAN (to_days('2020-01-15')), 
+        PARTITION `2020_01_22`VALUES LESS THAN (to_days('2020-01-22')), 
+        PARTITION `2020_01_29`VALUES LESS THAN (to_days('2020-01-29')), 
+        PARTITION `2020_02_05`VALUES LESS THAN (to_days('2020-02-05')), 
+        PARTITION `2020_02_12`VALUES LESS THAN (to_days('2020-02-12')), 
+        PARTITION `2020_02_19`VALUES LESS THAN (to_days('2020-02-19')), 
+        PARTITION `2020_02_26`VALUES LESS THAN (to_days('2020-02-26')), 
+        PARTITION `2020_03_04`VALUES LESS THAN (to_days('2020-03-04')), 
+        PARTITION `2020_03_11`VALUES LESS THAN (to_days('2020-03-11')), 
+        PARTITION `2020_03_18`VALUES LESS THAN (to_days('2020-03-18')), 
+        PARTITION `2020_03_25`VALUES LESS THAN (to_days('2020-03-25')), 
+        PARTITION `2020_04_01`VALUES LESS THAN (to_days('2020-04-01')), 
+        PARTITION `2020_04_08`VALUES LESS THAN (to_days('2020-04-08')), 
+        PARTITION `2020_04_15`VALUES LESS THAN (to_days('2020-04-15')), 
+        PARTITION `2020_04_22`VALUES LESS THAN (to_days('2020-04-22')), 
+        PARTITION `2020_04_29`VALUES LESS THAN (to_days('2020-04-29')), 
+        PARTITION `2020_05_06`VALUES LESS THAN (to_days('2020-05-06')), 
+        PARTITION `2020_05_13`VALUES LESS THAN (to_days('2020-05-13')), 
+        PARTITION `2020_05_20`VALUES LESS THAN (to_days('2020-05-20')), 
+        PARTITION `2020_05_27`VALUES LESS THAN (to_days('2020-05-27')), 
+        PARTITION `2020_06_03`VALUES LESS THAN (to_days('2020-06-03')), 
+        PARTITION `2020_06_10`VALUES LESS THAN (to_days('2020-06-10')), 
+        PARTITION `2020_06_17`VALUES LESS THAN (to_days('2020-06-17')), 
+        PARTITION `2020_06_24`VALUES LESS THAN (to_days('2020-06-24')), 
+        PARTITION `2020_07_01`VALUES LESS THAN (to_days('2020-07-01')), 
+        PARTITION `2020_07_08`VALUES LESS THAN (to_days('2020-07-08')), 
+        PARTITION `2020_07_15`VALUES LESS THAN (to_days('2020-07-15')), 
+        PARTITION `2020_07_22`VALUES LESS THAN (to_days('2020-07-22')), 
+        PARTITION `2020_07_29`VALUES LESS THAN (to_days('2020-07-29')), 
+        PARTITION `2020_08_05`VALUES LESS THAN (to_days('2020-08-05')), 
+        PARTITION `2020_08_12`VALUES LESS THAN (to_days('2020-08-12')), 
+        PARTITION `2020_08_19`VALUES LESS THAN (to_days('2020-08-19')), 
+        PARTITION `2020_08_26`VALUES LESS THAN (to_days('2020-08-26')), 
+        PARTITION `2020_09_02`VALUES LESS THAN (to_days('2020-09-02')), 
+        PARTITION `2020_09_09`VALUES LESS THAN (to_days('2020-09-09')), 
+        PARTITION `2020_09_16`VALUES LESS THAN (to_days('2020-09-16')), 
+        PARTITION `2020_09_23`VALUES LESS THAN (to_days('2020-09-23')), 
+        PARTITION `2020_09_30`VALUES LESS THAN (to_days('2020-09-30')), 
+        PARTITION `2020_10_07`VALUES LESS THAN (to_days('2020-10-07')), 
+        PARTITION `2020_10_14`VALUES LESS THAN (to_days('2020-10-14')), 
+        PARTITION `2020_10_21`VALUES LESS THAN (to_days('2020-10-21')), 
+        PARTITION `2020_10_28`VALUES LESS THAN (to_days('2020-10-28')), 
+        PARTITION `2020_11_04`VALUES LESS THAN (to_days('2020-11-04')), 
+        PARTITION `2020_11_11`VALUES LESS THAN (to_days('2020-11-11')), 
+        PARTITION `2020_11_18`VALUES LESS THAN (to_days('2020-11-18')), 
+        PARTITION `2020_11_25`VALUES LESS THAN (to_days('2020-11-25')), 
+        PARTITION `2020_12_02`VALUES LESS THAN (to_days('2020-12-02')), 
+        PARTITION `2020_12_09`VALUES LESS THAN (to_days('2020-12-09')), 
+        PARTITION `2020_12_16`VALUES LESS THAN (to_days('2020-12-16')), 
+        PARTITION `2020_12_23`VALUES LESS THAN (to_days('2020-12-23')), 
+        PARTITION `2020_12_30`VALUES LESS THAN (to_days('2020-12-30')), 
+        PARTITION `max_value`VALUES LESS THAN MAXVALUE     
+    )
+    
+    执行前
+    -rw-r-----. 1 root  root       25440 Apr 18 14:42 sys_api_log.frm
+    -rw-r-----. 1 root  root      245760 Apr 18 14:43 sys_api_log.ibd
+    
+    执行后
+    -rw-r-----. 1 root  root       25440 Apr 18 14:42 sys_api_log.frm
+    -rw-r-----. 1 root  root      245760 Apr 18 14:43 sys_api_log#P#2020_01_01.ibd
+    -rw-r-----. 1 root  root       98304 Apr 18 14:43 sys_api_log#P#2020_01_08.ibd
+    -rw-r-----. 1 root  root       98304 Apr 18 14:43 sys_api_log#P#2020_01_22.ibd
+    ...省略
+    -rw-r-----. 1 root  root       98304 Apr 18 14:43 sys_api_log#P#2020_12_16.ibd
+    -rw-r-----. 1 root  root       98304 Apr 18 14:43 sys_api_log#P#2020_12_23.ibd
+    -rw-r-----. 1 root  root       98304 Apr 18 14:43 sys_api_log#P#2020_12_30.ibd
+    -rw-r-----. 1 root  root       98304 Apr 18 14:43 sys_api_log#P#max_value.ibd
+    
+    
+![mysql分区](../../../images/postimg/mysql分区.png)
