@@ -32,9 +32,8 @@ tags: 数据库
 
     sql如下, 把表名和字段换掉即可
     分区的字段必须是要包含在主键当中。这时候分区的字段要么是主键，要么把分区字段加入到主键中，从而形成复合主键。
-    
     ALTER TABLE `sys_api_log`
-    MODIFY COLUMN `create_time` datetime NOT NULL ,
+    MODIFY COLUMN `create_time` datetime NOT NULL,
     DROP PRIMARY KEY,
     ADD PRIMARY KEY (`id`, `create_time`);
     
