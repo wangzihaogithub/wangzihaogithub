@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "linux-IO控制器_内核内存_用户内存的拷贝"
+title:  "linux-IO控制器内存_内核内存_用户内存的拷贝"
 tags: linux
 ---
 
