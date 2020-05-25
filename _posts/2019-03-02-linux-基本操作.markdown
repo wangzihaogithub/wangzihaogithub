@@ -15,6 +15,17 @@ tags: linux
 
 ---
 
+### 查询上下文切换次数
+
+vmstat
+
+dstat
+
+pidstat -w
+
+
+---
+
 ### 查询java的GC信息
 
     jstat -gcutil 进程ID
