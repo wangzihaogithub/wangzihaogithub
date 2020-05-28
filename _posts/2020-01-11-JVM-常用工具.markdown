@@ -4,6 +4,10 @@ title:  "JVM-常用工具"
 tags: JVM
 ---
 
+
+[(点我下载日志) 2020_05_18_1410.log](/files/2020_05_18_1410.log "(点我另存为下载日志) 2020_05_18_1410.log")
+
+
 **Oracle官网（垃圾收集器）**
 
 [https://docs.oracle.com/javase/8/docs/technotes/guides/vm/gctuning/index.html](https://docs.oracle.com/javase/8/docs/technotes/guides/vm/gctuning/index.html "https://docs.oracle.com/javase/8/docs/technotes/guides/vm/gctuning/index.html")
