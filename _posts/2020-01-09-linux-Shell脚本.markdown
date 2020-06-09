@@ -56,7 +56,7 @@ tags: linux
     
     scp -r /home/common/$MACHINE/$ZUES_DIR $MACHINE:/home/apps/;
     
-    ssh $MACHINE << remotessh
+    ssh -tt $MACHINE << remotessh
         cd /home/apps/$ZUES_DIR/bin
         nohup sh startup.sh $PORT $ENV >> /root/logs/zues/zues.log & 
         sleep 2
