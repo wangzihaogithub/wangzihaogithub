@@ -50,3 +50,16 @@ tags: linux
     > nohup.out 
     reswitch $ENV 5006 
     awaitjava $form_port 
+
+
+### ssh跳板机与scp复制的Shell脚本
+    
+    scp -r /home/common/$MACHINE/$ZUES_DIR $MACHINE:/home/apps/;
+    
+    ssh $MACHINE << remotessh
+        cd /home/apps/$ZUES_DIR/bin
+        nohup sh startup.sh $PORT $ENV >> /root/logs/zues/zues.log & 
+        sleep 2
+        exit
+    remotessh
+    
