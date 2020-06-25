@@ -81,6 +81,9 @@ pidstat -w
     /var/swapfile swap swap defaults 0 0
 
 
+    # 清理磁盘交换
+    sync;echo 1 > /proc/sys/vm/drop_caches;swapoff -a;swapon -a;
+
 ### 配置ssh免密登录
    
     在源机器上生成密匙, 拷贝到目标机器上
