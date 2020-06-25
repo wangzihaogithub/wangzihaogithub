@@ -15,6 +15,12 @@ tags: linux
 
 ---
 
+### 超好用的文本编辑工具
+
+    yum install -y nano;
+    nano /路径/文件名
+    交互很友好
+    
 ### 查询上下文切换次数
 
 vmstat
