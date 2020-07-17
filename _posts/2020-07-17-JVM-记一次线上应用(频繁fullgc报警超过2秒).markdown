@@ -1,0 +1,67 @@
+---
+layout: post
+title:  "JVM-记一次线上应用(频繁fullgc报警超过2秒)"
+tags: JVM
+---
+
+### 1.线上阿里云频繁报警
+    
+![gc2-email](../../../images/postimg/gc2-email.png)
+
+![gc2-phone](../../../images/postimg/gc2-phone.png)
+
+### 2.报错信息是full gc超时2秒，导致系统整体卡顿.
+
+    下载gc文件, 找到了这个信息, 耗时1秒多 [Evacuation Failure: 1346.6 ms]
+     
+### 3.百度查了下, 解释如下
+
+    Evacuation Failure
+       当没有更多的空闲region被提升到老一代或者复制到幸存空间时，并且由于堆已经达到最大值，堆不能扩展，从而发生Evacuation Failure。对于G1 GC，它是非常耗时的。 
+    
+     a.对于成功复制的对象，G1需要更新引用，并且该region被一直引用。
+    
+     b.对于未成功复制的对象，G1将自动转发它们，并保留这些region。
+    
+    解决方案：
+    
+    ①.不要过度加一些jvm参数。比如-Xmn,这个参数会限制G1的参数的自动扩展。可以仅使用-Xms，-Xmx和暂停时间目标-XX：MaxGCPauseMillis，删除任何额外的堆大小，例如-Xmn，-XX：NewSize，-XX：MaxNewSize，-XX：SurvivorRatio等。
+    
+    ②.如果问题仍然存在，则增加JVM堆大小（即-Xmx）。
+    
+    ③.如果您无法增加堆大小，并且您注意到marking cycle没有足够早地开始回收老一代，那么请减少-XX：InitiatingHeapOccupancyPercent。默认值是45％。减小该值将提前开始marking cycle 。另一方面，如果marking cycle 提前开始并且未收回，请将-XX：InitiatingHeapOccupancyPercent阈值增加到默认值以上。
+    
+    ④.如果并发marking cycle准时开始，但需要很长时间才能完成，那么使用属性'-XX：ConcGCThreads'增加并发标记线程数的数量。默认是GC Workers: 1 ，单线程执行。
+    
+    ⑤.如果有大量“空间耗尽（to-space exhausted）”或“空间溢出（to-space overflow）”GC事件，则增加-XX:G1ReservePercent。默认值是Java堆的10％。注意：G1 GC将此值限制在50％以内。
+    
+### 4.寻找大内存触发根源.
+
+    1. 原来是导出excel占用内存过多, 以前为了开发方便着急上线(没有预估数据量), 直接把日期范围的数据全部
+    查询了出来进行导出, 导致老年代不够用
+   
+    
+### 5.复现问题.
+    
+    我尝试一次性导出2W+条数据, 果然就收到GC超时报警了.  
+ 
+### 6.解决问题. 
+
+    现在改程序还要开发测试上线, 时间太久. 我决定先改JVM参数解决问题.
+    
+    总结出问题: 1.老年代不够了 2.老年代没有被提早回收
+    G1是会自动调整代的大小的, 基本不需要人工参与.配置上老年代新生代的内存会抑制G1自动调整.
+    G1是可以用分代的参数去配置, 但它的内存模型是不区分代的. 
+    当分配大内存的时候, G1就可以自动调整老年代.
+    
+    我赶紧检查一下项目的启动参数, 并进行了修改 
+    1. 去掉了新生代和老年代的参数限制(Xmn,OldSize), 只控制整个堆的最大内存和初始内存. 年轻老年代自动调整.
+    2. 以及堆占比进行GC阈值的参数改为了45%(InitiatingHeapOccupancyPercent), 让提前进行回收.
+
+![config](../../../images/postimg/gc2-config.jpg)
+   
+### 7.上线 (问题解决)
+
+    我再次大批量导出2W+条数据, 就不再提示报警了. 
+    
+    后续要把代码改成流式写入excel, 然后用DeferredResult进行异步导出.
