@@ -6,9 +6,9 @@ tags: JVM
 
 ### 1.线上阿里云频繁报警
     
-<img src="../../../images/postimg/gc2-email.png" width = "200" height = "200" alt="gc2-email" align=center />
+`<img src="../../../images/postimg/gc2-email.png" width = "200" height = "200" alt="gc2-email" align=center />`
 
-<img src="../../../images/postimg/gc2-phone.png" width = "200" height = "200" alt="gc2-phone" align=center />
+`<img src="../../../images/postimg/gc2-phone.png" width = "200" height = "200" alt="gc2-phone" align=center />`
 
 ### 2.报错信息是full gc超时2秒，导致系统整体卡顿.
 
@@ -58,9 +58,9 @@ tags: JVM
     1. 去掉了新生代和老年代的参数限制(Xmn,OldSize), 只控制整个堆的最大内存和初始内存. 年轻老年代自动调整.
     2. 以及堆占比进行GC阈值的参数改为了45%(InitiatingHeapOccupancyPercent), 让提前进行回收.
 
-![config](../../images/postimg/gc2-config.jpg)
+![config](../../../images/postimg/gc2-config.jpg)
 
-![info](../../images/postimg/gc2-info.jpg)
+![info](../../../images/postimg/gc2-info.jpg)
    
 ### 7.上线 (问题解决)
 
