@@ -6,9 +6,9 @@ tags: JVM
 
 ### 1.线上阿里云频繁报警
     
-![gc2-email](../../../images/postimg/gc2-email.png  =100x100)
+<img src="../../../images/postimg/gc2-email.png" width = "200" height = "200" alt="gc2-email" align=center />
 
-![gc2-phone](../../../images/postimg/gc2-phone.png  =100x100)
+<img src="../../../images/postimg/gc2-phone.png" width = "200" height = "200" alt="gc2-phone" align=center />
 
 ### 2.报错信息是full gc超时2秒，导致系统整体卡顿.
 
