@@ -62,8 +62,6 @@ tags: JVM
 
 ![info](../../../images/postimg/gc2-info.jpg)
    
-![log](../../../images/postimg/gc2-log.jpg)
-   
 ### 7.上线 (问题解决)
 
     我再次大批量导出2W+条数据, 就不再提示报警了. 
