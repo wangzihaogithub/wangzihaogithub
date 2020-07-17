@@ -6,9 +6,9 @@ tags: JVM
 
 ### 1.线上阿里云频繁报警
     
-![gc2-email](../../../images/postimg/gc2-email.png)
+![gc2-email](../../../images/postimg/gc2-email.png  =100x100)
 
-![gc2-phone](../../../images/postimg/gc2-phone.png)
+![gc2-phone](../../../images/postimg/gc2-phone.png  =100x100)
 
 ### 2.报错信息是full gc超时2秒，导致系统整体卡顿.
 
@@ -59,6 +59,10 @@ tags: JVM
     2. 以及堆占比进行GC阈值的参数改为了45%(InitiatingHeapOccupancyPercent), 让提前进行回收.
 
 ![config](../../../images/postimg/gc2-config.jpg)
+
+![info](../../../images/postimg/gc2-info.jpg)
+   
+![log](../../../images/postimg/gc2-log.jpg)
    
 ### 7.上线 (问题解决)
 
