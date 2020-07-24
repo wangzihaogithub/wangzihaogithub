@@ -16,6 +16,16 @@ tags: 搜索引擎
         }
     }
     
+    # 加字段
+    PUT /prod-hongzhou-ig_zues_db_ig_zues-talent-v2/_mapping/talent
+    {
+      "properties": {
+        "ownerUpdateTimeDate": {
+          "type": "date"
+        }
+      }
+    }
+    
     # 保存
     PUT /wang-indexname/wang-indextype/id2
     {
