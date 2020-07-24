@@ -7,6 +7,15 @@ tags: 搜索引擎
 ## 基本增删改查的操作（可以直接拷贝到kibana的开发工具中）
 
 ```
+    # 批量新增字段并赋予初始值
+    POST /prod-ig_zues_db_ig_zues-talent-v2/_update_by_query
+    {
+        "script":{
+            "lang":"painless",
+            "inline":"if(ctx._source.ownerUpdateTime==null){ctx._source.ownerUpdateTime= ctx._source.createTime}"
+        }
+    }
+    
     # 保存
     PUT /wang-indexname/wang-indextype/id2
     {
