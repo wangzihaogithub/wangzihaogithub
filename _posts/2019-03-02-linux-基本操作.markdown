@@ -58,11 +58,6 @@ pidstat -w
     md5sum xxx.jar
 
 ### 刷新字体文件
-
-     cd /usr/share/fonts
-     mkfontscale 
-     mkfontdir 
-     fc-cache -fv
      
      安装字体
      yum install -y fontconfig mkfontscale
