@@ -63,6 +63,17 @@ pidstat -w
      mkfontscale 
      mkfontdir 
      fc-cache -fv
+     
+     安装字体
+     yum install -y fontconfig mkfontscale
+     查询已安装的中文字体
+     fc-list :lang=zh
+     
+     cd /usr/share/fonts/
+     
+     mkfontscale
+     mkfontdir  //这两条命令是生成字体的索引信息
+     fc-cache -fv //更新字体缓存
 
 
 ### 开启mysql慢查询日志 （单位/秒）
