@@ -3,6 +3,37 @@ layout: post
 title:  "JVM-记一次线上应用(频繁fullgc报警超过2秒)"
 tags: JVM
 ---
+### G1有三种垃圾回收策略(1.年轻代gc, 2.混合gc, 3. full gc是单线程老年代gc)
+
+**young gc**
+
+    触发:
+        伊甸园区域满了
+    执行
+        复制算法. (不会暂停应用)
+
+**mixed gc**
+
+    触发
+        老年代占整个堆大小超过这个参数.-XX:InitiatingHeapOccupancyPercent=45%
+    
+    执行
+        1. initial mark: 初始标记过程，整个过程STW，标记了从GC Root可达的对象
+        2. concurrent marking: 并发标记过程，整个过程gc collector线程与应用线程可以并行执行，标记出GC Root可达对象衍生出去的存活对象，并收集各个Region的存活对象信息
+        3. remark: 最终标记过程，整个过程STW，标记出那些在并发标记过程中遗漏的，或者内部引用发生变化的对象
+        4. clean up: 垃圾清除过程，如果发现一个Region中没有存活对象，则把该Region加入到空闲列表中
+
+
+**full gc**
+
+    触发
+        对象内存分配速度过快，mixed gc来不及回收，导致老年代被填满，就会触发一次full gc，
+    
+    执行
+        G1的full gc算法就是单线程执行的serial old gc，会导致异常长时间的暂停时间，
+        需要尽可能的压低-XX:InitiatingHeapOccupancyPercent=45%这个参数, 提前触发mixed gc,
+        尽可能的避免full gc.
+        
 
 ### 1.线上阿里云频繁报警
     
@@ -56,7 +87,7 @@ tags: JVM
     
     我赶紧检查一下项目的启动参数, 并进行了修改 
     1. 去掉了新生代和老年代的参数限制(Xmn,OldSize), 只控制整个堆的最大内存和初始内存. 年轻老年代自动调整.
-    2. 以及堆占比进行GC阈值的参数改为了45%(InitiatingHeapOccupancyPercent), 让提前进行回收.
+    2. 以及堆占比进行GC阈值的参数改为了 33%(InitiatingHeapOccupancyPercent), 让提前进行回收.
 
 ![config](../../../images/postimg/gc2-config.jpg)
 
