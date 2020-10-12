@@ -10,6 +10,20 @@ Mysql中文文档 [https://www.docs4dev.com/docs/zh/mysql/5.7/reference/manual-i
 
 数据结构可视化 [https://www.cs.usfca.edu/~galles/visualization/Algorithms.html](https://www.cs.usfca.edu/~galles/visualization/Algorithms.html "https://www.cs.usfca.edu/~galles/visualization/Algorithms.html")
 
+### 参数优化
+
+    服务端
+    set global query_cache_type=OFF;// 关闭查询缓存, 作用不大, 8以后默认就是关闭的.
+    set global query_cache_size=0; // 关闭查询缓存
+    set global innodb_flush_log_at_trx_commit=0; // 0 = 定时器每间隔1秒定时刷盘,  1= 每次事物结束, 调用fsync方法写盘.  2 = 每次事物结束, 调用write方法写盘.
+    set global innodb_io_capacity=2000; //默认200 每秒能写多少个脏页,  硬盘好的, 可以写大点,  每页16KB默认,  计算公式 = 每秒磁盘可以写入的大小 / 16KB = innodb_io_capacity
+    set global innodb_io_capacity_max=4000;
+
+    客户端
+    useServerPrepStmts=true&cachePrepStmts=true&prepStmtCacheSize=25&prepStmtCacheSqlLimit=256//开启服务端预编译
+    rewriteBatchedStatements=true //开启批量插入 insert into values(1,2,3)(11,22,33)
+    zeroDateTimeBehavior=convertToNull// 0000-00-00 会转为null
+    
 ### 索引信息表. `innodb_sys_indexes`,`index_statistics` 
 
 **hash索引** 用于等值查询,不能排序,不能范围查询
