@@ -30,6 +30,28 @@ dstat
 pidstat -w
 
 
+### 升级k8s的containerd。 Containerd是一个工业标准的容器运行时,形成开放容器接口(OCI)标准的一部分.
+    
+    您在所有节点上执行下这个命令，看下systemd 和containerd 的版本是否比较低。
+    rpm -qa |grep -E "systemd|containerd" 查看这个节点的组件不是最新，老版本有已知问题。
+    
+    新版：
+    systemd-libs-219-67.el7_7.2.x86_64
+    systemd-219-67.el7_7.2.x86_64
+    containerd.io-1.2.10-3.2.el7.x86_64
+    systemd-sysv-219-67.el7_7.2.x86_64
+    相关细节可以参考下这篇文章 https://yq.aliyun.com/articles/699200
+    
+    建议： 可以创建下快照备份，然后将节点升级下systemd
+    
+    下载地址
+    wget https://acs-public-mirror.oss-cn-hangzhou.aliyuncs.com/docker-engine/daemon-build/centos/containerd.io-1.2.10-3.2.el7.x86_64.rpm
+    或
+    wget https://download.docker.com/linux/centos/7/x86_64/stable/Packages/containerd.io-1.2.10-3.2.el7.x86_64.rpm ；
+    
+    然后升级
+    yum -y install ./containerd.io-1.2.10-3.2.el7.x86_64.rpm;
+
 ---
 
 ### 查询java的GC信息
