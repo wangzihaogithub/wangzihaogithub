@@ -51,7 +51,8 @@ pidstat -w
     
     然后升级
     yum -y install ./containerd.io-1.2.10-3.2.el7.x86_64.rpm;
-
+    yum update systemd;
+    
 ---
 
 ### 查询java的GC信息
