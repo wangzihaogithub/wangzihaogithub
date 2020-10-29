@@ -62,4 +62,28 @@ tags: linux
         sleep 2
         exit
     remotessh
+
+
+### 检查 nginx 映射配置
+        
+    checkIfNullUpdate(){ 
+      domain=$1
+      target=$2
+      data=$(curl http://web1.dev.iterpin.com/_upstream_list)
+      map=$(jq -n "$data"  | jq ."$domain")
+      if [[ "$map" = "null" ]]; then
+          curl "http://$domain/_upstream_switch?upstream=$target"
+          break;
+      fi
+    }
     
+    checkIfNullUpdate "web0.dev.iterpin.com" "http://192.168.101.230:9090"
+    checkIfNullUpdate "web1.dev.iterpin.com" "http://192.168.101.230:9091"
+    checkIfNullUpdate "web2.dev.iterpin.com" "http://192.168.101.230:9092"
+    checkIfNullUpdate "web3.dev.iterpin.com" "http://192.168.101.230:9093"
+    checkIfNullUpdate "web4.dev.iterpin.com" "http://192.168.101.230:9094"
+    checkIfNullUpdate "web5.dev.iterpin.com" "http://192.168.101.230:9095"
+    checkIfNullUpdate "web6.dev.iterpin.com" "http://192.168.101.230:9096"
+    checkIfNullUpdate "web7.dev.iterpin.com" "http://192.168.101.230:9097"
+    checkIfNullUpdate "web8.dev.iterpin.com" "http://192.168.101.230:9098"
+    checkIfNullUpdate "web9.dev.iterpin.com" "http://192.168.101.230:9099"
