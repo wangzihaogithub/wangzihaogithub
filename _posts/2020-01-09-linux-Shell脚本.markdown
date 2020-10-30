@@ -67,11 +67,11 @@ tags: linux
 ### 检查 nginx 映射配置
         
     checkIfNullUpdate(){ 
-      domain=$1
+      domain=$(echo $1 | sed 's/\./_/g')
       target=$2
-      data=$(curl http://web1.dev.iterpin.com/_upstream_list)
-      map=$(jq -n "$data"  | jq ."$domain")
+      map=$(curl http://web1.dev.iterpin.com/_upstream_list | sed 's/\./_/g'| jq ".$domain")
       if [[ "$map" = "null" ]]; then
+          domain=$(echo $(domain)  | sed 's/_/\./g')
           curl "http://$domain/_upstream_switch?upstream=$target"
           break;
       fi
@@ -87,3 +87,4 @@ tags: linux
     checkIfNullUpdate "web7.dev.iterpin.com" "http://192.168.101.230:9097"
     checkIfNullUpdate "web8.dev.iterpin.com" "http://192.168.101.230:9098"
     checkIfNullUpdate "web9.dev.iterpin.com" "http://192.168.101.230:9099"
+
