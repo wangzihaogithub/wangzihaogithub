@@ -20,7 +20,7 @@ tags: 业务沉淀
     4. 下游调用第三方(滴滴,北汽,首汽出行等) , 响应时间在 500 ~700毫秒
     5. 内部调用tair是阻塞调用, 会把线程打满(阻塞worker或阻塞http-client线程都不合适).
     6. http-client 没有配置worker线程数量, 默认是CPU核数*2. 
-    7. 换tair reative, QPS到550. 
+    7. 部门评估 换tair reative
     
     
     
