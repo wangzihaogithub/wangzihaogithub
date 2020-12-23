@@ -80,6 +80,23 @@ pidstat -w
 
     md5sum xxx.jar
 
+
+### 解决出现 Connection reset by peer
+
+    vim /etc/security/limits.conf
+    
+    设置如下
+    
+    root soft nofile 655350
+    root hard nofile 655350
+    root soft nproc  40960
+    root hard nproc  40960
+    
+    * soft nofile 655350
+    * hard nofile 655350
+    * soft nproc  40960
+    * hard nproc  40960
+
 ### 刷新字体文件
      
      安装字体
