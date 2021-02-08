@@ -13,35 +13,36 @@ tags: webflux
 - maven依赖(可选) :
 
 
-    <!-- Mysql https://mvnrepository.com/artifact/dev.miku/r2dbc-mysql  https://github.com/mirromutth/r2dbc-mysql-->
-    <dependency>
-        <groupId>org.springframework.data</groupId>
-        <artifactId>spring-data-r2dbc</artifactId>
-        <version>1.2.3</version>
-    </dependency>
-    <dependency>
-        <groupId>dev.miku</groupId>
-        <artifactId>r2dbc-mysql</artifactId>
-        <version>0.8.2.RELEASE</version>
-    </dependency>
     
-    <dependency>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-data-redis-reactive</artifactId>
-        <version>2.4.2</version>
-    </dependency>
+        <!-- Mysql https://mvnrepository.com/artifact/dev.miku/r2dbc-mysql  https://github.com/mirromutth/r2dbc-mysql-->
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-r2dbc</artifactId>
+            <version>1.2.3</version>
+        </dependency>
+        <dependency>
+            <groupId>dev.miku</groupId>
+            <artifactId>r2dbc-mysql</artifactId>
+            <version>0.8.2.RELEASE</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis-reactive</artifactId>
+            <version>2.4.2</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-mongodb-reactive</artifactId>
+            <version>2.4.2</version>
+        </dependency>
     
-    <dependency>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-data-mongodb-reactive</artifactId>
-        <version>2.4.2</version>
-    </dependency>
-
-    <dependency>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-webflux</artifactId>
-        <version>2.4.2</version>
-    </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-webflux</artifactId>
+            <version>2.4.2</version>
+        </dependency>
     
 
 ### web协议
