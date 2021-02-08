@@ -81,7 +81,7 @@ tags: webflux
         
     2. 举例 http2请求
 
-          14:07:17.954 [EventLoop-1] EventLoop-1ResourceLeakDetectorFactory - Loaded default ResourceLeakDetector: io.netty.util.ResourceLeakDetector@51e8fe8a
+          14:07:17.954 [EventLoop-1] ResourceLeakDetectorFactory - Loaded default ResourceLeakDetector: io.netty.util.ResourceLeakDetector@51e8fe8a
           14:07:18.005 [EventLoop-1] InsecureTrustManagerFactory - Accepting a server certificate: CN=www.maimai.cn, OU=PositiveSSL, OU=Domain Control Validated
           14:07:18.030 [EventLoop-1] SslHandler - [id: 0x9c, L:/192.168.101.167:56380 - R:maimai.cn/106.75.23.100:443] HANDSHAKEN: protocol:TLSv1.3 cipher suite:TLS_CHACHA20_POLY1305_SHA256
           14:07:18.037 [EventLoop-1] http2.Client - [id: 0x9c, L:/192.168.101.167:56380 - R:maimai.cn/106.75.23.100:443] OUTBOUND SETTINGS: ack=false settings={MAX_HEADER_LIST_SIZE=8192}
