@@ -56,7 +56,7 @@ sysctl -w net.ipv4.tcp_synack_retries=2
         sysctl -w net.core.somaxconn=1024
     
 
-阿里云配置  /etc/sysctl.conf
+阿里云配置 [(点我另存为下载) sysctl.conf](/files/sysctl.conf "(点我下载)sysctl.conf"). 
 
         vm.swappiness = 0
         net.ipv4.neigh.default.gc_stale_time=120
