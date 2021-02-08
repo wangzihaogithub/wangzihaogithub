@@ -214,6 +214,11 @@ pidstat -w
     
     登录成功!
     
+    
+### 查看当前tcp链接数
+
+    netstat -anp |grep tcp 
+
 ### 查看磁盘空间命令
     
     df 
