@@ -17,6 +17,41 @@ tags: linux
 
 ---
 
+- 配置文件 /etc/sysctl.conf
+
+sysctl -w net.core.somaxconn=1024
+
+sysctl -w net.inet.tcp_syncookies=1
+
+sysctl -w net.ipv4.tcp_fin_timeout=30
+
+sysctl -w net.ipv4.tcp_tw_reuse=1 
+
+sysctl -w net.ipv4.tcp_tw_recycle=0
+
+sysctl -w net.ipv4.tcp_synack_retries=2
+
+        防止一个套接字在有过多试图链接导致网络过载. 
+        SYN cookies是一种用于通过选择加密的初始化TCP序列号，可以对回应的包做验证来降低SYN'洪水'攻击的影响的技术。 
+        syn cookies在一定程度上能缓解"syn flood attack"，建议生产系统中开启该选项
+        sysctl -w net.inet.tcp_syncookies=1
+        
+        该参数决定保持在FIN-WAIT-2状态的时间
+        sysctl -w net.ipv4.tcp_fin_timeout=30
+        
+        允许对新连接重用TIME-WAIT sockets
+        sysctl -w net.ipv4.tcp_tw_reuse=1 
+        
+        指定当接收到SYN请求时，会进行多少次SYN ACK重传(retransmit),该值默认是5，每次重传大约花费30-40s，意味着默认情况下被动(passive) TCP连接握手最大会花费180s
+        sysctl -w net.ipv4.tcp_synack_retries=2
+        
+        禁用回收
+        sysctl -w net.ipv4.tcp_tw_recycle=0
+        
+        表示socket监听(listen)的backlog上限(默认128) 
+        sysctl -w net.core.somaxconn=1024
+
+
 ### 超好用的文本编辑工具
 
     yum install -y nano;
