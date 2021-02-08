@@ -17,6 +17,8 @@ tags: linux
 
 ---
 
+查看所有系统配置 sysctl -a
+
 - 网络优化 配置文件 /etc/sysctl.conf
 
 sysctl -w net.core.somaxconn=1024
@@ -50,7 +52,32 @@ sysctl -w net.ipv4.tcp_synack_retries=2
         
         表示socket监听(listen)的backlog上限(默认128) 
         sysctl -w net.core.somaxconn=1024
+    
 
+阿里云配置  /etc/sysctl.conf
+
+        vm.swappiness = 0
+        net.ipv4.neigh.default.gc_stale_time=120
+        
+        # see details in https://help.aliyun.com/knowledge_detail/39428.html
+        net.ipv4.conf.all.rp_filter=0
+        net.ipv4.conf.default.rp_filter=0
+        net.ipv4.conf.default.arp_announce = 2
+        net.ipv4.conf.lo.arp_announce=2
+        net.ipv4.conf.all.arp_announce=2
+        
+        # see details in https://help.aliyun.com/knowledge_detail/41334.html
+        net.ipv4.tcp_max_tw_buckets = 5000
+        net.ipv4.tcp_syncookies = 1
+        net.ipv4.tcp_max_syn_backlog = 1024
+        net.ipv4.tcp_synack_retries = 2
+        
+        net.ipv6.conf.all.disable_ipv6 = 1
+        net.ipv6.conf.default.disable_ipv6 = 1
+        net.ipv6.conf.lo.disable_ipv6 = 1
+        
+        kernel.sysrq=1
+        fs.file-max=65535
 
 ### 超好用的文本编辑工具
 
