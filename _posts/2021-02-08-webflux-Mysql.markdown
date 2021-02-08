@@ -45,12 +45,12 @@ tags: webflux
         </dependency>
     
                 
-### web线程模型
+### 线程模型
 
-    tomcat-IO模型. 
+    1. tomcat 
         accpet线程(接入新链接) -> IO线程 -> 业务线程 
 
-    webflux-netty-IO模型. 
+    2. webflux-netty 
         accpet线程(接入新链接) -> IO线程
         
         
