@@ -17,9 +17,11 @@ tags: linux
 
 ---
 
-查看所有系统配置 sysctl -a
 
-- 网络优化 配置文件 /etc/sysctl.conf
+
+### 网络优化 配置文件 /etc/sysctl.conf
+
+查看所有系统配置 sysctl -a
 
 sysctl -w net.core.somaxconn=1024
 
