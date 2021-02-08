@@ -17,7 +17,7 @@ tags: linux
 
 ---
 
-- 配置文件 /etc/sysctl.conf
+- 网络优化 配置文件 /etc/sysctl.conf
 
 sysctl -w net.core.somaxconn=1024
 
