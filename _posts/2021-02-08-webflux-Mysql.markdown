@@ -5,11 +5,14 @@ tags: webflux
 ---
 
 ### 支持Mono,FLux的客户端 (mysql, redis)
-    
-    使用示例 ： https://zhuanlan.zhihu.com/p/299069835
-    
-    
-    spring官网 ： https://spring.io/projects/spring-data-r2dbc
+
+- 使用示例 ：[https://zhuanlan.zhihu.com/p/299069835](https://zhuanlan.zhihu.com/p/299069835 "https://zhuanlan.zhihu.com/p/299069835")
+
+- spring官网 ：[https://spring.io/projects/spring-data-r2dbc](https://spring.io/projects/spring-data-r2dbc "https://spring.io/projects/spring-data-r2dbc")
+
+- maven依赖(可选) :
+
+
     <!-- Mysql https://mvnrepository.com/artifact/dev.miku/r2dbc-mysql  https://github.com/mirromutth/r2dbc-mysql-->
     <dependency>
         <groupId>org.springframework.data</groupId>
