@@ -1,0 +1,73 @@
+---
+layout: post
+title:  "数据库-存储过程"
+tags: 数据库
+---
+
+### 按日将表归档,并记录执行日志. (每日0点)
+    
+    -- 存储过程调用记录日志表
+    CREATE TABLE `scheduler_procedure_log` (
+      `id` int(11) NOT NULL AUTO_INCREMENT,
+      `table_name` varchar(255) DEFAULT NULL COMMENT '表名',
+      `create_table_sql` text COMMENT '当时跑的建表语句',
+      `start_time` datetime DEFAULT NULL COMMENT '执行开始时间',
+      `end_time` datetime DEFAULT NULL COMMENT '执行结束时间(执行失败不会有结束时间)',
+      `success_flag` tinyint(1) DEFAULT NULL COMMENT '是否成功(1=成功,0=失败)',
+      `message` varchar(255) DEFAULT NULL,
+      `status` varchar(20) DEFAULT NULL COMMENT '状态',
+      PRIMARY KEY (`id`),
+      KEY `start_time` (`start_time`)
+    ) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COMMENT='存储过程调用的日志记录表';
+    
+    
+    -- 存储过程
+    CREATE PROCEDURE `p_create_table`(IN in_tablename VARCHAR(255),IN in_create_table_sql VARCHAR(2000),IN in_date_format VARCHAR(20))
+        COMMENT '按自动建表归档，由定时任务调用'
+    BEGIN
+        DECLARE p_rename_table_sql VARCHAR(1000);
+        DECLARE p_create_table_sql VARCHAR(3000);
+        DECLARE p_create_time VARCHAR(100);
+    
+        set @p_create_time=now();
+        set @p_rename_table_sql=CONCAT('rename table ',in_tablename,' to ',in_tablename,'_',DATE_FORMAT(@p_create_time, in_date_format));
+        set @p_create_table_sql=CONCAT(in_create_table_sql);
+    
+        INSERT INTO `scheduler_procedure_log` (`table_name`, `create_table_sql`, `start_time`, `success_flag`, `message`,`status`) VALUES (in_tablename, in_create_table_sql, @p_create_time, false, '', '重命名表执行前');
+    
+        PREPARE rename_stm from @p_rename_table_sql;
+        EXECUTE rename_stm;
+        DEALLOCATE PREPARE rename_stm;
+    
+        UPDATE `scheduler_procedure_log` SET `status`='创建新表执行前' WHERE (start_time = @p_create_time);
+    
+        PREPARE create_stm from @p_create_table_sql;
+        EXECUTE create_stm;
+        DEALLOCATE PREPARE create_stm;
+    
+        UPDATE `scheduler_procedure_log` SET end_time =now(),success_flag=true,`status`='成功结束' WHERE (start_time = @p_create_time);
+    END;
+    
+    
+    -- 开启定时策略
+    set global event_scheduler=1;
+    
+    -- 建立每日0点事件 (把建表语句和表名改一下)
+    CREATE EVENT event_sys_log_storage on SCHEDULE EVERY 1 DAY STARTS CURRENT_TIMESTAMP
+    ON COMPLETION PRESERVE
+    ENABLE
+    DO CALL p_create_table (
+        'sys_log_storage',
+        "CREATE TABLE `sys_log_storage` (
+          `id` bigint(32) NOT NULL COMMENT 'ID',
+          `ip` varchar(16) DEFAULT NULL COMMENT '服务器IP',
+          `lvl` varchar(16) DEFAULT NULL COMMENT '日志级别',
+          `title` varchar(64) DEFAULT NULL COMMENT '标题',
+          `content` varchar(1024) DEFAULT NULL,
+          `createtime` datetime NOT NULL COMMENT '创建时间',
+          `classname` varchar(128) DEFAULT NULL,
+          `method` varchar(64) DEFAULT NULL
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='日志存储';
+        ",
+        '%Y_%m_%d'
+    );gtaimokuai.jpg)
