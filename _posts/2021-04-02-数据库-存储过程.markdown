@@ -22,11 +22,11 @@ tags: 数据库
     
     
     -- 存储过程
-    CREATE PROCEDURE `p_create_table`(IN in_tablename VARCHAR(255),IN in_create_table_sql VARCHAR(2000),IN in_date_format VARCHAR(20))
+    CREATE PROCEDURE `p_create_table`(IN in_tablename VARCHAR(255),IN in_create_table_sql text,IN in_date_format VARCHAR(20))
         COMMENT '按自动建表归档，由定时任务调用'
     BEGIN
         DECLARE p_rename_table_sql VARCHAR(1000);
-        DECLARE p_create_table_sql VARCHAR(3000);
+        DECLARE p_create_table_sql text;
         DECLARE p_create_time VARCHAR(100);
     
         set @p_create_time=now();
@@ -64,4 +64,15 @@ tags: 数据库
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='订单表';
         ",
         '%Y_%m_%d'
-    );gtaimokuai.jpg)
+    );
+    
+    -- 测试使用存储过程
+    CALL p_create_table (
+            't_order',
+            "CREATE TABLE `t_order` (
+              `id` bigint(32) NOT NULL ,
+              `createtime` datetime NOT NULL 
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='订单表';
+            ",
+            '%Y_%m_%d'
+        );
