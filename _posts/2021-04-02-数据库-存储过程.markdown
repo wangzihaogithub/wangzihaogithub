@@ -18,7 +18,7 @@ tags: 数据库
       `status` varchar(20) DEFAULT NULL COMMENT '状态',
       PRIMARY KEY (`id`),
       KEY `start_time` (`start_time`)
-    ) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COMMENT='存储过程调用的日志记录表';
+    ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COMMENT='存储过程调用的日志记录表';
     
     
     -- 存储过程
@@ -57,17 +57,11 @@ tags: 数据库
     ON COMPLETION PRESERVE
     ENABLE
     DO CALL p_create_table (
-        'sys_log_storage',
-        "CREATE TABLE `sys_log_storage` (
-          `id` bigint(32) NOT NULL COMMENT 'ID',
-          `ip` varchar(16) DEFAULT NULL COMMENT '服务器IP',
-          `lvl` varchar(16) DEFAULT NULL COMMENT '日志级别',
-          `title` varchar(64) DEFAULT NULL COMMENT '标题',
-          `content` varchar(1024) DEFAULT NULL,
-          `createtime` datetime NOT NULL COMMENT '创建时间',
-          `classname` varchar(128) DEFAULT NULL,
-          `method` varchar(64) DEFAULT NULL
-        ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='日志存储';
+        't_order',
+        "CREATE TABLE `t_order` (
+          `id` bigint(32) NOT NULL ,
+          `createtime` datetime NOT NULL 
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='订单表';
         ",
         '%Y_%m_%d'
     );gtaimokuai.jpg)
