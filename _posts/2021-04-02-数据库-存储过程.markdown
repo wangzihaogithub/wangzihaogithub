@@ -53,7 +53,7 @@ tags: 数据库
     set global event_scheduler=1;
     
     -- 建立每日0点事件 (把建表语句和表名改一下)
-    CREATE EVENT event_sys_log_storage on SCHEDULE EVERY 1 DAY STARTS CURRENT_TIMESTAMP
+    CREATE EVENT event_t_order on SCHEDULE EVERY 1 DAY STARTS CURRENT_TIMESTAMP
     ON COMPLETION PRESERVE
     ENABLE
     DO CALL p_create_table (
