@@ -9,7 +9,7 @@ tags: 数据库
     1. 关联关系表（用户点全选，保存。 每次都是先全删在增。用户编辑的代价非常小，所以数据增长很快）
     2. EXISTS 或 IN  会导致选择外圈驱动表失效， 尽量用left join 或inner join。
     3. 联合索引 ， 使sql满足ref的满字段的const（ref = const，const，const）
-    4. 不用的数据需要归档，审批提醒，周报提醒，待办提醒等
+    4. 不用的数据需要归档，审批提醒，周报提醒，待办提醒等. 冷热数据分离
     
 ### 线上dubbo服务超时，线程池满了
     
@@ -55,3 +55,6 @@ tags: 数据库
 ![3xindex.png](../../../images/slowsql/3xindex.png)
 
 ![3xindex_after.png](../../../images/slowsql/3xindex_after.png)
+
+### 问题4. 不用的数据需要归档，审批提醒，周报提醒，待办提醒等. 冷热数据分离
+   
