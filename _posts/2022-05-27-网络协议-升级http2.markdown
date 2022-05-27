@@ -21,6 +21,7 @@ tags: 网络协议
         make
         make install
         
+        install 会安装在 /usr/local/openresty目录下
         复制老的配置文件
         配置文件加上 http2
 
