@@ -219,6 +219,11 @@ pidstat -w
 
     netstat -anp |grep tcp 
 
+
+### 查看TCP状态
+    netstat -n | awk '/^tcp/ {++S[$NF]} END {for(a in S) print a, S[a]}'  
+
+
 ### 查看磁盘空间命令
     
     df 
@@ -378,9 +383,6 @@ pidstat -w
     
     输出: 平均值 =  67.9735
 
-
-### 查看TCP状态
-    netstat -n | awk '/^tcp/ {++S[$NF]} END {for(a in S) print a, S[a]}'  
 
 ###  基本脚本编写
 
