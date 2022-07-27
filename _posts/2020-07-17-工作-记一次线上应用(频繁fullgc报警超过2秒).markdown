@@ -1,7 +1,7 @@
 ---
 layout: post
-title:  "JVM-记一次线上应用(频繁fullgc报警超过2秒)"
-tags: JVM
+title:  "工作-记一次线上应用(频繁fullgc报警超过2秒)"
+tags: 工作
 ---
 ### G1有三种垃圾回收策略(1.年轻代gc, 2.混合gc, 3. full gc是单线程老年代gc)
 

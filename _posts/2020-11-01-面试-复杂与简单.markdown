@@ -1,7 +1,7 @@
 ---
 layout: post
-title:  "业务沉淀-复杂与简单"
-tags: 业务沉淀
+title:  "面试-复杂与简单"
+tags: 面试
 ---
 
 https://github.com/alibaba/canal/issues/3328

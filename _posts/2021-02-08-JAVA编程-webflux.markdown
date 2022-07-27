@@ -1,7 +1,7 @@
 ---
 layout: post
-title:  "webflux-Mysql"
-tags: webflux
+title:  "JAVA编程-webflux"
+tags: JAVA编程
 ---
 
 ### 支持Mono,FLux的客户端 (mysql, redis)
