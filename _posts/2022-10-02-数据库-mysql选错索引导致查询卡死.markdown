@@ -9,11 +9,16 @@ tags: 数据库
 `
 
         优化器认为
-            用先排序好的intention_update_time索引字段，
-            只需向后找10条有手机号的记录就可以了。
+            用有序的intention_update_time索引字段，
+            只需向后找10条满足where的记录就可以了。
 
         但是！
-            这个表的手机号不为空的数据只有4%，一直向后扫描数据，一直找不到10个有手机号的记录。
+            这个表的满足where的数据只有4%，向后扫描数据，一直凑不够10条满足的记录。
+
+
+        使用mobile索引，优化器给出的成本是(cost=55977.08 rows=120891)
+        使用intention_update_time索引，优化器给出的成本是(cost=4.60 rows=90)
+
 
 `
 
@@ -44,13 +49,15 @@ tags: 数据库
         -> Sort: t1.intention_update_time DESC, limit input to 10 row(s) per chunk  (cost=55977.08 rows=120891)
         -> Filter: ((t1.quake_talent_id_flag = false) and (t1.intention_flag = true) and (t1.cv_file_url is not null) and (t1.cv_file_url <> '') and (t1.update_time <= <cache>((now() - interval 30 minute))) and (t1.search_keyword like <cache>(concat('%','西北农林科技大学','%'))))  
                 (cost=55977.08 rows=120891)
-        -> Index range scan on t1 using mobile, with index condition: ((t1.mobile is not null) and (t1.mobile <> ''))  (cost=55977.08 rows=120891)
+        -> Index range scan on t1 using mobile, with index condition: ((t1.mobile is not null) and (t1.mobile <> ''))  
+                (cost=55977.08 rows=120891)
 
         -- 2.这是使用错误的索引(使用intention_update_time)， 查询耗时16秒
         -> Limit: 10 row(s)  (cost=4.60 rows=0)
         -> Filter: ((t1.quake_talent_id_flag = false) and (t1.intention_flag = true) and (t1.mobile is not null) and (t1.mobile <> '') and (t1.cv_file_url is not null) and (t1.cv_file_url <> '') and (t1.update_time <= <cache>((now() - interval 30 minute))) and (t1.search_keyword like <cache>(concat('%','西北农林科技大学','%'))))  
                 (cost=4.60 rows=0)
-        -> Index scan on t1 using intention_update_time (reverse)  (cost=4.60 rows=90)
+        -> Index scan on t1 using intention_update_time (reverse)  
+                (cost=4.60 rows=90)
 
 `
 
