@@ -1,0 +1,158 @@
+---
+layout: post
+title:  "数据库-mysql选错索引导致查询卡死"
+tags: 数据库
+---
+
+### 结论
+
+`
+
+        优化器认为
+            用先排序好的intention_update_time索引字段，
+            只需向后找10条有手机号的记录就可以了。
+
+        但是！
+            这个表的手机号不为空的数据只有4%，一直向后扫描数据，一直找不到10个有手机号的记录。
+
+`
+
+### 这条SQL选错索，引导致查询卡死
+
+`
+
+            -- 符合这个条件的数据只有3万条记录，这张表共有120万条记录。
+
+            explain format=tree
+            explain format=json
+
+            SELECT 79个字段
+            FROM maimai_candidate t1
+            WHERE   mobile IS NOT NULL
+            AND mobile != ''
+            and intention_flag = true
+            and quake_talent_id_flag = false
+            and (cv_file_url is not null and cv_file_url != '' )
+            and update_time <= DATE_SUB(now(), INTERVAL 30 MINUTE)
+            and (search_keyword like concat('%', '西北农林科技大学', '%'))
+            ORDER BY intention_update_time desc
+            LIMIT 10;
+
+
+        -- 1.这是使用正确的索引(使用mobile)，查询耗时0.4秒
+        -> Limit: 10 row(s)  (cost=55977.08 rows=10)
+        -> Sort: t1.intention_update_time DESC, limit input to 10 row(s) per chunk  (cost=55977.08 rows=120891)
+        -> Filter: ((t1.quake_talent_id_flag = false) and (t1.intention_flag = true) and (t1.cv_file_url is not null) and (t1.cv_file_url <> '') and (t1.update_time <= <cache>((now() - interval 30 minute))) and (t1.search_keyword like <cache>(concat('%','西北农林科技大学','%'))))  
+                (cost=55977.08 rows=120891)
+        -> Index range scan on t1 using mobile, with index condition: ((t1.mobile is not null) and (t1.mobile <> ''))  (cost=55977.08 rows=120891)
+
+        -- 2.这是使用错误的索引(使用intention_update_time)， 查询耗时16秒
+        -> Limit: 10 row(s)  (cost=4.60 rows=0)
+        -> Filter: ((t1.quake_talent_id_flag = false) and (t1.intention_flag = true) and (t1.mobile is not null) and (t1.mobile <> '') and (t1.cv_file_url is not null) and (t1.cv_file_url <> '') and (t1.update_time <= <cache>((now() - interval 30 minute))) and (t1.search_keyword like <cache>(concat('%','西北农林科技大学','%'))))  
+                (cost=4.60 rows=0)
+        -> Index scan on t1 using intention_update_time (reverse)  (cost=4.60 rows=90)
+
+`
+
+`
+  
+        -- 这是使用正确的索引(使用mobile)，查询耗时0.4秒
+        -- 执行 DROP KEY `idx_intention_update_time`后的效果
+
+        -> Limit: 10 row(s)  (cost=55977.08 rows=10)
+        -> Sort: t1.intention_update_time DESC, limit input to 10 row(s) per chunk  (cost=55977.08 rows=120891)
+        -> Filter: ((t1.quake_talent_id_flag = false) and (t1.intention_flag = true) and (t1.cv_file_url is not null) and (t1.cv_file_url <> '') and (t1.update_time <= <cache>((now() - interval 30 minute))) and (t1.search_keyword like <cache>(concat('%','西北农林科技大学','%'))))  (cost=55977.08 rows=120891)
+        -> Index range scan on t1 using mobile, with index condition: ((t1.mobile is not null) and (t1.mobile <> ''))  (cost=55977.08 rows=120891)
+
+        {
+            "query_block":{
+                "select_id":1,
+                "cost_info":{
+                    "query_cost":"55977.08"
+                },
+                "ordering_operation":{
+                    "using_filesort":true,
+                    "table":{
+                        "table_name":"t1",
+                        "access_type":"range",
+                        "possible_keys":[
+                            "idx_update_time",
+                            "intention_flag",
+                            "mobile",
+                            "mobile_1"
+                        ],
+                        "key":"mobile",
+                        "used_key_parts":[
+                            "mobile"
+                        ],
+                        "key_length":"515",
+                        "rows_examined_per_scan":120891,
+                        "rows_produced_per_join":2719,
+                        "filtered":"2.25",
+                        "index_condition":"((`quake_read`.`t1`.`mobile` is not null) and (`quake_read`.`t1`.`mobile` <> ''))",
+                        "cost_info":{
+                            "read_cost":"55705.10",
+                            "eval_cost":"271.98",
+                            "prefix_cost":"55977.08",
+                            "data_read_per_join":"120M"
+                        },
+                        "used_columns":Array[79],
+                        "attached_condition":"((`quake_read`.`t1`.`quake_talent_id_flag` = false) and (`quake_read`.`t1`.`intention_flag` = true) and (`quake_read`.`t1`.`cv_file_url` is not null) and (`quake_read`.`t1`.`cv_file_url` <> '') and (`quake_read`.`t1`.`update_time` <= <cache>((now() - interval 30 minute))) and (`quake_read`.`t1`.`search_keyword` like <cache>(concat('%','西北农林科技大学','%'))))"
+                    }
+                }
+            }
+        }
+            
+`
+
+
+`
+
+        -- 这是使用错误的索引(使用intention_update_time)， 查询耗时16秒
+        -- 执行 DROP KEY `idx_intention_update_time`前的效果
+
+        -> Limit: 10 row(s)  (cost=4.60 rows=0)
+        -> Filter: ((t1.quake_talent_id_flag = false) and (t1.intention_flag = true) and (t1.mobile is not null) and (t1.mobile <> '') and (t1.cv_file_url is not null) and (t1.cv_file_url <> '') and (t1.update_time <= <cache>((now() - interval 30 minute))) and (t1.search_keyword like <cache>(concat('%','西北农林科技大学','%'))))  (cost=4.60 rows=0)
+        -> Index scan on t1 using intention_update_time (reverse)  (cost=4.60 rows=90)
+
+        {
+            "query_block":{
+                "select_id":1,
+                "cost_info":{
+                    "query_cost":"55977.08"
+                },
+                "ordering_operation":{
+                    "using_filesort":false,
+                    "table":{
+                        "table_name":"t1",
+                        "access_type":"index",
+                        "possible_keys":[
+                            "idx_update_time",
+                            "intention_flag",
+                            "mobile",
+                            "mobile_1"
+                        ],
+                        "key":"intention_update_time",
+                        "used_key_parts":[
+                            "intention_update_time"
+                        ],
+                        "key_length":"6",
+                        "rows_examined_per_scan":90,
+                        "rows_produced_per_join":2719,
+                        "filtered":"0.25",
+                        "backward_index_scan":true,
+                        "cost_info":{
+                            "read_cost":"55705.10",
+                            "eval_cost":"271.98",
+                            "prefix_cost":"55977.08",
+                            "data_read_per_join":"120M"
+                        },
+                        "used_columns":Array[79],
+                        "attached_condition":"((`quake_read`.`t1`.`quake_talent_id_flag` = false) and (`quake_read`.`t1`.`intention_flag` = true) and (`quake_read`.`t1`.`mobile` is not null) and (`quake_read`.`t1`.`mobile` <> '') and (`quake_read`.`t1`.`cv_file_url` is not null) and (`quake_read`.`t1`.`cv_file_url` <> '') and (`quake_read`.`t1`.`update_time` <= <cache>((now() - interval 30 minute))) and (`quake_read`.`t1`.`search_keyword` like <cache>(concat('%','西北农林科技大学','%'))))"
+                    }
+                }
+            }
+        }
+        
+
+`
