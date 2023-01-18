@@ -309,10 +309,14 @@ JAVA_TOOL_OPTIONS: -Dfile.encoding=UTF-8
 5.将公钥发布到 PGP 密钥服务器
     
     gpg --keyserver hkp://pool.sks-keyservers.net --send-keys 你的公钥指纹
-    
+    或
+    gpg --keyserver hkp://keyserver.ubuntu.com --send-keys 你的公钥指纹
+
 6.查询公钥是否发布成功
 
     gpg --keyserver hkp://pool.sks-keyservers.net --recv-keys 你的公钥指纹
+    或
+    gpg --keyserver hkp://keyserver.ubuntu.com --recv-keys 你的公钥指纹
 
 ## 第五步 提交到中央仓库
 
