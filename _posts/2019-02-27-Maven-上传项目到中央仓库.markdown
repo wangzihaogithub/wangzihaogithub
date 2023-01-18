@@ -286,6 +286,18 @@ JAVA_TOOL_OPTIONS: -Dfile.encoding=UTF-8
 
     下载地址：https://www.gpg4win.org/download.html
 
+
+2. Mac 系统
+
+    安装Homebrew
+    
+        /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    
+    安装gnupg2
+    
+        brew install gnupg gnupg2
+
+
 2.查看是否安装成功
 
     gpg --version
@@ -323,6 +335,20 @@ JAVA_TOOL_OPTIONS: -Dfile.encoding=UTF-8
 1.cmd 进入maven项目的pom文件目录下输入以下命令
 
     mvn clean deploy -P release verify -Dgpg.passphrase=你的密码
+
+
+    Mac系统下如果执行失败，并且报错如下：
+    gpg: 签名时失败： Inappropriate ioctl for device
+    gpg: signing failed: Inappropriate ioctl for device
+    这说明你安装的gpg版本较新，需要额外配置，在gpg安装目录（mac的是~/.gnup）下建立两个配置文件：gpg.conf、gpg-agent.conf，
+    
+    然后在gpg.conf添加：
+                use-agent
+                pinentry-mode loopback
+    
+    在gpg-agent.conf下添加：
+                allow-loopback-pinentry
+
 
 2.登录 https://oss.sonatype.org, 在 Staging Repositories 中找到刚才上传的构件, 
 
