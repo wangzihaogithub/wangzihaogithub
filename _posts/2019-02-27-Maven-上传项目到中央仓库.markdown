@@ -349,7 +349,7 @@ JAVA_TOOL_OPTIONS: -Dfile.encoding=UTF-8
     在gpg-agent.conf下添加：
                 allow-loopback-pinentry
 
-    vi ~/.bash_profile 下添加：
+    vi ~/.bash_profile 下添加：或在bash执行让其生效
                export GPG_TTY=$(tty)
 
 
