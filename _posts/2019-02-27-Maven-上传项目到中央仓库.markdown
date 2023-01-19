@@ -349,6 +349,9 @@ JAVA_TOOL_OPTIONS: -Dfile.encoding=UTF-8
     在gpg-agent.conf下添加：
                 allow-loopback-pinentry
 
+    vi ~/.bash_profile 下添加：
+               export GPG_TTY=$(tty)
+
 
 2.登录 https://oss.sonatype.org, 在 Staging Repositories 中找到刚才上传的构件, 
 
