@@ -298,6 +298,19 @@ JAVA_TOOL_OPTIONS: -Dfile.encoding=UTF-8
         brew install gnupg gnupg2
 
 
+   mac gpg: 签名时失败： Inappropriate ioctl for device
+   在gpg安装目录（mac的是~/.gnup）下建立两个配置文件：
+
+*   1、gpg.conf
+
+         use-agent
+         pinentry-mode loopback
+
+*   2、gpg-agent.conf
+
+         allow-loopback-pinentry
+
+
 2.查看是否安装成功
 
     gpg --version
