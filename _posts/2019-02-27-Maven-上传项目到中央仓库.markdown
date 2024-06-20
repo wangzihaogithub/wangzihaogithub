@@ -394,3 +394,20 @@ JAVA_TOOL_OPTIONS: -Dfile.encoding=UTF-8
 参考
 
  - [将你自己的项目发布到maven中央仓库](https://www.jianshu.com/p/8c3d7fb09bce "将你自己的项目发布到maven中央仓库")
+
+
+    
+    keyserver 备用地址：
+
+     <a href="http://keyserver.ubuntu.com:11371/">http://keyserver.ubuntu.com:11371/</a>
+     <a href="https://keys.openpgp.org/">https://keys.openpgp.org/</a>
+     <a href="http://pgp.mit.edu:11371/">http://pgp.mit.edu:11371/</a>
+     <a href="http://keyserver.ubuntu.com:11371/">http://keyserver.ubuntu.com:11371/</a>
+     <a href="https://keys.openpgp.org/">https://keys.openpgp.org/</a>
+     <a href="http://pgp.mit.edu:11371/">http://pgp.mit.edu:11371/</a>
+     <a href="http://keyserver.ubuntu.com:11371/">http://keyserver.ubuntu.com:11371/</a>
+     <a href="https://keys.openpgp.org/">https://keys.openpgp.org/</a>
+     <a href="http://pgp.mit.edu:11371/">http://pgp.mit.edu:11371/</a>
+     <a href="http://keyserver.ubuntu.com:11371/">http://keyserver.ubuntu.com:11371/</a>
+     <a href="https://keys.openpgp.org/">https://keys.openpgp.org/</a>
+     <a href="http://pgp.mit.edu:11371/">http://pgp.mit.edu:11371/</a>
