@@ -393,4 +393,23 @@ JAVA_TOOL_OPTIONS: -Dfile.encoding=UTF-8
 
 参考
 
+ - [2024-05-08 maven 自动发布快照 pom maven 发布到仓库](https://blog.51cto.com/u_16213655/10740394 "2024-05-08 maven 自动发布快照 pom maven 发布到仓库")
+
  - [将你自己的项目发布到maven中央仓库](https://www.jianshu.com/p/8c3d7fb09bce "将你自己的项目发布到maven中央仓库")
+  https://blog.51cto.com/u_16213655/10740394
+
+    
+    keyserver 备用地址：
+
+     <a href="http://keyserver.ubuntu.com:11371/">http://keyserver.ubuntu.com:11371/</a>
+     <a href="https://keys.openpgp.org/">https://keys.openpgp.org/</a>
+     <a href="http://pgp.mit.edu:11371/">http://pgp.mit.edu:11371/</a>
+     <a href="http://keyserver.ubuntu.com:11371/">http://keyserver.ubuntu.com:11371/</a>
+     <a href="https://keys.openpgp.org/">https://keys.openpgp.org/</a>
+     <a href="http://pgp.mit.edu:11371/">http://pgp.mit.edu:11371/</a>
+     <a href="http://keyserver.ubuntu.com:11371/">http://keyserver.ubuntu.com:11371/</a>
+     <a href="https://keys.openpgp.org/">https://keys.openpgp.org/</a>
+     <a href="http://pgp.mit.edu:11371/">http://pgp.mit.edu:11371/</a>
+     <a href="http://keyserver.ubuntu.com:11371/">http://keyserver.ubuntu.com:11371/</a>
+     <a href="https://keys.openpgp.org/">https://keys.openpgp.org/</a>
+     <a href="http://pgp.mit.edu:11371/">http://pgp.mit.edu:11371/</a>
