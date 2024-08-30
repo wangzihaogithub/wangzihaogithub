@@ -6,6 +6,22 @@ tags: 搜索引擎
 
 ## 基本增删改查的操作（可以直接拷贝到kibana的开发工具中）
 
+
+```
+    # 执行sql查询，不支持数组，嵌套
+    POST /_sql?format=txt
+    {
+    "query": "SELECT id FROM cnwy_job_test_index_alias where corp.id = 1"
+    }
+    
+    # 翻译成DSL
+    POST /_sql/translate
+    {
+    "query": "SELECT * FROM cnwy_job_pre_index_alias where corp.id = 1"
+    }
+
+```
+
 ```
     # 批量新增字段并赋予初始值
     POST /prod-ig_zues_db_ig_zues-talent-v2/_update_by_query
