@@ -4,6 +4,8 @@ title:  "大模型-FineTuning模型微调"
 tags: 大模型
 ---
 
+ [OpenAI-FineTuning](https://platform.openai.com/docs/guides/fine-tuning "https://platform.openai.com/docs/guides/fine-tuning")
+
  [OpenAI-版本更新日志(changelog)](https://platform.openai.com/docs/changelog "https://platform.openai.com/docs/changelog")
 
  [提示词工程指南](https://platform.openai.com/docs/guides/prompt-engineering "https://platform.openai.com/docs/guides/prompt-engineering")  
@@ -17,7 +19,7 @@ tags: 大模型
 
 - 比提示更高质量的结果
 - 能够训练比提示所能容纳的更多示例
-- 由于提示时间更短而节省的代币
+- 由于提示时间更短而节省的代币 
 - 更低的延迟请求
 
     
@@ -36,7 +38,7 @@ tags: 大模型
             工作原理：提供需要保留的对话案例，以建立基线，根据基线的范围生成一个新的模型。
 
 
-您需要知道，每个会话刚开始提供的示例(System prompt)，即是“少量学习”。
+解释：每个会话刚开始提供的示例(System prompt)，即是“少量学习”。
 
 微调通过训练比提示中更多的示例来改进小样本学习，让您在大量任务上取得更好的结果。
 一旦模型经过微调，您就不需要在提示中提供那么多示例。
@@ -138,7 +140,7 @@ tags: 大模型
 
 编译数据集后，在创建微调作业之前，检查数据格式非常重要。
 
-为此，我们创建了一个简单的 Python 脚本，
+为此，我们创建了一个简单的 [Python 脚本](https://cookbook.openai.com/examples/chat_finetuning_data_prep "https://cookbook.openai.com/examples/chat_finetuning_data_prep")    
 
 您可以使用它来查找潜在错误、查看令牌计数并估算微调作业的成本。
 
