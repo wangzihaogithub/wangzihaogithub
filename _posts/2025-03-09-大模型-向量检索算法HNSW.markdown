@@ -124,9 +124,9 @@ elasticsearch博客
 
 ### 插入
 
-参数：
-m： connections的容量，即 new connections\[m]
-efConstruction： 每次变更时，更新关联相邻节点的个数
+参数： m： connections的容量，即 new connections\[m]
+
+参数： efConstruction： 每次变更时，更新关联相邻节点的个数
 
 每次有新业务记录插入时，
 
