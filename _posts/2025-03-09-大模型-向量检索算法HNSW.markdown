@@ -141,6 +141,13 @@ layer = min(新.connections.length-1, 起点.connections.length - 1)
 找出efConstruction条最相似记录,双向关联相邻节点至connections数组中
 
 
+### 删除
+
+1. 删除动作复杂度是O1，非常快
+
+直接从idMap中取出引用Node,将deleted改为true做软删除，后续由应用做合并。
+
+
 ### 如何使用
 
     
