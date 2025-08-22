@@ -213,10 +213,10 @@ tags: 大模型
 
 我们提供在训练过程中计算的以下训练指标：
 
-- training loss 训练损失
-- training token accuracy 训练标记准确性
-- valid loss 有效损失
-- valid token accuracy 有效的令牌准确性
+- training loss 在训练集上的损失值（拟合程度）
+- training token accuracy 在训练集上的准确性
+- valid loss 在验证集上的损失值（拟合程度）
+- valid token accuracy 在验证集上的准确性
 
 
         
