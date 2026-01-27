@@ -1,0 +1,192 @@
+---
+layout: post
+title:  "网络协议-升级http2、http3"
+tags: 网络协议
+---
+
+### http2安装步奏如下
+
+
+        cd /down
+        
+        wget https://openresty.org/download/openresty-1.15.8.1.tar.gz
+        tar xzvf openresty-1.15.8.1.tar.gz
+        
+        wget https://www.openssl.org/source/openssl-1.1.1o.tar.gz --no-check-certificate
+        tar -zxvf openssl-1.1.1o.tar.gz
+        
+        cd /down/openresty-1.15.8.1
+        ./configure --with-http_v2_module --with-openssl=/down/openssl-1.1.1o
+        
+        make
+        make install
+        
+        install 会安装在 /usr/local/openresty目录下
+        复制老的配置文件
+        配置文件加上 http2
+
+        
+        ./openresty 启动
+        ./openresty -s reload 重新加载配置文件
+        ./openresty -s stop 停止
+
+
+### http3安装步奏如下
+
+OpenResty 官方版本目前不直接包含 HTTP/3 模块，我们需要手动整合 QuicTLS（OpenSSL 的 QUIC 兼容分支）。
+
+在 CentOS（尤其是 7 或 8/Stream）上为 OpenResty 启用 HTTP/3 具有一定的挑战性，因为 CentOS 默认的编译器和库版本过低。在 2026 年，最稳妥的方法是本地静态编译，这样不会破坏系统的库依赖。
+
+以下是针对 CentOS 系统定制的 OpenResty HTTP/3 编译安装流程：
+
+mkdir -p /usr/local/src/openresty-h3
+cd /usr/local/src/openresty-h3
+
+#### 1. 下载 QuicTLS (比原版 OpenSSL 更适合 HTTP/3)
+
+git clone --depth 1 -b openssl-3.1.5-quic1 https://github.com/quictls/openssl.git
+
+#### 2. 下载最新的 OpenResty (以 2026 年主流版本为例)
+
+wget https://openresty.org/download/openresty-1.27.1.2.tar.gz
+
+tar -zxf openresty-1.27.1.2.tar.gz
+
+#### 安装基础工具
+yum install -y perl-IPC-Cmd perl-Data-Dumper perl-CPAN
+
+#### 清理之前的 build 状态
+make clean
+
+#### 重新运行 configure (请确保你的路径指向正确)
+
+ 2026年提醒：注意确认 ../openssl 路径是否存在
+
+./configure --prefix=/usr/local/openresty \
+--with-http_v3_module \
+--with-http_v2_module \
+--with-http_ssl_module \
+--with-openssl=../openssl \
+--with-cc-opt="-I../openssl/include" \
+--with-ld-opt="-L../openssl/lib" \
+-j$(nproc)
+
+#### 再次尝试编译并安装
+make -j$(nproc) && make install
+
+
+恭喜你！看到 ln -sf ... /usr/local/openresty/bin/openresty 这行输出，意味着 支持 HTTP/3 的 OpenResty 已经成功编译并安装完成。
+现在，你需要进行最后的配置验证和生效操作：
+
+/usr/local/openresty/bin/openresty -V
+
+预期输出中应包含：
+built with OpenSSL 3.x.x (QuicTLS 版本)
+--with-http_v3_module
+
+2. 更新你的 Nginx 配置
+
+3. 系统层面放行 UDP (关键)
+   在 CentOS 上，确保防火墙没有拦截 UDP 流量：
+
+4. 启动 OpenResty
+ 
+- 检查语法是否正确
+/usr/local/openresty/bin/openresty -t
+
+- 启动（或重启）
+/usr/local/openresty/bin/openresty -s reload
+
+5. 如何测试 HTTP/3 是否生效？
+   浏览器测试：打开 Chrome，访问你的域名。在“开发者工具 -> Network”面板中，右键表头勾选 Protocol。如果显示 h3，则说明成功。
+   在线工具：使用 HTTP/3 Check 输入你的域名进行检测。
+   命令行测试：如果你本地有新版 curl（支持 --http3），可以运行：
+   curl -I --http3 https://rp.sif.com
+   既然环境已经搭好，需要我帮你写一个自动化的 Systemd 脚本，方便你后续通过 systemctl restart openresty 来管理服务吗？
+
+
+```
+
+    upstream rpsifcombackend {
+        # 主服务器 (127.0.0.1)
+        server 127.0.0.1:8082 max_fails=1 fail_timeout=3s; 
+        # 备服务器 (172.18.69.215)
+        server 172.18.69.215:8082 backup;    
+        
+        # 2026 高并发长连接池优化
+        keepalive 256;
+        keepalive_timeout 60s;
+        keepalive_requests 10000;
+    }
+    
+    server {
+        # --- [1. HTTP/3 & TCP 混合监听] ---
+        # 监听 UDP 443 用于 HTTP/3 (quic_retry 开启防 DDoS 攻击)
+        listen 443 quic reuseport;
+        # 监听 TCP 443 用于 HTTP/2 & HTTPS
+        listen 443 ssl reuseport backlog=16384;
+    
+        http2 on;
+        server_name rp.sif.com;
+        
+        # --- [2. HTTP/3 核心性能参数] ---
+        # 开启 GSO (Generic Segmentation Offload) 显著降低 UDP 发包 CPU 占用
+        quic_gso on;
+        quic_retry on;
+        # 向浏览器宣告 HTTP/3 的存在 (ma=86400 为 24小时有效)
+        add_header Alt-Svc 'h3=":443"; ma=86400';
+        # 允许在 TLS 握手前发送数据，极速响应 (0-RTT)
+        ssl_early_data on;
+    
+        # --- [3. SSL/TLS 优化] ---
+        # HTTP/3 必须包含 TLSv1.3
+        ssl_protocols TLSv1.2 TLSv1.3; 
+        ssl_session_cache shared:SSL:50m;
+        ssl_session_timeout 1h;
+        ssl_session_tickets on;
+    
+        ssl_certificate     cert/sif.com.pem;
+        ssl_certificate_key cert/sif.com.key;
+    
+        # --- [4. 全局性能调优] ---
+        access_log off;
+        keepalive_requests 10000;
+    
+        # 使用 Lua 清除 Server 标志，增强安全性
+        header_filter_by_lua_block {
+            ngx.header.server = nil
+        }
+    
+        location /browser-extension-server/ {
+            proxy_pass http://rpsifcombackend;
+    
+            # --- [5. 代理层性能调优] ---
+            proxy_http_version 1.1;
+            proxy_set_header Connection ""; # 必须清空以启用 upstream keepalive
+            
+            proxy_set_header X-Real-IP       $remote_addr;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_set_header Host $host;
+    
+            # 2026 高吞吐设置：针对 API 场景关闭缓冲
+            proxy_buffering off;
+            proxy_buffer_size 16k;
+            proxy_busy_buffers_size 24k;
+            
+            client_max_body_size 3m;
+            gzip off; # 遵循你的生产建议，应用层压缩
+            
+            # --- [6. 容错与重试机制] ---
+            proxy_connect_timeout 2s;
+            proxy_read_timeout 5s;
+            # 核心：主备自动切换策略
+            proxy_next_upstream error timeout invalid_header http_502 http_503 http_504;
+            proxy_next_upstream_tries 2;
+            
+            # 解决 HTTP/3 0-RTT 潜在的重放攻击风险 (由应用层评估)
+            proxy_set_header Early-Data $ssl_early_data;
+        }
+    }
+
+
+```
