@@ -39,46 +39,72 @@ OpenResty 官方版本目前不直接包含 HTTP/3 模块，我们需要手动�
 
 以下是针对 CentOS 系统定制的 OpenResty HTTP/3 编译安装流程：
 
-mkdir -p /usr/local/src/openresty-h3
-cd /usr/local/src/openresty-h3
+    
+    mkdir -p /usr/local/src/openresty-h3
+    
+    cd /usr/local/src/openresty-h3
+
 
 #### 1. 下载 QuicTLS (比原版 OpenSSL 更适合 HTTP/3)
 
-git clone --depth 1 -b openssl-3.1.5-quic1 https://github.com/quictls/openssl.git
+
+
+    git clone --depth 1 -https://github.com/quictls/openssl.git
+
+
+     或者使用以下命令下载 QuicTLS 3.1.5-quic1 版本：
+
+    git clone --depth 1 -b openssl-3.1.5-quic1 https://github.com/quictls/openssl.git
+
+
 
 #### 2. 下载最新的 OpenResty (以 2026 年主流版本为例)
+    
 
-wget https://openresty.org/download/openresty-1.27.1.2.tar.gz
+    wget https://openresty.org/download/openresty-1.27.1.2.tar.gz
+    
+    tar -zxf openresty-1.27.1.2.tar.gz
 
-tar -zxf openresty-1.27.1.2.tar.gz
 
 #### 安装基础工具
-yum install -y perl-IPC-Cmd perl-Data-Dumper perl-CPAN
+
+
+    yum install -y perl-IPC-Cmd perl-Data-Dumper perl-CPAN
+
 
 #### 清理之前的 build 状态
-make clean
+    
+
+    make clean
+
 
 #### 重新运行 configure (请确保你的路径指向正确)
 
  2026年提醒：注意确认 ../openssl 路径是否存在
+        
 
-./configure --prefix=/usr/local/openresty \
---with-http_v3_module \
---with-http_v2_module \
---with-http_ssl_module \
---with-openssl=../openssl \
---with-cc-opt="-I../openssl/include" \
---with-ld-opt="-L../openssl/lib" \
--j$(nproc)
+    
+        ./configure --prefix=/usr/local/openresty \
+        --with-http_v2_module \
+        --with-http_v3_module \
+        --with-http_ssl_module \
+        --with-openssl=../openssl-openssl-3.1.7-quic \
+        --with-openssl-opt="enable-ktls enable-quic" \
+        --with-cc-opt="-O3"
+
 
 #### 再次尝试编译并安装
-make -j$(nproc) && make install
+
+
+    make -j$(nproc) && make install
 
 
 恭喜你！看到 ln -sf ... /usr/local/openresty/bin/openresty 这行输出，意味着 支持 HTTP/3 的 OpenResty 已经成功编译并安装完成。
 现在，你需要进行最后的配置验证和生效操作：
 
-/usr/local/openresty/bin/openresty -V
+
+    /usr/local/openresty/bin/openresty -V
+
 
 预期输出中应包含：
 built with OpenSSL 3.x.x (QuicTLS 版本)
@@ -92,10 +118,15 @@ built with OpenSSL 3.x.x (QuicTLS 版本)
 4. 启动 OpenResty
  
 - 检查语法是否正确
-/usr/local/openresty/bin/openresty -t
+
+
+    /usr/local/openresty/bin/openresty -t
 
 - 启动（或重启）
-/usr/local/openresty/bin/openresty -s reload
+
+
+    /usr/local/openresty/bin/openresty -s reload
+
 
 5. 如何测试 HTTP/3 是否生效？
    浏览器测试：打开 Chrome，访问你的域名。在“开发者工具 -> Network”面板中，右键表头勾选 Protocol。如果显示 h3，则说明成功。
